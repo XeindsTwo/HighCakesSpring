@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HighCakes | Кондитерские изделия</title>
+    <link rel="icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+    <link rel="shortcut icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body class="body">
+<header class="header">
+    <div class="container">
+        <nav class="header__nav">
+            <ul class="header__menu">
+                <li class="header__item">
+                    <a class="header__link header__link--active" th:href="@{/}">Главная</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/about}" href="about.html">О компании</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/catalog}" href="catalog.html">Каталог</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/offer}" href="offer.html">Заказать торт</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/unique}" href="unique.html">Индивидуальный заказ</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/news}" href="news.html">Новости</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/shipping}" href="shipping.html">Доставка и оплата</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/reviews}" href="reviews.html">Отзывы</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="header__inner">
+            <button class="menu-btn">
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+            </button>
+            <a class="logo" href="index.html">
+                <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
+            </a>
+            <div class="header__cabinet">
+                <img class="header__avatar" alt="аватар" src="images/avatars/Profile.png">
+                <a class="header__cabinet-link" href="profile.html">Личный кабинет</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="news-details indent">
+        <div class="news-details__container">
+            <div class="news-details__top">
+                <time class="news-details__date" datetime="2022-04-05">Дата публикации - 5 апреля, 2022</time>
+                <h1 class="news-details__title page-title">
+                    Учимся правильно готовить кондитерские изделия
+                </h1>
+            </div>
+            <div class="news-details__content">
+                <p>
+                    В этой захватывающей статье "Учимся правильно готовить кондитерские изделия" мы предлагаем вам
+                    уникальную возможность овладеть искусством приготовления разнообразных вкусностей прямо у себя дома.
+                    Кондитерские изделия, создаваемые опытными руками мастеров, часто восхищают нас своим великолепием и
+                    неповторимым вкусом. Мы считаем, что каждый из нас способен создавать такие произведения искусства,
+                    и в этой статье мы поделимся с вами несколькими секретами, чтобы помочь вам стать настоящим
+                    кондитером в своей собственной кухне
+                </p>
+                <p>
+                    Наша цель - предоставить вам практические инструкции и полезные советы, которые помогут вам достичь
+                    высокого качества ваших домашних кондитерских изделий. Мы рассмотрим различные техники приготовления
+                    теста, работу с начинками, создание изысканных декораций и применение инновационных приемов, которые
+                    используются в мире кондитерского искусства
+                </p>
+                <img src="images/news/1.jpg" alt="" height="320">
+                <p>
+                    Мы предлагаем вам обширный выбор рецептов, начиная от классических кексов и печенья до роскошных
+                    тортов и экзотических десертов. Вы научитесь готовить нежные кремы, воздушные бисквиты и идеальные
+                    глазури. Мы также поделимся с вами секретами подбора ингредиентов и правильного использования
+                    кухонного оборудования, чтобы ваши кондитерские шедевры всегда радовали вас и ваших близких
+                </p>
+                <p>
+                    Безусловно, готовка кондитерских изделий требует внимания к деталям, терпения и тренировки. Однако,
+                    с нашими подробными инструкциями и пошаговыми рецептами, даже начинающие кондитеры смогут создавать
+                    потрясающие вкусности, которые будут вызывать восхищение у всех, кто их попробует
+                </p>
+                <p>
+                    Мы познакомим вас с различными техниками декорирования кондитерских изделий, чтобы вы могли придать
+                    им неповторимый вид. Вы узнаете о применении кремов, шоколадных ганашей, фруктовых топпингов и
+                    других элементов декора. Мы расскажем о том, как правильно использовать кондитерские инструменты,
+                    такие как мешки для кондитерского крема, насадки и лопатки для создания уникальных узоров и
+                    орнаментов на вашем десерте
+                </p>
+                <img src="images/news/2.jpg" alt="" height="320">
+                <p>
+                    Наши опытные кондитеры поделятся с вами секретами и техниками для создания особых кондитерских
+                    изделий, таких как свадебные торты, детские тематические торты и эксклюзивные заказные изделия. Мы
+                    расскажем о том, как правильно выбрать дизайн и цветовую гамму, чтобы ваше кондитерское произведение
+                    стало настоящим произведением искусства
+                </p>
+                <p>
+                    Помимо рецептов и техник, мы также обратим внимание на важные аспекты безопасности и гигиены при
+                    работе с пищевыми продуктами. Мы подробно расскажем о правилах хранения, подготовки и использования
+                    ингредиентов, а также о том, как обеспечить безопасность в процессе приготовления кондитерских
+                    изделий
+                </p>
+                <p>
+                    Важной частью нашей статьи будет информация о различных диетических и аллергенных особенностях
+                    приготовления кондитерских изделий. Мы предложим заменители для тех, кто следит за питанием, а также
+                    поделимся советами о том, как избегать аллергенов и создавать безопасные десерты для всех
+                </p>
+                <p>
+                    Мы приглашаем вас в увлекательное путешествие в мир кондитерского искусства, где вы откроете для
+                    себя новые вкусы и творческие возможности. Не бойтесь экспериментировать, задавать вопросы и
+                    делиться своими собственными рецептами и идеями. Вместе мы создадим великолепные кондитерские
+                    изделия, которые будут радовать нас и наших близких
+                </p>
+                <p>
+                    Не откладывайте свои мечты о творческом приготовлении кондитерских изделий. Начните с простых
+                    рецептов и постепенно прокачивайте свои навыки. С каждым новым десертом вы становитесь ближе к
+                    истинному мастерству. Уверены, что ваша страсть к кондитерству принесет вам не только удовольствие,
+                    но и возможность порадовать своих близких и друзей неповторимыми лакомствами
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="contacts indent">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contacts__content">
+                <ul class="contacts__info">
+                    <li class="contacts__item">
+                        <span class="contacts__name">Номер телефона: </span>
+                        <a class="contacts__link" href="tel:+79181682137">+7 (918) 168-21-37</a>
+                    </li>
+                    <li class="contacts__item">
+                        <span class="contacts__name">Адрес:</span>
+                        <a class="contacts__link" href="https://goo.gl/maps/Y2k9eTwXRcEDa1b58" target="_blank">ул.
+                            Ленина, 177/1</a>
+                    </li>
+                    <li class="contacts__item">
+                        <span class="contacts__name">График работы:</span>
+                        <div class="contacts__work">Ежедневно с 8:00 до 21:00</div>
+                    </li>
+                </ul>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.8472924953485!2d39.868705!3d44.763529!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40f0c5e81e9266f7%3A0x8d4de1ab4064a308!2z0YPQuy4g0JvQtdC90LjQvdCwLCAxMjcsINCR0LXQu9C-0YDQtdGH0LXQvdGB0LosINCa0YDQsNGB0L3QvtC00LDRgNGB0LrQuNC5INC60YDQsNC5LCAzNTI2MzA!5e0!3m2!1sru!2sru!4v1685602248272!5m2!1sru!2sru"
+                        width="860" height="440" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <div class="footer__top">
+        <div class="container">
+            <nav class="footer__nav">
+                <ul class="footer__list">
+                    <li class="footer__item">
+                        <a th:href="@{/}" class="footer__link">Главная</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/about}" class="footer__link">О компании</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/catalog}" class="footer__link">Каталог</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/news}" class="footer__link">Новости</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/reviews}" class="footer__link">Отзывы</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/unique}" class="footer__link">Заказать торт</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/shipping}" class="footer__link">Доставка и оплата</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <p class="footer__author">© Все права защищены HighCakes</p>
+</footer>
+<script src="js/main.min.js"></script>
+</body>
+</html>

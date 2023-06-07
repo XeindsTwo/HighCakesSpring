@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HighCakes | Авторизация</title>
+    <link rel="icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+    <link rel="shortcut icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="body">
+<header class="header">
+    <div class="container">
+        <nav class="header__nav">
+            <ul class="header__menu">
+                <li class="header__item">
+                    <a class="header__link header__link--active" th:href="@{/}">Главная</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/about}" href="about.html">О компании</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/catalog}" href="catalog.html">Каталог</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/offer}" href="offer.html">Заказать торт</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/unique}" href="unique.html">Индивидуальный заказ</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/news}" href="news.html">Новости</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/shipping}" href="shipping.html">Доставка и оплата</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/reviews}" href="reviews.html">Отзывы</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="header__inner">
+            <button class="menu-btn">
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+            </button>
+            <a class="logo" href="index.html">
+                <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
+            </a>
+            <div class="header__cabinet">
+                <img class="header__avatar" alt="аватар" src="images/avatars/Profile.png">
+                <a class="header__cabinet-link" href="profile.html">Личный кабинет</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="indent">
+        <div class="container">
+            <div class="about-company">
+                <div class="about-company__text">
+                    <div class="about-company__tabs">
+                        <button class="about-company__tab" data-tab="section-one">О компании</button>
+                        <button class="about-company__tab" data-tab="section-two">История</button>
+                        <button class="about-company__tab" data-tab="section-three">У нас есть мечта</button>
+                        <button class="about-company__tab" data-tab="section-four">Будущее компании</button>
+                    </div>
+                    <div class="about-company__content">
+                        <div class="about-company__section" id="section-one-content">
+                            <p>
+                                Кондитерская «HighCakes» гостеприимно распахнула двери для посетителей в 1998 году,
+                                предложив богатый выбор угощений — пирожков, пирожных и тортов с натуральными взбитыми
+                                сливками. Эти десерты быстро вскружили голову ленинградцам. Фирменные торты "Jilia" и
+                                "Happy
+                                Gdey" уже 15 лет являются визитной карточкой кондитерской. Документ о неразглашении
+                                рецептов
+                                подписывает каждый сотрудник, ингредиенты и рецептура остаются неизменными
+                            </p>
+                            <p>
+                                Для нас «HighCakes» ― это, прежде всего, история. Каждый день мы трудимся для того,
+                                чтобы
+                                сберечь легендарные традиции советского кондитерского дела. Продукты проходят строгий
+                                контроль качества ― так, например, вареное сгущеное молоко мы заказываем аж в Мордовии
+                            </p>
+                            <p>
+                                Более 40 позиций меню ― это пирожные и торты, придуманные в 50-е ― 70-е годы
+                                легендарными
+                                советским технологами. В них вы узнаете любимые ностальгические вкусы: песочное тесто,
+                                нежные бисквиты, масляный крем, суфле
+                            </p>
+                            <p>
+                                «HighCakes» ― это две полуторавековые истории, которые в 2007-м слились в одну. Сегодня
+                                компания объединяет завод кондитерских изделий и более 100 кофеен в Петербурге, которые
+                                развиваются по франшизе. В 2007 году мы построили здание нового завода на Выборгской
+                                стороне
+                                и оснастили его современным европейским оборудованием. На фабрике с территорией более
+                                6,5
+                                тыс. кв. метров трудится более 700 специалистов
+                            </p>
+                            <p>
+                                Мы делаем все для того, чтобы вы могли приобрести любимые пирожные и торты в любой точке
+                                города и были довольны их вкусом, составом и свежестью. Ностальгические вкусы из детства
+                                ―
+                                своего рода визитная карточка города, наша миссия бережно их хранить
+                            </p>
+                        </div>
+                        <div class="about-company__section" id="section-two-content">
+                            <p>
+                                Основатель «HighCakes», Дарья Константиновна Ренкува, открыла кондитерскую и посвятила
+                                этому
+                                делу всю жизнь
+                            </p>
+                            <p>
+                                Наша история началась десятилетия назад, когда наш основатель, кондитер Дарья Ренкува,
+                                решила превратить свою страсть к сладостям в дело всей своей жизни. Со страстью и
+                                преданностью к своему ремеслу, Ренкува построила свою первую кондитерскую, которая стала
+                                местом, где люди могли наслаждаться восхитительными десертами, приготовленными с любовью
+                                и
+                                творчеством
+                            </p>
+                            <p>
+                                За 15 лет «HighCakes» не только сохранила, но и укрепила свои позиции. Секрет нашего
+                                долголетия в том, что мы относимся к кондитерской, как к нашей домашней кухне, там
+                                должен
+                                царить порядок, чистота и забота о других. Мы всей командой, включая генерального
+                                директора,
+                                обсуждаем свежие идеи, пробуем новые рецепты, принимаем решения
+                            </p>
+                            <p>
+                                Со временем, благодаря непревзойденному качеству и уникальным рецептам, High Cakes
+                                завоевала
+                                сердца многих любителей сладостей. Мы стали известны как место, где можно найти истинные
+                                кулинарные шедевры и оригинальные десерты, которые радуют глаз и поднимают настроение
+                            </p>
+                            <p>
+                                Кондитерская «HighCakes» — результат неустанной работы трех поколений одной семьи. Мы
+                                всегда
+                                будем поддерживать связанные с этим ценности
+                            </p>
+                            <ul class="about-company__list">
+                                <li>Гарантированно высокое качество кондитерских изделий</li>
+                                <li>Только натуральные продукты от местных производителей</li>
+                                <li>Сохранение лучших фирменных рецептов</li>
+                                <li>Широкий, регулярно обновляющийся ассортимент</li>
+                            </ul>
+                        </div>
+                        <div class="about-company__section" id="section-three-content">
+                            <p>
+                                Мы хотим, чтобы наши натуральные и вкусные десерты были доступны каждому петербуржцу.
+                                «HighCakes» — единственная кондитерская в Белореченске, где вы можете купить торт или
+                                пирожные с натуральными фермерскими сливками. Срок хранения таких изделий 18 часов, а их
+                                нежный неповторимый вкус не сравнится ни с какими современными заменителями. Просто
+                                попробуйте
+                            </p>
+                            <p>
+                                Мы мечтаем о большем - о создании уникального заведения, где каждый сможет погрузиться в
+                                волшебный мир High Cakes. Место, где любители сладостей смогут не только насладиться
+                                нашими
+                                десертами, но и ощутить атмосферу волшебства и гастрономического изыска
+                            </p>
+                            <p>
+                                Мы представляем себе место, где эстетика и вкус соединяются в гармонии. В нашем будущем
+                                заведении вы сможете насладиться широким выбором уникальных десертов, приготовленных с
+                                использованием лучших ингредиентов и современных технологий. У нас каждый гость будет
+                                чувствовать себя особенным и увидит, что мечты о сладком сбываются
+                            </p>
+                        </div>
+                        <div class="about-company__section" id="section-four-content">
+                            <p>
+                                В нашем стремлении к совершенству и расширению предложения, мы рады объявить о
+                                предстоящем
+                                сотрудничестве с компанией "Сервер" - одной из самых старинных и уважаемых кондитерских
+                                компаний. Наше партнерство с "Сервер" открывает новые горизонты для High Cakes и
+                                позволит
+                                нам предложить нашим клиентам еще больше вариантов уникальных сладостей
+                            </p>
+                            <p>
+                                Мы с нетерпением ждем сотрудничества с "Сервер" и уверены, что это партнерство приведет
+                                к
+                                созданию удивительных десертов, которые будут радовать и удивлять наших клиентов еще
+                                больше.
+                                Вместе мы сможем подарить вам незабываемые гастрономические впечатления и продолжать
+                                радовать вас сладостями веками
+                            </p>
+                            <p>
+                                High Cakes - это место, где воплощаются мечты о вкусе, элегантности и радости. Мы
+                                приглашаем
+                                вас присоединиться к нам в этом захватывающем путешествии по миру сладких наслаждений.
+                                Добро
+                                пожаловать в нашу сладкую семью!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <img class="about-company__img" id="about-company__img" src="images/about/1.jpg" alt="" width="600"
+                     height="600">
+            </div>
+        </div>
+    </section>
+    <section class="contacts indent">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contacts__content">
+                <ul class="contacts__info">
+                    <li class="contacts__item">
+                        <span class="contacts__name">Номер телефона: </span>
+                        <a class="contacts__link" href="tel:+79181682137">+7 (918) 168-21-37</a>
+                    </li>
+                    <li class="contacts__item">
+                        <span class="contacts__name">Адрес:</span>
+                        <a class="contacts__link" href="https://goo.gl/maps/Y2k9eTwXRcEDa1b58" target="_blank">ул.
+                            Ленина, 177/1</a>
+                    </li>
+                    <li class="contacts__item">
+                        <span class="contacts__name">График работы:</span>
+                        <div class="contacts__work">Ежедневно с 8:00 до 21:00</div>
+                    </li>
+                </ul>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.8472924953485!2d39.868705!3d44.763529!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40f0c5e81e9266f7%3A0x8d4de1ab4064a308!2z0YPQuy4g0JvQtdC90LjQvdCwLCAxMjcsINCR0LXQu9C-0YDQtdGH0LXQvdGB0LosINCa0YDQsNGB0L3QvtC00LDRgNGB0LrQuNC5INC60YDQsNC5LCAzNTI2MzA!5e0!3m2!1sru!2sru!4v1685602248272!5m2!1sru!2sru"
+                        width="860" height="440" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <div class="footer__top">
+        <div class="container">
+            <nav class="footer__nav">
+                <ul class="footer__list">
+                    <li class="footer__item">
+                        <a th:href="@{/}" class="footer__link">Главная</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/about}" class="footer__link">О компании</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/catalog}" class="footer__link">Каталог</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/news}" class="footer__link">Новости</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/reviews}" class="footer__link">Отзывы</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/unique}" class="footer__link">Заказать торт</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/shipping}" class="footer__link">Доставка и оплата</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <p class="footer__author">© Все права защищены HighCakes</p>
+</footer>
+<script th:src="@{/js/main.min.js}"></script>
+<script th:src="@{/js/tabs.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+</body>
+
+</html>

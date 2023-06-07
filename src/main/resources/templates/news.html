@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HighCakes | Новости</title>
+    <link rel="icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+    <link rel="shortcut icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="body">
+<header class="header">
+    <div class="container">
+        <nav class="header__nav">
+            <ul class="header__menu">
+                <li class="header__item">
+                    <a class="header__link header__link--active" th:href="@{/}">Главная</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/about}" href="about.html">О компании</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/catalog}" href="catalog.html">Каталог</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/offer}" href="offer.html">Заказать торт</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/unique}" href="unique.html">Индивидуальный заказ</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/news}" href="news.html">Новости</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/shipping}" href="shipping.html">Доставка и оплата</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/reviews}" href="reviews.html">Отзывы</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="header__inner">
+            <button class="menu-btn">
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+            </button>
+            <a class="logo" href="index.html">
+                <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
+            </a>
+            <div class="header__cabinet">
+                <img class="header__avatar" alt="аватар" src="images/avatars/Profile.png">
+                <a class="header__cabinet-link" href="profile.html">Личный кабинет</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="news indent">
+        <div class="container">
+            <h1 class="page-title page-title--indent">Новости</h1>
+            <ul class="news__list">
+                <li class="news-card">
+                    <time class="news-card__date" datetime="2022-04-05">5 апреля, 2022</time>
+                    <h3 class="news-card__name">
+                        <a class="news-card__link" href="news-details.html">
+                            Учимся правильно готовить кондитерские изделия
+                        </a>
+                    </h3>
+                    <p class="news-card__description">
+                        В этой статье мы научим вас приготавливать в домашних условиях различные вкусности которые
+                        создаются кондитерами
+                    </p>
+                </li>
+                <li class="news-card">
+                    <time class="news-card__date" datetime="2022-05-10">10 мая, 2023</time>
+                    <h3 class="news-card__name">
+                        <a class="news-card__link" href="news-details.html">
+                            Как открыть правильно кондитерскую без больших затрат
+                        </a>
+                    </h3>
+                    <p class="news-card__description">
+                        Мы хотим вам рассказать о том, как открывать новую кондитерскую без высоких затрат,
+                        прогорании и критических ошибок
+                    </p>
+                </li>
+                <li class="news-card">
+                    <time class="news-card__date" datetime="2022-05-25">25 мая, 2023</time>
+                    <h3 class="news-card__name">
+                        <a class="news-card__link" href="news-details.html">
+                            Открытие кондитерской «Тройка» после масштабной реконструкции
+                        </a>
+                    </h3>
+                    <p class="news-card__description">
+                        «Тройка» объединила в одном пространстве сразу две оригинальные концепции, построенные на
+                        контрасте: первый зал с магазином раскрывает тему ночи, а светлый обеденный зал — день
+                    </p>
+                </li>
+                <li class="news-card">
+                    <time class="news-card__date" datetime="2022-05-28">28 мая, 2023</time>
+                    <h3 class="news-card__name">
+                        <a class="news-card__link" href="news-details.html">
+                            Гайд как сделать красивый свадебный торт с цветами
+                        </a>
+                    </h3>
+                    <p class="news-card__description">
+                        Свадебный торт – одна из немногих традиций, от которой не отказываются современные
+                        молодожены. Кроме приятного финала ужина, это еще и красивый символ
+                    </p>
+                </li>
+                <li class="news-card">
+                    <time class="news-card__date" datetime="2022-02-16">16 февраля, 2023</time>
+                    <h3 class="news-card__name">
+                        <a class="news-card__link" href="news-details.html">
+                            Волшебство вкуса: эксклюзивные шоколадные торты
+                        </a>
+                    </h3>
+                    <p class="news-card__description">
+                        Откройте для себя неповторимое сочетание изысканного шоколадного вкуса и мастерства наших
+                        кондитеров. Наши эксклюзивные шоколадные торты погрузят вас в мир настоящего волшебства
+                        сладких наслаждений
+                    </p>
+                </li>
+                <li class="news-card">
+                    <time class="news-card__date" datetime="2022-02-10">10 февраля, 2023</time>
+                    <h3 class="news-card__name">
+                        <a class="news-card__link" href="news-details.html">
+                            Дегустационный опыт: откройте новые гастрономические грани с нашими тортами
+                        </a>
+                    </h3>
+                    <p class="news-card__description">
+                        Позвольте себе погрузиться в удивительный мир гастрономического искусства с нашим
+                        дегустационным опытом
+                    </p>
+                </li>
+                <li class="news-card">
+                    <time class="news-card__date" datetime="2022-02-05">5 февраля, 2023</time>
+                    <h3 class="news-card__name">
+                        <a class="news-card__link" href="news-details.html">
+                            Тортовая мастерская: акция творчества и страсти к сладостям
+                        </a>
+                    </h3>
+                    <p class="news-card__description">
+                        Совсем в скором времени у нас появятся акция, где вы сможете попробовать наши новые
+                        шоколадные сладости
+                    </p>
+                </li>
+                <li class="news-card">
+                    <time class="news-card__date" datetime="2022-01-26">26 января, 2023</time>
+                    <h3 class="news-card__name">
+                        <a class="news-card__link" href="news-details.html">
+                            Новая кондитерская "Моцарт" появилась в центре Краснодара
+                        </a>
+                    </h3>
+                    <p class="news-card__description">
+                        Расскажем о том что это за кондитерская, в чем её особенности. И почему мы её упомянули
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="contacts indent">
+        <div class="container">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contacts__content">
+                <ul class="contacts__info">
+                    <li class="contacts__item">
+                        <span class="contacts__name">Номер телефона: </span>
+                        <a class="contacts__link" href="tel:+79181682137">+7 (918) 168-21-37</a>
+                    </li>
+                    <li class="contacts__item">
+                        <span class="contacts__name">Адрес:</span>
+                        <a class="contacts__link" href="https://goo.gl/maps/Y2k9eTwXRcEDa1b58" target="_blank">ул.
+                            Ленина, 177/1</a>
+                    </li>
+                    <li class="contacts__item">
+                        <span class="contacts__name">График работы:</span>
+                        <div class="contacts__work">Ежедневно с 8:00 до 21:00</div>
+                    </li>
+                </ul>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.8472924953485!2d39.868705!3d44.763529!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40f0c5e81e9266f7%3A0x8d4de1ab4064a308!2z0YPQuy4g0JvQtdC90LjQvdCwLCAxMjcsINCR0LXQu9C-0YDQtdGH0LXQvdGB0LosINCa0YDQsNGB0L3QvtC00LDRgNGB0LrQuNC5INC60YDQsNC5LCAzNTI2MzA!5e0!3m2!1sru!2sru!4v1685602248272!5m2!1sru!2sru"
+                        width="860" height="440" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    <div class="footer__top">
+        <div class="container">
+            <nav class="footer__nav">
+                <ul class="footer__list">
+                    <li class="footer__item">
+                        <a th:href="@{/}" class="footer__link">Главная</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/about}" class="footer__link">О компании</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/catalog}" class="footer__link">Каталог</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/news}" class="footer__link">Новости</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/reviews}" class="footer__link">Отзывы</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/unique}" class="footer__link">Заказать торт</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/shipping}" class="footer__link">Доставка и оплата</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <p class="footer__author">© Все права защищены HighCakes</p>
+</footer>
+<script th:src="@{/js/main.min.js}"></script>
+</body>
+</html>
