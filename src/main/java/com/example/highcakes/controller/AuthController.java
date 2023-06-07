@@ -18,19 +18,19 @@ public class AuthController {
     private final UserImpl userImpl;
 
     @GetMapping("/registration")
-    public String showRegistrationForm(Model model){
+    public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
         return "registration";
     }
 
     @PostMapping("/registration/save")
-    public String registration(@ModelAttribute("user") User user, BindingResult result, Model model, RedirectAttributes redirectAttributes){
+    public String registration(@ModelAttribute("user") User user, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         User existingUser = userImpl.findByUsername(user.getUsername());
-        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()){
+        if (existingUser != null && existingUser.getUsername() != null && !existingUser.getUsername().isEmpty()) {
             result.rejectValue("username", null,
                     "Пользователь с такие логином уже зарегистрирован!");
         }
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             model.addAttribute("user", user);
             return "registration";
         }
@@ -40,7 +40,7 @@ public class AuthController {
     }
 
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "authorization";
     }
 }
