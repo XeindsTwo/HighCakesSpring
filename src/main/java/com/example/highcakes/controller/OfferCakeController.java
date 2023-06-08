@@ -1,5 +1,6 @@
 package com.example.highcakes.controller;
 
+import com.example.highcakes.impl.EmailServiceImpl;
 import com.example.highcakes.impl.OfferImpl;
 import com.example.highcakes.model.Cake;
 import com.example.highcakes.model.Offer;
@@ -20,9 +21,9 @@ public class OfferCakeController {
 
     private final CakeRepo cakeRepo;
     private final OfferImpl offerImpl;
-    private final EmailService emailService;
+    private final EmailServiceImpl emailService;
 
-    public OfferCakeController(CakeRepo cakeRepo, OfferImpl offerImpl, EmailService emailService) {
+    public OfferCakeController(CakeRepo cakeRepo, OfferImpl offerImpl, EmailServiceImpl emailService) {
         this.cakeRepo = cakeRepo;
         this.offerImpl = offerImpl;
         this.emailService = emailService;
@@ -42,9 +43,12 @@ public class OfferCakeController {
     public String createOffer(@ModelAttribute("offer") Offer offer) {
         offerImpl.save(offer);
         String to = offer.getEmail();
-        String subject = "Заявка на заказ торта";
-        String text = "Была создана новая заявка: " + offer.toString();
-        emailService.sendEmail(to, subject, text);
+        String nameCake = offer.getCake().getName();
+        String subject = "Заявка на заказ - " + nameCake;
+        String text = "Здравствуйте. Вами была отправлена заявка на сайте HighCakes\n\n\n."
+                + "Ваш заказ принят в обработку, в дальнейшем мы вам сообщим на ваш номер телефона " + offer.getPhone()
+                + ".\n\nС уваженением, HighCakes!";
+        emailService.send(to, subject, text);
 
         System.out.print("Добавлена заявка!");
         return "redirect:/offer";
