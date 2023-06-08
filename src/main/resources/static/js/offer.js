@@ -6,10 +6,12 @@ function modal_DeleteOffer() {
     console.log("open")
     let offer_id = $(event.target).closest("button").attr("data-offer-id");
     let offer_name = $(event.target).closest("button").attr("data-offer-name");
+    let cake_name = $(event.target).closest("button").attr("data-offer-cake");
     body.classList.toggle('body--active');
     modalDelete.classList.toggle('modal--active');
     curr_offer_id = offer_id;
     $("#offer_name-delete").html(offer_name);
+    $("#offer_cake-delete").html(cake_name);
 }
 
 function modal_DeleteOfferClose() {
