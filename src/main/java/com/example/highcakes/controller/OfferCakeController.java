@@ -28,6 +28,7 @@ public class OfferCakeController {
         List<Cake> cakes = cakeRepo.findAll();
         List<Offer> offers = offerImpl.findAll();
         model.addAttribute("cakes", cakes);
+        model.addAttribute("offer", new Offer());
         model.addAttribute("offers", offers);
         return "offer";
     }
