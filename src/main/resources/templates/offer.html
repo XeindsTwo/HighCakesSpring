@@ -86,7 +86,7 @@
                         уверены, что наша команда посвятила много времени и усилий, чтобы достичь идеального сочетания
                         текстуры, вкуса и визуального оформления
                     </p>
-                    <a class="offer__link" href="catalog.html">Разглядеть весь каталог</a>
+                    <a class="offer__link" th:href="@{/catalog}">Разглядеть весь каталог</a>
                 </div>
                 <form class="offer__form" action="">
                     <ul class="offer__list">
@@ -111,11 +111,7 @@
                         <li class="offer__item">
                             <label class="label" for="cake">Выбор тортика</label>
                             <select class="select" id="cake" name="cake">
-                                <option value="">Торт «Бейлис»</option>
-                                <option value="">Торт «К торжеству»</option>
-                                <option value="">Торт «Йогуртовый с маракуйя»</option>
-                                <option value="">Лимонный торт с кремом и меренгой на подложке</option>
-                                <option value="">Торт «Хрустящая карамель»</option>
+                                <option th:each="cake : ${cakes}" th:value="${cake.name}" th:text="${cake.name}"></option>
                             </select>
                         </li>
                     </ul>
