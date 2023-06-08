@@ -202,8 +202,33 @@
     </div>
     <p class="footer__author">© Все права защищены HighCakes</p>
 </footer>
+<div class="modal modal--delete" id="modal-delete_offer">
+    <button class="modal__close" onclick="modal_DeleteOfferClose()">
+        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+        </svg>
+    </button>
+    <div class="modal__inner">
+        <p class="modal__text">
+            Вы действительно хотите удалить "<span id="offer_name-delete"></span>?" Отменить это действие будет
+            невозможно.
+        </p>
+        <form class="modal__form-actions" action="">
+            <div class="modal__buttons">
+                <button class="modal__btn" type="button" id="button-delete_cake" onclick="deleteOffer()">Удалить</button>
+                <button class="modal__btn" type="button" id="button-cancel_cake" onclick="modal_DeleteOfferClose()">
+                    Отмена
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 <script th:src="@{/js/main.min.js}"></script>
 <script th:src="@{/js/custom-select.js}"></script>
 <script th:src="@{/js/phone-mask.js}"></script>
+<script th:src="@{/js/offer.js}"></script>
 </body>
 </html>

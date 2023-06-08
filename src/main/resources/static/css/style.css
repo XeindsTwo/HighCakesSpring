@@ -1968,7 +1968,7 @@ button.swiper-pagination-bullet {
     width: 100%;
     margin: 0 auto;
     background-color: #252525;
-    padding: 50px 40px;
+    padding: 80px 40px 40px;
     border-radius: 15px 0 0 15px;
     opacity: 0;
     pointer-events: none;
@@ -1983,6 +1983,10 @@ button.swiper-pagination-bullet {
     opacity: 1;
     z-index: 200;
     pointer-events: auto
+}
+
+.modal--delete {
+    max-width: 700px;
 }
 
 .modal__close {
@@ -3163,6 +3167,9 @@ button.swiper-pagination-bullet {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 30px;
     margin-bottom: 40px;
+    border: 1px solid #ff7966;
+    padding: 35px;
+    font-size: 18px;
 }
 
 .offer__admin-item p:not(:last-child) {
@@ -3170,7 +3177,7 @@ button.swiper-pagination-bullet {
 }
 
 .offer__admin-btn {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .offer__admin-btn svg path {
