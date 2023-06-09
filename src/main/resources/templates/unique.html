@@ -65,6 +65,38 @@
 <main>
     <section class="offer indent">
         <div class="container">
+            <div class="offer__admin">
+                <form class="offer__admin-search" action="">
+                    <label for="search-offer">
+                        <input type="text" class="catalog__field" id="search-offer" placeholder="Введите текст">
+                    </label>
+                </form>
+                <span class="offer__admin-title">Все заказы:</span>
+                <ul class="offer__admin-list offer__admin-list--unique">
+                    <th:block th:if="${uniques.isEmpty()}">
+                        <p>Заказов пока нет</p>
+                    </th:block>
+                    <th:block th:each="unique : ${uniques}">
+                        <li class="offer__admin-item">
+                            <button class="offer__admin-btn" id="open-delete_offer" onclick="modal_DeleteUnique(event)"
+                                    th:data-unique-id="${unique.id}" th:data-unique-name="${unique.name}">
+                                <svg class="table__svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 1H13M1 4H19M17 4L16.2987 14.5193C16.1935 16.0975 16.1409 16.8867 15.8 17.485C15.4999 18.0118 15.0472 18.4353 14.5017 18.6997C13.882 19 13.0911 19 11.5093 19H8.49065C6.90891 19 6.11803 19 5.49834 18.6997C4.95276 18.4353 4.50009 18.0118 4.19998 17.485C3.85911 16.8867 3.8065 16.0975 3.70129 14.5193L3 4M8 8.5V13.5M12 8.5V13.5"
+                                          stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                          stroke-linejoin="round">
+                                    </path>
+                                </svg>
+                            </button>
+                            <p th:text="'Имя - ' + ${unique.name}"></p>
+                            <p th:text="'Почта - ' + ${unique.email}"></p>
+                            <p th:text="'Телефон - ' + ${unique.phone}"></p>
+                            <p th:text="'Вес торта - ' + ${unique.weight}"></p>
+                            <p th:text="'Описание торта - ' + ${unique.description}"></p>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
             <div class="offer__inner">
                 <h1 class="page-title page-title--indent">Индивидуальный заказ</h1>
                 <div class="offer__content">
@@ -90,7 +122,7 @@
                         форму ниже, чтобы мы могли начать работу над вашим уникальным проектом
                     </p>
                 </div>
-                <form class="offer__form" action="">
+                <form class="offer__form" th:action="@{/unique/save}" th:object="${unique}" method="post">
                     <ul class="offer__list">
                         <li class="offer__item">
                             <label class="label" for="name">Ваше имя</label>
@@ -117,8 +149,9 @@
                             <span class="error error--active">Поле не может быть пустым. Минимальный вес - 0.3кг, максимальный - 30кг</span>
                         </li>
                         <li class="offer__item">
-                            <label class="label" for="message">Что требуется в торте</label>
-                            <textarea class="input textarea" id="message" name="message" placeholder="Введите сообщение"
+                            <label class="label" for="description">Что требуется в торте</label>
+                            <textarea class="input textarea" id="description" name="description"
+                                      placeholder="Введите сообщение"
                                       required></textarea>
                             <span class="error error--active">Поле не может быть пустым. Опишите ваш заказ с минимальными требованиями</span>
                         </li>
@@ -126,7 +159,7 @@
                     <p class="offer__accept">
                         Отправляя данные, Вы соглашаетесь с политикой конфиденциальности
                     </p>
-                    <button class="btn" type="button">Отправить</button>
+                    <button class="btn" type="submit">Отправить</button>
                 </form>
             </div>
         </div>
@@ -216,6 +249,7 @@
 </footer>
 <script th:src="@{/js/main.min.js}"></script>
 <script th:src="@{/js/phone-mask.js}"></script>
+<script th:src="@{/js/unique.js}"></script>
 <script th:src="@{/js/gallery.js}"></script>
 </body>
 </html>

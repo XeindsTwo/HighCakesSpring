@@ -1066,7 +1066,7 @@ button.swiper-pagination-bullet {
     -webkit-transform: translateX(-50%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-    background-image: url("decor-title.svg");
+    background-image: url("../images/icons/decor-title.svg");
     top: 0;
     left: 50%;
     width: 80px;
@@ -2137,7 +2137,7 @@ button.swiper-pagination-bullet {
     transform: translateY(-50%);
     width: 13px;
     height: 6px;
-    background-image: url("select-arrow.svg");
+    background-image: url("../images/icons/select-arrow.svg");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -2421,7 +2421,8 @@ button.swiper-pagination-bullet {
     }
 }
 
-.catalog__search {
+.catalog__search,
+.offer__admin-search {
     margin-bottom: 20px
 }
 
@@ -2455,8 +2456,9 @@ button.swiper-pagination-bullet {
     color: #f4f4f4
 }
 
-.catalog__not-found {
-    font-size: 26px
+.catalog__not-found,
+.offer__not-found {
+    font-size: 26px;
 }
 
 .gallery__img {
@@ -3167,9 +3169,13 @@ button.swiper-pagination-bullet {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 30px;
     margin-bottom: 40px;
-    border: 1px solid #ff7966;
+    border: 1px solid #545454;
     padding: 35px;
     font-size: 18px;
+}
+
+.offer__admin-list--unique {
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .offer__admin-item p:not(:last-child) {
