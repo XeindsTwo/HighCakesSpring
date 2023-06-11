@@ -2,7 +2,6 @@ package com.example.highcakes.controller;
 
 import com.example.highcakes.impl.CakeImpl;
 import com.example.highcakes.model.Cake;
-import com.example.highcakes.model.UniqueOffer;
 import com.example.highcakes.repo.CakeRepo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
