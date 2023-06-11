@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body class="body">
@@ -78,8 +79,9 @@
                     </th:block>
                     <th:block th:each="unique : ${uniques}">
                         <li class="offer__admin-item">
-                            <button class="offer__admin-btn" id="open-delete_offer" onclick="modal_DeleteUnique(event)"
-                                    th:data-unique-id="${unique.id}" th:data-unique-name="${unique.name}">
+                            <button class="offer__admin-btn" onclick="modal_DeleteUnique(event)"
+                                    th:data-unique-id="${unique.id}" th:data-unique-name="${unique.name}"
+                                    th:data-unique-weight="${unique.weight}">
                                 <svg class="table__svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path d="M7 1H13M1 4H19M17 4L16.2987 14.5193C16.1935 16.0975 16.1409 16.8867 15.8 17.485C15.4999 18.0118 15.0472 18.4353 14.5017 18.6997C13.882 19 13.0911 19 11.5093 19H8.49065C6.90891 19 6.11803 19 5.49834 18.6997C4.95276 18.4353 4.50009 18.0118 4.19998 17.485C3.85911 16.8867 3.8065 16.0975 3.70129 14.5193L3 4M8 8.5V13.5M12 8.5V13.5"
@@ -143,7 +145,7 @@
                             <span class="error error--active">Почта не соответствует требованиям. Нельзя использовать спец символы и литиницу!</span>
                         </li>
                         <li class="offer__item">
-                            <label class="label" for="weight">Вес торта (в кг)</label>
+                            <label class="label" for="weight">Вес торта (в граммах)</label>
                             <input class="input" id="weight" name="weight" type="number" placeholder="Введите вес"
                                    required>
                             <span class="error error--active">Поле не может быть пустым. Минимальный вес - 0.3кг, максимальный - 30кг</span>
@@ -247,6 +249,31 @@
     </div>
     <p class="footer__author">© Все права защищены HighCakes</p>
 </footer>
+<div class="modal modal--delete" id="modal-delete_unique">
+    <button class="modal__close" onclick="modal_DeleteUniqueClose()">
+        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+        </svg>
+    </button>
+    <div class="modal__inner">
+        <p class="modal__text">
+            Вы действительно хотите удалить заказ от "<span id="unique_name-delete"></span>" ? Отменить это действие
+            будет невозможно.
+        </p>
+        <form class="modal__form-actions" action="">
+            <div class="modal__buttons">
+                <button class="modal__btn" type="button" id="button-delete_cake" onclick="deleteUnique()">Удалить
+                </button>
+                <button class="modal__btn" type="button" id="button-cancel_cake" onclick="modal_DeleteUniqueClose()">
+                    Отмена
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 <script th:src="@{/js/main.min.js}"></script>
 <script th:src="@{/js/phone-mask.js}"></script>
 <script th:src="@{/js/unique.js}"></script>

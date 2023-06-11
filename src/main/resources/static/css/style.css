@@ -3176,6 +3176,7 @@ button.swiper-pagination-bullet {
 
 .offer__admin-list--unique {
     grid-template-columns: repeat(2, 1fr);
+    grid-gap: 50px 30px;
 }
 
 .offer__admin-item p:not(:last-child) {

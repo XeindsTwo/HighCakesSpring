@@ -1,7 +1,6 @@
 package com.example.highcakes.dao;
 
 import com.example.highcakes.model.Offer;
-
 import java.util.List;
 import java.util.Optional;
 

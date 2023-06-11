@@ -2,6 +2,7 @@ package com.example.highcakes.controller;
 
 import com.example.highcakes.impl.CakeImpl;
 import com.example.highcakes.model.Cake;
+import com.example.highcakes.model.UniqueOffer;
 import com.example.highcakes.repo.CakeRepo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -20,9 +23,11 @@ public class CakeController {
     @Value("${upload.path}")
     private String uploadPath;
     private final CakeRepo cakeRepo;
+    private final CakeImpl cakeImpl;
 
-    public CakeController(CakeRepo cakeRepo) {
+    public CakeController(CakeRepo cakeRepo, CakeImpl cakeImpl) {
         this.cakeRepo = cakeRepo;
+        this.cakeImpl = cakeImpl;
     }
 
     @GetMapping("/catalog")
@@ -39,93 +44,48 @@ public class CakeController {
     }
 
     @PostMapping("/save/cake")
-    public String save(@RequestParam("name") String name,
-                       @RequestParam("price") String price,
-                       @RequestParam("weight") String weight,
-                       @RequestParam("calories") String calories,
-                       @RequestParam("composition") String composition,
-                       @RequestParam("description") String description,
-                       @RequestParam("protein") String protein,
-                       @RequestParam("fats") String fat,
-                       @RequestParam("filename") String filename,
-                       @RequestParam("carbs") String carbohydrates,
-                       @RequestParam("shelfLife") String shelfLife,
+    public String save(@ModelAttribute("cake") Cake cake,
                        @RequestParam("photo") MultipartFile file) throws IOException {
-        Cake cake = new Cake();
-        cake.setName(name);
-        cake.setPrice(price);
-        cake.setWeight(weight);
-        cake.setCalories(calories);
-        cake.setComposition(composition);
-        cake.setDescription(description);
-        cake.setProtein(protein);
-        cake.setFilename(filename);
-        cake.setFat(fat);
-        cake.setCarbohydrates(carbohydrates);
-        cake.setShelfLife(shelfLife);
-        if (file != null && !file.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
-            }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
-            cake.setFilename(resultFilename);
+        if (file != null && !Objects.requireNonNull(file.getOriginalFilename()).isEmpty()) {
+            String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + filename));
+            cake.setFilename(filename);
         }
-        cakeRepo.save(cake);
+        cakeImpl.save(cake);
         System.out.print("Запрос отправлен!");
         return "redirect:/catalog";
     }
 
     @PostMapping("/edit/cake")
-    public String edit(@RequestParam("id") Long id,
-                       @RequestParam("name") String name,
-                       @RequestParam("price") String price,
-                       @RequestParam("weight") String weight,
-                       @RequestParam("calories") String calories,
-                       @RequestParam("composition") String composition,
-                       @RequestParam("description") String description,
-                       @RequestParam("protein") String protein,
-                       @RequestParam("fats") String fat,
-                       @RequestParam("carbs") String carbohydrates,
-                       @RequestParam("shelfLife") String shelfLife,
+    public String edit(@ModelAttribute("cake") Cake cake,
                        @RequestParam(value = "photo", required = false) MultipartFile file,
                        RedirectAttributes redirectAttributes) throws IOException {
-        Cake existingCake = cakeRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid cake Id:" + id));
-        existingCake.setName(name);
-        existingCake.setPrice(price);
-        existingCake.setDescription(description);
-        existingCake.setComposition(composition);
-        existingCake.setCalories(calories);
-        existingCake.setWeight(weight);
-        existingCake.setProtein(protein);
-        existingCake.setFat(fat);
-        existingCake.setCarbohydrates(carbohydrates);
-        existingCake.setShelfLife(shelfLife);
-
         if (file != null && !file.isEmpty()) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
+            String filename = UUID.randomUUID() + "." + file.getOriginalFilename();
+            file.transferTo(new File(uploadPath + "/" + filename));
+            cake.setFilename(filename);
+        } else {
+            Optional<Cake> optionalCake = cakeRepo.findById(cake.getId());
+            if (optionalCake.isPresent()) {
+                Cake existingCake = optionalCake.get();
+                cake.setFilename(existingCake.getFilename());
             }
-            String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file.getOriginalFilename();
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
-            existingCake.setFilename(resultFilename);
         }
 
-        cakeRepo.save(existingCake);
-        redirectAttributes.addFlashAttribute("success", "Успешное редактирование! Торт - " + existingCake.getName());
+        cakeImpl.updateFields(cake.getId(), cake.getName(), cake.getPrice(),
+                cake.getDescription(), cake.getComposition(), cake.getCalories(),
+                cake.getWeight(), cake.getProtein(), cake.getFat(),
+                cake.getCarbohydrates(), cake.getShelfLife(), cake.getFilename());
+
+        redirectAttributes.addFlashAttribute("success", "Успешное редактирование! Торт - " + cake.getName());
         return "redirect:/catalog";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        Cake cake = cakeRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid cake Id:" + id));
-        cakeRepo.delete(cake);
+        Cake cake = cakeImpl.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid offer Id:" + id));
+        cakeImpl.delete(cake.getId());
         redirectAttributes.addFlashAttribute("success", "Успешное удаление торта " + cake.getName());
         return "redirect:/catalog";
     }

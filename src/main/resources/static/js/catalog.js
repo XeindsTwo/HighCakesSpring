@@ -30,10 +30,10 @@ function modal_saveCake() {
     formData.append('calories', $("#calories").val());
     formData.append('weight', $("#weight").val());
     formData.append('protein', $("#protein").val());
-    formData.append('fats', $("#fats").val());
+    formData.append('fat', $("#fats").val());
     formData.append('filename', $("#photo").val());
     formData.append('photo', $("#photo")[0].files[0]);
-    formData.append('carbs', $("#carbs").val());
+    formData.append('carbohydrates', $("#carbs").val());
     formData.append('shelfLife', $("#shelfLife").val());
 
     if (curr_cake_id === -1) {
@@ -88,8 +88,8 @@ function modal_EditCake(event) {
     formData.append('calories', $("#calories").val());
     formData.append('weight', $("#weight").val());
     formData.append('protein', $("#protein").val());
-    formData.append('fats', $("#fats").val());
-    formData.append('carbs', $("#carbs").val());
+    formData.append('fat', $("#fats").val());
+    formData.append('carbohydrates', $("#carbs").val());
     formData.append('shelfLife', $("#shelfLife").val());
 
     // Проверяем, выбран ли новый файл
@@ -126,7 +126,7 @@ function modal_cakeClose() {
     $("#photo").val("");
     $("#carbs").val("");
     $("#shelfLife").val("");
-    $("#file").text("");
+    $("#file-upload-label").text("Загрузить фото");
     $(".modal").scrollTop(0);
 }
 
@@ -152,14 +152,14 @@ function deleteCake() {
 }
 
 $('#search-cake').on('input', function () {
-    var searchText = $(this).val();
+    let searchText = $(this).val();
     $.ajax({
         url: '/catalog',
         type: 'GET',
         data: {param: searchText},
         success: function (data) {
-            var catalogList = $('.catalog__list');
-            var newContent = $(data).find('.catalog__list').html();
+            let catalogList = $('.catalog__list');
+            let newContent = $(data).find('.catalog__list').html();
 
             if (searchText.trim() === '') {
                 catalogList.replaceWith('<ul class="catalog__list">' + newContent + '</ul>');

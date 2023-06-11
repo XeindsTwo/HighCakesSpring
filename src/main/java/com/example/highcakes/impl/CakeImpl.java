@@ -36,4 +36,27 @@ public class CakeImpl implements CakeDao {
     public Optional<Cake> findById(Long id) {
         return cakeRepo.findById(id);
     }
+
+    @Override
+    public Cake updateFields(Long id, String name, String price, String description, String composition,
+                             String calories, String weight, String protein, String fat,
+                             String carbohydrates, String shelfLife, String filename) {
+        Optional<Cake> optionalCake = cakeRepo.findById(id);
+        if (optionalCake.isPresent()) {
+            Cake existingCake = optionalCake.get();
+            existingCake.setName(name);
+            existingCake.setPrice(price);
+            existingCake.setDescription(description);
+            existingCake.setComposition(composition);
+            existingCake.setCalories(calories);
+            existingCake.setWeight(weight);
+            existingCake.setProtein(protein);
+            existingCake.setFat(fat);
+            existingCake.setCarbohydrates(carbohydrates);
+            existingCake.setShelfLife(shelfLife);
+            existingCake.setFilename(filename);
+            return cakeRepo.save(existingCake);
+        }
+        throw new IllegalArgumentException("Invalid cake Id: " + id);
+    }
 }

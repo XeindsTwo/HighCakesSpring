@@ -65,13 +65,13 @@
 <main class="indent">
     <section class="details indent">
         <div class="container">
-            <h1 class="details__title page-title" th:text="${cake.name}"></h1>
+            <h1 class="page-title page-title--indent" th:text="${cake.name}"></h1>
             <div class="details__content">
                 <img class="details__img" th:src="@{'/uploads/' + ${cake.filename}}" alt="" width="570" height="580">
                 <div class="details__content-text">
                     <p th:text="'Описание: ' + ${cake.description}"></p>
                     <p th:text="'Состав: ' + ${cake.composition}"></p>
-                    <span th:text="'Цена - ' + ${cake.weight} + '₽'"></span>
+                    <span th:text="'Цена - ' + ${cake.price} + '₽'"></span>
                 </div>
             </div>
         </div>

@@ -24,7 +24,7 @@
                     <a class="header__link header__link--active" th:href="@{/}">Главная</a>
                 </li>
                 <li class="header__item">
-                    <a class="header__link" th:href="@{/about}" href="about.html">О компании</a>
+                    <a class="header__link" th:href="@{/about}">О компании</a>
                 </li>
                 <li class="header__item">
                     <a class="header__link" th:href="@{/catalog}" href="catalog.html">Каталог</a>
@@ -78,7 +78,7 @@
                     </th:block>
                     <th:block th:each="offer : ${offers}">
                         <li class="offer__admin-item">
-                            <button class="offer__admin-btn" id="open-delete_offer" onclick="modal_DeleteOffer(event)"
+                            <button class="offer__admin-btn" onclick="modal_DeleteOffer()"
                                     th:data-offer-id="${offer.id}" th:data-offer-name="${offer.name}"
                                     th:data-offer-cake="${offer.cake.name}">
                                 <svg class="table__svg" width="20" height="20" viewBox="0 0 20 20" fill="none"

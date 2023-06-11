@@ -6,10 +6,7 @@ import com.example.highcakes.model.UniqueOffer;
 import com.example.highcakes.repo.UniqueOfferRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -27,8 +24,14 @@ public class UniqueController {
     }
 
     @GetMapping("/unique")
-    public String offerPage(Model model) {
-        List<UniqueOffer> uniques = uniqueOfferImpl.findAll();
+    public String offerPage(Model model, @RequestParam(value = "param", defaultValue = "", required = false) String param) {
+        List<UniqueOffer> uniques;
+        if (param != null && !param.isEmpty()) {
+            uniques = uniqueOfferRepo.findByNameContainingIgnoreCaseOrPhoneContainingIgnoreCaseOrEmailContainingIgnoreCase(param, param, param);
+            model.addAttribute("param", param);
+        } else {
+            uniques = uniqueOfferRepo.findAll();
+        }
         model.addAttribute("unique", new UniqueOffer());
         model.addAttribute("uniques", uniques);
         return "unique";
@@ -39,7 +42,7 @@ public class UniqueController {
         uniqueOfferRepo.save(uniqueOffer);
         String to = uniqueOffer.getEmail();
         String subject = "Заявка на индивидуальный заказ";
-        String text = "Здравствуйте. Вами была отправлена заявка на сайте HighCakes\n\n\n."
+        String text = "Здравствуйте, " + uniqueOffer.getName() + ". Вами была отправлена заявка на сайте HighCakes\n\n\n"
                 + "Ваш заказ принят в обработку, в дальнейшем мы вам сообщим на ваш номер телефона " + uniqueOffer.getPhone() + "\n\n"
                 + "С уваженением, HighCakes!";
         emailService.send(to, subject, text);
