@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,6 @@
 </head>
 
 <body class="body">
-
 <header class="header">
     <div class="container">
         <nav class="header__nav">
@@ -53,12 +52,16 @@
                 <span class="menu-btn__line"></span>
                 <span class="menu-btn__line"></span>
             </button>
-            <a class="logo" href="index.html">
+            <a class="logo" th:href="@{/}">
                 <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
             </a>
-            <div class="header__cabinet">
+            <div class="header__cabinet" sec:authorize="not isAuthenticated()">
+                <img class="header__avatar" alt="аватар" th:src="@{/images/empty-avatar.png}">
+                <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
+            </div>
+            <div class="header__cabinet" sec:authorize="isAuthenticated()">
                 <img class="header__avatar" alt="аватар" src="images/avatars/Profile.png">
-                <a class="header__cabinet-link" href="profile.html">Личный кабинет</a>
+                <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
             </div>
         </div>
     </div>
@@ -69,8 +72,8 @@
             <div class="profile__top">
                 <img class="profile__avatar" src="images/gallery/1.jpg" alt="аватарка" width="150" height="150">
                 <div class="profile__info">
-                    <h1 class="profile__name" th:text="${user.fullName}"></h1>
-                    <span class="profile__email" th:text="${user.email}"></span>
+                    <h1 class="profile__name" th:text="${user.getName()}"></h1>
+                    <span class="profile__email" th:text="${user.getMail()}"></span>
                 </div>
             </div>
             <div class="profile__content">
@@ -78,13 +81,17 @@
                     Логин - <span th:text="${user.username}">логин</span>
                 </p>
                 <p>
-                    Телефон - <span th:text="${user.phone}">телефон</span>
+                    Телефон - <span th:text="${user.getNumber()}">телефон</span>
                 </p>
                 <p>
-                    Почта - <span th:text="${user.email}">почта</span>
+                    Почта - <span th:text="${user.getMail()}">почта</span>
                 </p>
             </div>
-            <button class="profile__btn">Редактировать данные</button>
+            <button class="profile__btn" type="button"
+
+            >
+                Редактировать данные
+            </button>
         </div>
     </section>
     <div class="modal" id="modal-edit_profile">

@@ -52,12 +52,16 @@
                 <span class="menu-btn__line"></span>
                 <span class="menu-btn__line"></span>
             </button>
-            <a class="logo" href="index.html">
+            <a class="logo" th:href="@{/}">
                 <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
             </a>
-            <div class="header__cabinet">
+            <div class="header__cabinet" sec:authorize="not isAuthenticated()">
+                <img class="header__avatar" alt="аватар" th:src="@{/images/empty-avatar.png}">
+                <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
+            </div>
+            <div class="header__cabinet" sec:authorize="isAuthenticated()">
                 <img class="header__avatar" alt="аватар" src="images/avatars/Profile.png">
-                <a class="header__cabinet-link" href="profile.html">Личный кабинет</a>
+                <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
             </div>
         </div>
     </div>

@@ -53,12 +53,16 @@
                 <span class="menu-btn__line"></span>
                 <span class="menu-btn__line"></span>
             </button>
-            <a class="logo" href="index.html">
+            <a class="logo" th:href="@{/}">
                 <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
             </a>
-            <div class="header__cabinet">
+            <div class="header__cabinet" sec:authorize="not isAuthenticated()">
+                <img class="header__avatar" alt="аватар" th:src="@{/images/empty-avatar.png}">
+                <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
+            </div>
+            <div class="header__cabinet" sec:authorize="isAuthenticated()">
                 <img class="header__avatar" alt="аватар" src="images/avatars/Profile.png">
-                <a class="header__cabinet-link" href="profile.html">Личный кабинет</a>
+                <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
             </div>
         </div>
     </div>
@@ -74,58 +78,63 @@
             </form>
             <button class="catalog__btn" onclick="modal_addCake()">Добавить товар</button>
             <ul class="catalog__list">
-                <li class="catalog__item" th:each="cake: ${cakes}">
-                    <div class="card">
-                        <ul class="card__admin">
-                            <li class="card__admin-item" onclick="modal_EditCake(event)">
-                                <button class="card__admin-btn" id="button-open-edit_cake"
-                                        th:data-cake-id="${cake.id}"
-                                        th:data-cake-name="${cake.name}"
-                                        th:data-cake-price="${cake.price}"
-                                        th:data-cake-description="${cake.description}"
-                                        th:data-cake-composition="${cake.composition}"
-                                        th:data-cake-calories="${cake.calories}"
-                                        th:data-cake-weight="${cake.weight}"
-                                        th:data-cake-protein="${cake.protein}"
-                                        th:data-cake-fat="${cake.fat}"
-                                        th:data-cake-carbohydrates="${cake.carbohydrates}"
-                                        th:data-cake-shelfLife="${cake.shelfLife}"
-                                        th:data-cake-filename="${cake.filename}"
-                                >
-                                    <svg class="table__svg" width="22" height="22" viewBox="0 0 22 22" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M17 9L13 5M1.5 20.5L4.88437 20.124C5.29786 20.078 5.5046 20.055 5.69785 19.9925C5.86929 19.937 6.03245 19.8586 6.18289 19.7594C6.35245 19.6475 6.49955 19.5005 6.79373 19.2063L20 6C21.1046 4.89543 21.1046 3.10457 20 2C18.8955 0.895428 17.1046 0.895427 16 2L2.79373 15.2063C2.49955 15.5005 2.35246 15.6475 2.24064 15.8171C2.14143 15.9676 2.06301 16.1307 2.00751 16.3022C1.94496 16.4954 1.92198 16.7021 1.87604 17.1156L1.5 20.5Z"
-                                              stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                              stroke-linejoin="round"></path>
-                                    </svg>
-                                </button>
-                            </li>
-                            <li class="card__admin-item" onclick="modal_DeleteCake(event)">
-                                <button class="card__admin-btn" id="button-open-delete_cake"
-                                        th:data-cake-id="${cake.id}" th:data-cake-name="${cake.name}">
-                                    <svg class="table__svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M7 1H13M1 4H19M17 4L16.2987 14.5193C16.1935 16.0975 16.1409 16.8867 15.8 17.485C15.4999 18.0118 15.0472 18.4353 14.5017 18.6997C13.882 19 13.0911 19 11.5093 19H8.49065C6.90891 19 6.11803 19 5.49834 18.6997C4.95276 18.4353 4.50009 18.0118 4.19998 17.485C3.85911 16.8867 3.8065 16.0975 3.70129 14.5193L3 4M8 8.5V13.5M12 8.5V13.5"
-                                              stroke="#fff" stroke-width="2" stroke-linecap="round"
-                                              stroke-linejoin="round"></path>
-                                    </svg>
-                                </button>
-                            </li>
-                        </ul>
-                        <img class="card__img" th:src="@{'/uploads/' + ${cake.filename}}" alt="" width="315"
-                             height="340">
-                        <div class="card__info">
-                            <h3 class="card__name" th:text="${cake.name}"></h3>
-                            <ul class="card__list">
-                                <li th:text="'Вес - ' + ${cake.weight} + ' г.'"></li>
-                                <li th:text="'Цена - ' + ${cake.price} + '₽'"></li>
-                                <li th:text="'Калорийность - ' + ${cake.calories} + ' кКал'"></li>
+                <th:block th:if="${cakes.isEmpty()}">
+                    <p>Тортов нет, создайте их</p>
+                </th:block>
+                <th:block th:each="cake: ${cakes}">
+                    <li class="catalog__item">
+                        <div class="card">
+                            <ul class="card__admin">
+                                <li class="card__admin-item" onclick="modal_EditCake(event)">
+                                    <button class="card__admin-btn" id="button-open-edit_cake"
+                                            th:data-cake-id="${cake.id}"
+                                            th:data-cake-name="${cake.name}"
+                                            th:data-cake-price="${cake.price}"
+                                            th:data-cake-description="${cake.description}"
+                                            th:data-cake-composition="${cake.composition}"
+                                            th:data-cake-calories="${cake.calories}"
+                                            th:data-cake-weight="${cake.weight}"
+                                            th:data-cake-protein="${cake.protein}"
+                                            th:data-cake-fat="${cake.fat}"
+                                            th:data-cake-carbohydrates="${cake.carbohydrates}"
+                                            th:data-cake-shelfLife="${cake.shelfLife}"
+                                            th:data-cake-filename="${cake.filename}"
+                                    >
+                                        <svg class="table__svg" width="22" height="22" viewBox="0 0 22 22" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M17 9L13 5M1.5 20.5L4.88437 20.124C5.29786 20.078 5.5046 20.055 5.69785 19.9925C5.86929 19.937 6.03245 19.8586 6.18289 19.7594C6.35245 19.6475 6.49955 19.5005 6.79373 19.2063L20 6C21.1046 4.89543 21.1046 3.10457 20 2C18.8955 0.895428 17.1046 0.895427 16 2L2.79373 15.2063C2.49955 15.5005 2.35246 15.6475 2.24064 15.8171C2.14143 15.9676 2.06301 16.1307 2.00751 16.3022C1.94496 16.4954 1.92198 16.7021 1.87604 17.1156L1.5 20.5Z"
+                                                  stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                        </svg>
+                                    </button>
+                                </li>
+                                <li class="card__admin-item" onclick="modal_DeleteCake(event)">
+                                    <button class="card__admin-btn" id="button-open-delete_cake"
+                                            th:data-cake-id="${cake.id}" th:data-cake-name="${cake.name}">
+                                        <svg class="table__svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 1H13M1 4H19M17 4L16.2987 14.5193C16.1935 16.0975 16.1409 16.8867 15.8 17.485C15.4999 18.0118 15.0472 18.4353 14.5017 18.6997C13.882 19 13.0911 19 11.5093 19H8.49065C6.90891 19 6.11803 19 5.49834 18.6997C4.95276 18.4353 4.50009 18.0118 4.19998 17.485C3.85911 16.8867 3.8065 16.0975 3.70129 14.5193L3 4M8 8.5V13.5M12 8.5V13.5"
+                                                  stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                        </svg>
+                                    </button>
+                                </li>
                             </ul>
-                            <a class="card__link" th:href="@{/cake/{id}/details(id=${cake.id})}" target="_blank">Узнать
-                                подробнее</a>
+                            <img class="card__img" th:src="@{'/uploads/' + ${cake.filename}}" alt="" width="315"
+                                 height="340">
+                            <div class="card__info">
+                                <h3 class="card__name" th:text="${cake.name}"></h3>
+                                <ul class="card__list">
+                                    <li th:text="'Вес - ' + ${cake.weight} + ' г.'"></li>
+                                    <li th:text="'Цена - ' + ${cake.price} + '₽'"></li>
+                                    <li th:text="'Калорийность - ' + ${cake.calories} + ' кКал'"></li>
+                                </ul>
+                                <a class="card__link" th:href="@{/cake/{id}/details(id=${cake.id})}" target="_blank">Узнать
+                                    подробнее</a>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                </th:block>
             </ul>
         </div>
     </section>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head>
     <meta charset="UTF-8">
@@ -52,12 +52,16 @@
                 <span class="menu-btn__line"></span>
                 <span class="menu-btn__line"></span>
             </button>
-            <a class="logo" href="index.html">
+            <a class="logo" th:href="@{/}">
                 <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
             </a>
-            <div class="header__cabinet">
+            <div class="header__cabinet" sec:authorize="not isAuthenticated()">
+                <img class="header__avatar" alt="аватар" th:src="@{/images/empty-avatar.png}">
+                <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
+            </div>
+            <div class="header__cabinet" sec:authorize="isAuthenticated()">
                 <img class="header__avatar" alt="аватар" src="images/avatars/Profile.png">
-                <a class="header__cabinet-link" href="profile.html">Личный кабинет</a>
+                <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
             </div>
         </div>
     </div>
@@ -90,7 +94,7 @@
                     </div>
                     <div class="authorization__item">
                         <label class="label" for="phone">Телефон</label>
-                        <input class="input" id="phone" name="phone" type="text" placeholder="Введите телефон" required
+                        <input class="input" id="phone" data-tel-input maxlength="22" type="text" placeholder="Введите телефон" required
                                th:field="*{number}">
                         <span class="error">Телефон не соответствует требованиям. Вводить можно только цифры без спец символов!</span>
                     </div>
@@ -102,7 +106,7 @@
                     </div>
                 </div>
                 <p class="authorization__info">
-                    Уже есть аккаунт? Тогда <a href="authorization.html">авторизуйтесь</a>!
+                    Уже есть аккаунт? Тогда <a th:href="@{/login}">авторизуйтесь</a>!
                 </p>
                 <button class="authorization__btn" type="submit">Зарегистрироваться</button>
             </form>
@@ -110,6 +114,7 @@
     </div>
 </main>
 <script th:src="@{/js/main.min.js}"></script>
+<script th:src="@{/js/phone-mask.js}"></script>
 </body>
 
 </html>
