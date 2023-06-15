@@ -18,6 +18,8 @@ public class UserImpl implements UserDao {
 
     @Override
     public User save(User user) {
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
         return userRepo.save(user);
     }
 

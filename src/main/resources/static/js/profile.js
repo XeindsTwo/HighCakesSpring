@@ -1,6 +1,6 @@
 const modalEditProfile = document.getElementById('modal-edit_profile');
 const body = document.querySelector('.body');
-let curr_profile_id = -1;
+let curr_profile_id = 0;
 
 function modal_EditData() {
     modal_EditOpen();
@@ -12,7 +12,7 @@ function modal_EditData() {
 
     $("#password").val(profile_password);
     $("#name").val(profile_name);
-    $("#phone").val(profile_number);
+    $("#number").val(profile_number);
     $("#email").val(profile_mail);
 
     let formData = new FormData();
@@ -52,9 +52,5 @@ function modal_EditOpen() {
 function profileClose() {
     modalEditProfile.classList.remove('modal--active');
     document.body.classList.remove('body--active');
-    $("#name").val("");
-    $("#email").val("");
-    $("#phone").val("");
-    $("#password").val("");
     modalEditProfile.scrollTop = 0;
 }
