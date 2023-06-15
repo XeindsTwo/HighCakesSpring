@@ -2,7 +2,6 @@ package com.example.highcakes.service;
 
 import com.example.highcakes.impl.UserImpl;
 import com.example.highcakes.model.User;
-import com.example.highcakes.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,4 +32,5 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Пользователь не найден!");
         }
     }
+
 }

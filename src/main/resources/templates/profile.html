@@ -61,7 +61,7 @@
                 <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
             </div>
             <div class="header__cabinet" sec:authorize="isAuthenticated()">
-                <img class="header__avatar" alt="аватар" src="images/avatars/Profile.png">
+                <img class="header__avatar" alt="аватар" th:src="@{'/uploads/' + ${user.getFilename()}}">
                 <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
             </div>
         </div>
@@ -77,7 +77,7 @@
                 Вы не администратор
             </p>
             <div class="profile__top">
-                <img class="profile__avatar" src="images/gallery/1.jpg" width="150" height="150">
+                <img class="profile__avatar" th:src="@{'/uploads/' + ${user.getFilename()}}" width="150" height="150">
                 <div class="profile__info">
                     <h1 class="profile__name" th:text="${user.getName()}"></h1>
                     <span class="profile__email" th:text="${user.getMail()}"></span>
@@ -99,7 +99,7 @@
                     th:data-user-name="${user.getName()}"
                     th:data-user-mail="${user.getMail()}"
                     th:data-user-number="${user.getNumber()}"
-                    th:data-user-password="${user.getPassword()}"
+                    th:data-user-filename="${user.getFilename()}"
                     onclick="modal_EditData()"
             >
                 Редактировать данные
@@ -130,13 +130,18 @@
                 </li>
                 <li class="modal__item">
                     <label class="label" for="number">Телефон</label>
-                    <input class="input" type="text" id="number" name="number" data-tel-input maxlength="22" placeholder="Введите телефон" required>
+                    <input class="input" type="text" id="number" name="number" data-tel-input maxlength="22"
+                           placeholder="Введите телефон" required>
                     <span class="error error--active">Телефон не может быть пустым!</span>
                 </li>
                 <li class="modal__item">
-                    <label class="label" for="password">Пароль</label>
-                    <input class="input" type="password" id="password" name="password" placeholder="Введите пароль" required>
-                    <span class="error error--active">Пароль не может быть пустым!</span>
+                    <span class="label">Фотография</span>
+                    <div class="file-upload-container">
+                        <input type="file" id="photo" name="photo" onchange="updateFileName(event)">
+                        <label class="custom-file-upload" for="photo" id="file-upload-label">
+                            Загрузить файл
+                        </label>
+                    </div>
                 </li>
             </ul>
             <div class="modal__buttons">
@@ -180,6 +185,7 @@
 </footer>
 <script th:src="@{/js/main.min.js}"></script>
 <script th:src="@{/js/profile.js}"></script>
+<script th:src="@{/js/custom-file.js}"></script>
 <script th:src="@{/js/phone-mask.js}"></script>
 </body>
 

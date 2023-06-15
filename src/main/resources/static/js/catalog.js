@@ -92,7 +92,6 @@ function modal_EditCake(event) {
     formData.append('carbohydrates', $("#carbs").val());
     formData.append('shelfLife', $("#shelfLife").val());
 
-    // Проверяем, выбран ли новый файл
     let fileInput = $("#photo")[0];
     if (fileInput.files.length > 0) {
         formData.append('photo', fileInput.files[0]);
