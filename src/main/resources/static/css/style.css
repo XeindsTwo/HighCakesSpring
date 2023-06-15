@@ -3314,6 +3314,12 @@ button.swiper-pagination-bullet {
     opacity: .5
 }
 
+.profile__role {
+    font-size: 24px;
+    color: #ff3131;
+    margin-bottom: 40px;
+}
+
 .profile__top {
     display: -webkit-box;
     display: -ms-flexbox;

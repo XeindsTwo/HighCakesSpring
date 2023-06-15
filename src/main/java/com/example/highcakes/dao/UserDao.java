@@ -1,6 +1,5 @@
 package com.example.highcakes.dao;
 
-import com.example.highcakes.model.Offer;
 import com.example.highcakes.model.User;
 
 import java.util.List;
@@ -16,7 +15,7 @@ public interface UserDao {
 
     public Optional<User> findById(Long id);
 
-    User updateFields(Long id, String username, String password, String name, String number, String mail);
+    User updateFields(Long id, String name, String mail, String number, String password);
 
-    User findByUsername(String username);
+    public User findByUsername(String username);
 }

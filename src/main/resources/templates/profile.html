@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body class="body">
@@ -69,6 +70,12 @@
 <main>
     <section class="profile indent">
         <div class="container">
+            <p class="profile__role" th:if="${isAdmin}">
+                Вы администратор
+            </p>
+            <p class="profile__role" th:unless="${isAdmin}">
+                Вы не администратор
+            </p>
             <div class="profile__top">
                 <img class="profile__avatar" src="images/gallery/1.jpg" alt="аватарка" width="150" height="150">
                 <div class="profile__info">
@@ -78,7 +85,7 @@
             </div>
             <div class="profile__content">
                 <p>
-                    Логин - <span th:text="${user.username}">логин</span>
+                    Логин - <span th:text="${user.getUsername()}">логин</span>
                 </p>
                 <p>
                     Телефон - <span th:text="${user.getNumber()}">телефон</span>
@@ -88,7 +95,12 @@
                 </p>
             </div>
             <button class="profile__btn" type="button"
-
+                    th:data-user-id="${user.getId()}"
+                    th:data-user-name="${user.getName()}"
+                    th:data-user-mail="${user.getMail()}"
+                    th:data-user-number="${user.getNumber()}"
+                    th:data-user-password="${user.getPassword()}"
+                    onclick="modal_EditData()"
             >
                 Редактировать данные
             </button>
@@ -108,28 +120,28 @@
             <ul class="modal__list">
                 <li class="modal__item">
                     <label class="label" for="name">Имя</label>
-                    <input class="input" type="text" id="name" name="name" placeholder="Введите имя">
+                    <input class="input" type="text" id="name" name="name" placeholder="Введите имя" required>
                     <span class="error error--active">Имя не соответствует требованиям. Нельзя использовать спец символы и цифры, только латиница!</span>
                 </li>
                 <li class="modal__item">
-                    <label class="label" for="surname">Фамилия</label>
-                    <input class="input" type="text" id="surname" name="surname" placeholder="Введите фамилию">
-                    <span class="error error--active">Фамилия не соответствует требованиям. Нельзя использовать спец символы и цифры, только латиница!</span>
-                </li>
-                <li class="modal__item">
                     <label class="label" for="email">Почта</label>
-                    <input class="input" type="text" id="email" name="email" placeholder="Введите фамилию">
+                    <input class="input" type="text" id="email" name="email" placeholder="Введите почту" required>
                     <span class="error error--active">Почта не соответствует требованиям. Нельзя использовать спец символы и литиницу!</span>
                 </li>
                 <li class="modal__item">
-                    <label class="label" for="phone">Телефон</label>
-                    <input class="input" type="text" id="phone" name="phone" data-tel-input maxlength="22" placeholder="Введите фамилию">
+                    <label class="label" for="number">Телефон</label>
+                    <input class="input" type="text" id="number" name="number" data-tel-input maxlength="22" placeholder="Введите телефон" required>
                     <span class="error error--active">Телефон не может быть пустым!</span>
+                </li>
+                <li class="modal__item">
+                    <label class="label" for="password">Пароль</label>
+                    <input class="input" type="password" id="password" name="password" placeholder="Введите пароль" required>
+                    <span class="error error--active">Пароль не может быть пустым!</span>
                 </li>
             </ul>
             <div class="modal__buttons">
                 <button class="modal__btn" type="button" onclick="profileClose()">Отменить</button>
-                <button class="modal__btn" type="button">Сохранить</button>
+                <button class="modal__btn" type="button" onclick="modal_SaveData()">Сохранить</button>
             </div>
         </form>
     </div>

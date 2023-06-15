@@ -37,21 +37,24 @@ public class UserImpl implements UserDao {
     }
 
     @Override
-    public User updateFields(Long id, String username, String password, String name, String number, String mail) {
+    public User updateFields(Long id, String name, String mail, String number, String password) {
         Optional<User> optionalUser = userRepo.findById(id);
         if (optionalUser.isPresent()) {
             User existingUser = optionalUser.get();
-            existingUser.setUsername(username);
+            existingUser.setName(name);
+            existingUser.setMail(mail);
+            existingUser.setNumber(number);
             if (password != null && !password.isEmpty()) {
                 String encodedPassword = passwordEncoder.encode(password);
                 existingUser.setPassword(encodedPassword);
             }
-            existingUser.setName(name);
-            existingUser.setNumber(number);
-            existingUser.setMail(mail);
-
             return userRepo.save(existingUser);
         }
         throw new IllegalArgumentException("Invalid user Id: " + id);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepo.findByUsername(username);
     }
 }
