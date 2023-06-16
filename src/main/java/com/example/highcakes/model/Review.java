@@ -5,9 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 @Entity
 @Table(name = "reviews")
@@ -24,6 +25,9 @@ public class Review {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
+    public String getFormattedDate() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM, yyyy 'г.'", new Locale("ru"));
+        return date.format(formatter);
+    }
 }

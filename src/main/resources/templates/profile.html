@@ -57,7 +57,6 @@
                 <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
             </a>
             <div class="header__cabinet" sec:authorize="not isAuthenticated()">
-                <img class="header__avatar" alt="аватар" th:src="@{/images/empty-avatar.png}">
                 <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
             </div>
             <div class="header__cabinet" sec:authorize="isAuthenticated()">
@@ -72,12 +71,10 @@
             <p class="profile__role" th:if="${isAdmin}">
                 Вы администратор
             </p>
-            <p class="profile__role" th:unless="${isAdmin}">
-                Вы не администратор
-            </p>
             <div class="profile__top">
                 <div class="profile__info">
-                    <h1 class="profile__name" th:text="${user.getName()}"></h1>
+                    <a class="profile__logout" th:href="@{/logout}">Выйти из аккаунта</a>
+                    <h1 class="profile__name" th:text="'Здравствуйте, ' + ${user.getName()}"></h1>
                     <span class="profile__email" th:text="${user.getMail()}"></span>
                 </div>
             </div>

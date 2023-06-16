@@ -9,13 +9,12 @@ import com.example.highcakes.repo.ReviewRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Controller
@@ -30,7 +29,7 @@ public class ReviewController {
     public String reviewsPage(Model model, @RequestParam(value = "param", defaultValue = "", required = false) String param) {
         List<Review> reviews;
         if (param != null && !param.isEmpty()) {
-            reviews = reviewRepo.findByUserNameIgnoreCaseContainingAndDate(param, LocalDate.parse(param));
+            reviews = reviewRepo.findByTextIgnoreCaseContaining(param);
             model.addAttribute("param", param);
         } else {
             reviews = reviewRepo.findAll();
@@ -54,5 +53,14 @@ public class ReviewController {
                 + "С уваженением, HighCakes!";
         emailService.send(to, subject, text);
         return "reviews";
+    }
+
+    @GetMapping("/reviews/delete/{id}")
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Review review = reviewImpl.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid review Id:" + id));
+        reviewImpl.delete(review.getId());
+        redirectAttributes.addFlashAttribute("success", "Успешное удаление отзыва от " + review.getUser().getName());
+        return "redirect:/reviews";
     }
 }

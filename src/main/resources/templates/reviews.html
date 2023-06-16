@@ -76,7 +76,7 @@
                     <p class="reviews__unauthorized" sec:authorize="not isAuthenticated()">
                         Если вы хотите оставить отзыв, то сначала <a th:href="@{/login}">авторизуйтесь</a>
                     </p>
-                    <button class="reviews__btn btn" sec:authorize="isAuthenticated()" onclick="modalReviewOpen()">
+                    <button class="reviews__btn btn" sec:authorize="isAuthenticated()" onclick="reviewOpen()">
                         Оставить отзыв
                     </button>
                 </div>
@@ -86,14 +86,17 @@
                             <input type="text" class="catalog__field" id="search-review" placeholder="Введите текст">
                         </label>
                     </form>
+                    <th:block th:if="${reviews.isEmpty()}">
+                        <span class="reviews__info">Пока отзывов нет :)</span>
+                    </th:block>
                     <ul class="reviews__list">
-                        <th:block th:if="${reviews.isEmpty()}">
-                            <span class="reviews__info">Пока отзывов нет :)</span>
-                        </th:block>
                         <li class="reviews__item" th:each="review: ${reviews}">
                             <ul class="card__admin">
-                                <li class="card__admin-item" onclick="modal_DeleteReview(event)">
-                                    <button class="card__admin-btn" id="button-open-delete_cake">
+                                <li class="card__admin-item" onclick="deleteReviewOpen(event)">
+                                    <button class="card__admin-btn" id="button-open-delete_cake"
+                                            th:data-review-id="${review.getId()}"
+                                            th:data-review-name="${review.user.getName()}"
+                                    >
                                         <svg class="table__svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
                                              xmlns="http://www.w3.org/2000/svg">
                                             <path d="M7 1H13M1 4H19M17 4L16.2987 14.5193C16.1935 16.0975 16.1409 16.8867 15.8 17.485C15.4999 18.0118 15.0472 18.4353 14.5017 18.6997C13.882 19 13.0911 19 11.5093 19H8.49065C6.90891 19 6.11803 19 5.49834 18.6997C4.95276 18.4353 4.50009 18.0118 4.19998 17.485C3.85911 16.8867 3.8065 16.0975 3.70129 14.5193L3 4M8 8.5V13.5M12 8.5V13.5"
@@ -103,7 +106,7 @@
                                     </button>
                                 </li>
                             </ul>
-                            <time class="reviews__date" th:text="${review.getDate()}"></time>
+                            <time class="reviews__date" th:text="${review.getFormattedDate()}"></time>
                             <span class="reviews__name" th:text="${review.user.getName()}"></span>
                             <p class="reviews__text" th:text="${review.text}"></p>
                         </li>
@@ -139,7 +142,7 @@
     </section>
 </main>
 <div class="modal" id="modal-add_review">
-    <button class="modal__close" onclick="modalReviewClose()">
+    <button class="modal__close" onclick="reviewClose()">
         <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
                   stroke-linejoin="round"></path>
@@ -148,23 +151,23 @@
         </svg>
     </button>
     <h2 class="section-title" id="edit_modal__title">Написание отзыва</h2>
-    <form class="modal__form" enctype="multipart/form-data">
+    <form class="modal__form">
         <ul class="modal__list">
             <li class="modal__item">
                 <label class="label" for="description">Текст отзыва</label>
-                <textarea class="input textarea" id="description" name="description" placeholder="Введите текст">
-                </textarea>
+                <textarea class="input textarea" id="description" name="description"
+                          placeholder="Введите текст"></textarea>
                 <span class="error error--active">Описание не может быть пустым и коротким. Мин. количество символов - 60</span>
             </li>
         </ul>
         <div class="modal__buttons">
-            <button class="modal__btn" type="button" onclick="modalReviewClose()">Отменить</button>
-            <button class="modal__btn" type="button" onclick="modal_SaveReview()">Отправить</button>
+            <button class="modal__btn" type="button" onclick="reviewClose()">Отменить</button>
+            <button class="modal__btn" type="button" onclick="saveReview()">Отправить</button>
         </div>
     </form>
 </div>
 <div class="modal modal--delete" id="modal-delete_review">
-    <button class="modal__close" onclick="modal_DeleteReviewClose()">
+    <button class="modal__close" onclick="deleteReviewClose()">
         <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
                   stroke-linejoin="round"></path>
@@ -174,14 +177,14 @@
     </button>
     <div class="modal__inner">
         <p class="modal__text">
-            Вы действительно хотите удалить отзыв от пользователя "<span id="cake_name-delete">YouriHelo</span>?"
+            Вы действительно хотите удалить отзыв от пользователя "<span id="review_user-name"></span>?"
             Отменить это действие будет невозможно.
         </p>
         <form class="modal__form-actions" action="">
             <div class="modal__buttons">
                 <button class="modal__btn" type="button" id="button-delete_cake" onclick="deleteReview()">Удалить
                 </button>
-                <button class="modal__btn" type="button" id="button-cancel_cake" onclick="modal_DeleteReviewClose()">
+                <button class="modal__btn" type="button" id="button-cancel_cake" onclick="deleteReviewClose()">
                     Отмена
                 </button>
             </div>
