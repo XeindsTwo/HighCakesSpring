@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HighCakes | Пользователи</title>
+    <link rel="icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+    <link rel="shortcut icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body class="body">
+<header class="header">
+    <div class="container">
+        <nav class="header__nav">
+            <ul class="header__menu">
+                <li class="header__item">
+                    <a class="header__link header__link--active" th:href="@{/}">Главная</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/about}">О компании</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/catalog}">Каталог</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/offer}">Заказать торт</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/unique}">Индивидуальный заказ</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/news}">Новости</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/shipping}">Доставка и оплата</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/reviews}">Отзывы</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="header__inner">
+            <button class="menu-btn">
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+            </button>
+            <a class="logo" th:href="@{/}">
+                <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
+            </a>
+            <div class="header__cabinet" sec:authorize="not isAuthenticated()">
+                <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
+            </div>
+            <div class="header__cabinet" sec:authorize="isAuthenticated()">
+                <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="users indent">
+        <div class="container">
+            <h1 class="page-title page-title--indent">Пользователи</h1>
+            <form class="reviews__search" action="">
+                <label for="search-users">
+                    <input type="text" class="catalog__field" id="search-users" placeholder="Введите текст">
+                </label>
+            </form>
+            <button class="users__btn" type="button" onclick="">Добавить пользователя</button>
+            <ul class="users__list">
+                <li class="users__item" th:each="user : ${users}">
+                    <ul class="card__admin">
+                        <li class="card__admin-item" onclick="modal_EditCake(event)">
+                            <button class="card__admin-btn" id="button-open-edit_cake">
+                                <svg class="table__svg" width="22" height="22" viewBox="0 0 22 22" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17 9L13 5M1.5 20.5L4.88437 20.124C5.29786 20.078 5.5046 20.055 5.69785 19.9925C5.86929 19.937 6.03245 19.8586 6.18289 19.7594C6.35245 19.6475 6.49955 19.5005 6.79373 19.2063L20 6C21.1046 4.89543 21.1046 3.10457 20 2C18.8955 0.895428 17.1046 0.895427 16 2L2.79373 15.2063C2.49955 15.5005 2.35246 15.6475 2.24064 15.8171C2.14143 15.9676 2.06301 16.1307 2.00751 16.3022C1.94496 16.4954 1.92198 16.7021 1.87604 17.1156L1.5 20.5Z"
+                                          stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                        </li>
+                        <li class="card__admin-item" onclick="modal_DeleteCake(event)">
+                            <button class="card__admin-btn" id="button-open-delete_cake">
+                                <svg class="table__svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M7 1H13M1 4H19M17 4L16.2987 14.5193C16.1935 16.0975 16.1409 16.8867 15.8 17.485C15.4999 18.0118 15.0472 18.4353 14.5017 18.6997C13.882 19 13.0911 19 11.5093 19H8.49065C6.90891 19 6.11803 19 5.49834 18.6997C4.95276 18.4353 4.50009 18.0118 4.19998 17.485C3.85911 16.8867 3.8065 16.0975 3.70129 14.5193L3 4M8 8.5V13.5M12 8.5V13.5"
+                                          stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                          stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                        </li>
+                    </ul>
+                    <p th:text="'Логин: ' + ${user.getUsername()}"></p>
+                    <p th:text="'Имя: ' + ${user.getName()}"></p>
+                    <p th:text="'Почта: ' + ${user.getMail()}"></p>
+                    <p th:text="'Номер телефона: ' + ${user.getNumber()}"></p>
+                    <p th:text="'Пароль: ' + ${user.getPassword()}"></p>
+                    <p th:text="'Роль: ' + ${user.getRoles()}"></p>
+                </li>
+            </ul>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer__top">
+        <div class="container">
+            <nav class="footer__nav">
+                <ul class="footer__list">
+                    <li class="footer__item">
+                        <a th:href="@{/}" class="footer__link">Главная</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/about}" class="footer__link">О компании</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/catalog}" class="footer__link">Каталог</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/news}" class="footer__link">Новости</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/reviews}" class="footer__link">Отзывы</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/unique}" class="footer__link">Заказать торт</a>
+                    </li>
+                    <li class="footer__item">
+                        <a th:href="@{/shipping}" class="footer__link">Доставка и оплата</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <p class="footer__author">© Все права защищены HighCakes</p>
+</footer>
+<script th:src="@{/js/main.min.js}"></script>
+
+</body>
+</html>
