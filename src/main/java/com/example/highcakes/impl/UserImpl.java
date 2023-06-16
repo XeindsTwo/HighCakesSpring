@@ -39,14 +39,13 @@ public class UserImpl implements UserDao {
     }
 
     @Override
-    public User updateFields(Long id, String name, String mail, String number, String filename) {
+    public User updateFields(Long id, String name, String mail, String number) {
         Optional<User> optionalUser = userRepo.findById(id);
         if (optionalUser.isPresent()) {
             User existingUser = optionalUser.get();
             existingUser.setName(name);
             existingUser.setMail(mail);
             existingUser.setNumber(number);
-            existingUser.setFilename(filename);
             return userRepo.save(existingUser);
         }
         throw new IllegalArgumentException("Invalid user Id: " + id);

@@ -7,8 +7,6 @@ import com.example.highcakes.model.Review;
 import com.example.highcakes.model.User;
 import com.example.highcakes.repo.ReviewRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +23,7 @@ import java.util.List;
 public class ReviewController {
     private final ReviewRepo reviewRepo;
     private final ReviewImpl reviewImpl;
+    private final UserDao userDao;
     private final EmailServiceImpl emailService;
 
     @GetMapping("/reviews")
@@ -42,9 +41,12 @@ public class ReviewController {
 
     @PostMapping("/reviews/save")
     public String createReview(@ModelAttribute("review") Review review, Principal principal) {
+        String username = principal.getName();
+        User user = userDao.findByUsername(username);
         review.setDate(LocalDate.now());
+        review.setUser(user);
         reviewImpl.save(review);
-        User user = review.getUser();
+
         String to = user.getMail();
         String subject = "Спасибо за ваш отзыв!";
         String text = "Здравствуйте, " + user.getName() + ". Вами был оставлен отзыв на сайте HighCakes\n\n\n"

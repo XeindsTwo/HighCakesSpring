@@ -61,7 +61,6 @@
                 <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
             </div>
             <div class="header__cabinet" sec:authorize="isAuthenticated()">
-                <img class="header__avatar" alt="аватар">
                 <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
             </div>
         </div>
@@ -77,7 +76,9 @@
                     <p class="reviews__unauthorized" sec:authorize="not isAuthenticated()">
                         Если вы хотите оставить отзыв, то сначала <a th:href="@{/login}">авторизуйтесь</a>
                     </p>
-                    <button class="reviews__btn btn" sec:authorize="isAuthenticated()" onclick="modalReviewOpen()">Оставить отзыв</button>
+                    <button class="reviews__btn btn" sec:authorize="isAuthenticated()" onclick="modalReviewOpen()">
+                        Оставить отзыв
+                    </button>
                 </div>
                 <div class="reviews__content">
                     <form class="reviews__search" action="">
@@ -102,7 +103,7 @@
                                     </button>
                                 </li>
                             </ul>
-                            <time class="reviews__date" th:text="${#dates.format(review.date, 'dd MMMM, yyyy г.')}"></time>
+                            <time class="reviews__date" th:text="${review.getDate()}"></time>
                             <span class="reviews__name" th:text="${review.user.getName()}"></span>
                             <p class="reviews__text" th:text="${review.text}"></p>
                         </li>
@@ -151,8 +152,8 @@
         <ul class="modal__list">
             <li class="modal__item">
                 <label class="label" for="description">Текст отзыва</label>
-                <textarea class="input textarea" id="description" name="description"
-                          placeholder="Введите текст"></textarea>
+                <textarea class="input textarea" id="description" name="description" placeholder="Введите текст">
+                </textarea>
                 <span class="error error--active">Описание не может быть пустым и коротким. Мин. количество символов - 60</span>
             </li>
         </ul>

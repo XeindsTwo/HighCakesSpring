@@ -11,7 +11,7 @@ function modal_SaveReview() {
         processData: false,
         contentType: false
     }).done(function () {
-        profileClose();
+        modalReviewClose();
         window.location.reload();
     });
 }

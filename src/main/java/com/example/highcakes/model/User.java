@@ -23,7 +23,6 @@ public class User {
     private String name;
     private String number;
     private String mail;
-    private String filename;
     @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"))
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)

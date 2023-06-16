@@ -61,7 +61,6 @@
                 <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
             </div>
             <div class="header__cabinet" sec:authorize="isAuthenticated()">
-                <img class="header__avatar" alt="аватар" th:src="@{'/uploads/' + ${user.getFilename()}}">
                 <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
             </div>
         </div>
