@@ -3,6 +3,8 @@ package com.example.highcakes.controller;
 import com.example.highcakes.impl.CakeImpl;
 import com.example.highcakes.model.Cake;
 import com.example.highcakes.repo.CakeRepo;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,16 +20,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Controller
+@RequiredArgsConstructor
 public class CakeController {
     @Value("${upload.path}")
     private String uploadPath;
     private final CakeRepo cakeRepo;
     private final CakeImpl cakeImpl;
-
-    public CakeController(CakeRepo cakeRepo, CakeImpl cakeImpl) {
-        this.cakeRepo = cakeRepo;
-        this.cakeImpl = cakeImpl;
-    }
 
     @GetMapping("/catalog")
     public String cakeMainPage(Model model, @RequestParam(value = "param", defaultValue = "", required = false) String param) {

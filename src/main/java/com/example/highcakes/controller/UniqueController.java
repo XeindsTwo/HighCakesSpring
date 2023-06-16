@@ -4,6 +4,7 @@ import com.example.highcakes.impl.EmailServiceImpl;
 import com.example.highcakes.impl.UniqueOfferImpl;
 import com.example.highcakes.model.UniqueOffer;
 import com.example.highcakes.repo.UniqueOfferRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +13,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class UniqueController {
     private final UniqueOfferRepo uniqueOfferRepo;
     private final UniqueOfferImpl uniqueOfferImpl;
     private final EmailServiceImpl emailService;
-
-    public UniqueController(UniqueOfferRepo uniqueOfferRepo, UniqueOfferImpl uniqueOfferImpl, EmailServiceImpl emailService) {
-        this.uniqueOfferRepo = uniqueOfferRepo;
-        this.uniqueOfferImpl = uniqueOfferImpl;
-        this.emailService = emailService;
-    }
 
     @GetMapping("/unique")
     public String offerPage(Model model, @RequestParam(value = "param", defaultValue = "", required = false) String param) {

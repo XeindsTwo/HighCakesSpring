@@ -4,6 +4,7 @@ import com.example.highcakes.impl.UserImpl;
 import com.example.highcakes.model.Role;
 import com.example.highcakes.model.User;
 import com.example.highcakes.repo.UserRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,16 +22,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Controller
+@RequiredArgsConstructor
 public class ProfileController {
     @Value("${upload.path}")
     private String uploadPath;
     private final UserImpl userImpl;
     private final UserRepo userRepo;
-
-    public ProfileController(UserImpl userImpl, UserRepo userRepo) {
-        this.userImpl = userImpl;
-        this.userRepo = userRepo;
-    }
 
     @GetMapping("/profile")
     public String profilePage(Model model, Principal principal) {

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HighCakes | О компании</title>
+    <title>HighCakes | Отзывы</title>
     <link rel="icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
     <link rel="shortcut icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -60,99 +61,54 @@
                 <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
             </div>
             <div class="header__cabinet" sec:authorize="isAuthenticated()">
-                <img class="header__avatar" alt="аватар" th:src="@{'/uploads/' + ${user.getFilename()}}">
+                <img class="header__avatar" alt="аватар">
                 <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
             </div>
         </div>
     </div>
 </header>
 <main>
-    <section class="shipping indent">
+    <section class="reviews indent">
         <div class="container">
-            <h1 class="page-title page-title--indent">Доставка и оплата</h1>
-            <div class="shipping__content">
-                <p>
-                    Уважаемые покупатели! Заказы, оформленные за 1 день до желаемого срока изготовления принимаются до
-                    19.00. Пожалуйста, учитывайте это при оформлении заказа. Спасибо!
-                </p>
-                <p>
-                    Вы можете заказать наши изделия с доставкой или самостоятельно забрать их из фирменного магазина
-                    «HighCakes» по адресу: Белореченск, ул. Ленина, д. 127
-                </p>
-                <p>
-                    Для подтверждения заказа через сайт и согласования времени вручения мы перезвоним вам с 10:00 до
-                    19:00 часов. Услуга доставки по городу начинается от 400 рублей. В случае доставки в Краснодарский
-                    край цена начинается от 1000 рублей
-                </p>
-                <p>
-                    Нашу продукцию вы можете заказать к удобному времени – курьерская доставка осуществляется с 10:00 до
-                    19:00. Доставка к определенному часу осуществляется с 11:00 до 19:00
-                </p>
-                <p>
-                    Самовывоз – ежедневно в порядке живой очереди, с 10:00 до 19:00 по адресу Белореченск, ул. Ленина,
-                    д. 127
-                </p>
+            <div class="reviews__inner">
+                <div class="reviews__left">
+                    <h1 class="reviews__title page-title page-title--indent">Отзывы</h1>
+                    <span class="reviews__quantity">Всего <span th:text="${reviews.size()}"></span> отзывов</span>
+                    <p class="reviews__unauthorized" sec:authorize="not isAuthenticated()">
+                        Если вы хотите оставить отзыв, то сначала <a th:href="@{/login}">авторизуйтесь</a>
+                    </p>
+                    <button class="reviews__btn btn" sec:authorize="isAuthenticated()" onclick="modalReviewOpen()">Оставить отзыв</button>
+                </div>
+                <div class="reviews__content">
+                    <form class="reviews__search" action="">
+                        <label for="search-review">
+                            <input type="text" class="catalog__field" id="search-review" placeholder="Введите текст">
+                        </label>
+                    </form>
+                    <ul class="reviews__list">
+                        <th:block th:if="${reviews.isEmpty()}">
+                            <span class="reviews__info">Пока отзывов нет :)</span>
+                        </th:block>
+                        <li class="reviews__item" th:each="review: ${reviews}">
+                            <ul class="card__admin">
+                                <li class="card__admin-item" onclick="modal_DeleteReview(event)">
+                                    <button class="card__admin-btn" id="button-open-delete_cake">
+                                        <svg class="table__svg" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7 1H13M1 4H19M17 4L16.2987 14.5193C16.1935 16.0975 16.1409 16.8867 15.8 17.485C15.4999 18.0118 15.0472 18.4353 14.5017 18.6997C13.882 19 13.0911 19 11.5093 19H8.49065C6.90891 19 6.11803 19 5.49834 18.6997C4.95276 18.4353 4.50009 18.0118 4.19998 17.485C3.85911 16.8867 3.8065 16.0975 3.70129 14.5193L3 4M8 8.5V13.5M12 8.5V13.5"
+                                                  stroke="#fff" stroke-width="2" stroke-linecap="round"
+                                                  stroke-linejoin="round"></path>
+                                        </svg>
+                                    </button>
+                                </li>
+                            </ul>
+                            <time class="reviews__date" th:text="${#dates.format(review.date, 'dd MMMM, yyyy г.')}"></time>
+                            <span class="reviews__name" th:text="${review.user.getName()}"></span>
+                            <p class="reviews__text" th:text="${review.text}"></p>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </section>
-    <section class="indent">
-        <div class="container">
-            <h2 class="section-title">Упаковка</h2>
-            <div class="shipping__content">
-                <p>
-                    Кондитерские изделия и выпечку мы передаем вам в фирменной упаковке
-                </p>
-                <p>
-                    Мы бесплатно упаковываем торты, пирожные, десерты и пироги весом до 2,5 кг. Если вес заказанного
-                    товара превышает 2,5 кг, и вы хотите особенную упаковку, то действуют тарифы по индивидуальной
-                    упаковке продукции:
-                </p>
-                <ul class="shipping__list">
-                    <li class="shipping__item">весом от 2,5 до 8 кг – 450 руб.</li>
-                    <li class="shipping__item">весом от 8 до 10 кг – 455 руб.</li>
-                    <li class="shipping__item">весом от 12 кг – 1500 руб.</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    <section class="indent">
-        <div class="container">
-            <h2 class="section-title">Оплата</h2>
-            <div class="shipping__content">
-                <p>При получении: наличными, картой (Visa, MasterCard, UnionPay, МИР, ПРО100)</p>
-                <p>Онлайн-оплата: оплата заказа на сайте после оформления</p>
-                <p>Через банковский счет: доступно юридическим лицам</p>
-                <p>Заказы стоимостью более 10 000 ₽ выполняются при 100% предоплате</p>
-            </div>
-        </div>
-    </section>
-    <section class="deadlines indent">
-        <div class="container">
-            <h2 class="section-title">Сроки предзаказа</h2>
-            <div class="deadlines__content shipping__content">
-                <p>
-                    Ваш заказ будет изготовлен непосредственно перед вручением, потому что свежесть продуктов и
-                    своевременная доставка изделий – наше строгое правило
-                </p>
-                <p>
-                    Мы не храним готовые изделия, не добавляем в них консерванты, вот почему нашим кондитерам так важно
-                    заранее спланировать поставки ингредиентов. Именно этим определяется минимальный срок предзаказа – 1
-                    день. Срок увеличиться на 1-2 дня, если вам нужен торт нестандартного веса, мастичный торт или торт
-                    с мастичной фигуркой
-                </p>
-                <p>
-                    Пожалуйста, учитывайте сроки предзаказа, чтобы мы могли выполнить все ваши пожелания к указанной
-                    дате
-                </p>
-                <p>
-                    В предпраздничные дни размещайте заказ на кондитерские изделия и выпечку не менее чем за 7 суток до
-                    нужной вам даты. Максимальная загрузка производства: 25–31 декабря, 7–8 января, 8 марта и на
-                    пасхальной неделе
-                </p>
-            </div>
-            <p class="deadlines__info">
-                Телефон: <a href="tel:+78127645110">+7 (812) 764-51-10</a>
-            </p>
         </div>
     </section>
     <section class="contacts indent">
@@ -181,6 +137,56 @@
         </div>
     </section>
 </main>
+<div class="modal" id="modal-add_review">
+    <button class="modal__close" onclick="modalReviewClose()">
+        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+        </svg>
+    </button>
+    <h2 class="section-title" id="edit_modal__title">Написание отзыва</h2>
+    <form class="modal__form" enctype="multipart/form-data">
+        <ul class="modal__list">
+            <li class="modal__item">
+                <label class="label" for="description">Текст отзыва</label>
+                <textarea class="input textarea" id="description" name="description"
+                          placeholder="Введите текст"></textarea>
+                <span class="error error--active">Описание не может быть пустым и коротким. Мин. количество символов - 60</span>
+            </li>
+        </ul>
+        <div class="modal__buttons">
+            <button class="modal__btn" type="button" onclick="modalReviewClose()">Отменить</button>
+            <button class="modal__btn" type="button" onclick="modal_SaveReview()">Отправить</button>
+        </div>
+    </form>
+</div>
+<div class="modal modal--delete" id="modal-delete_review">
+    <button class="modal__close" onclick="modal_DeleteReviewClose()">
+        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+        </svg>
+    </button>
+    <div class="modal__inner">
+        <p class="modal__text">
+            Вы действительно хотите удалить отзыв от пользователя "<span id="cake_name-delete">YouriHelo</span>?"
+            Отменить это действие будет невозможно.
+        </p>
+        <form class="modal__form-actions" action="">
+            <div class="modal__buttons">
+                <button class="modal__btn" type="button" id="button-delete_cake" onclick="deleteReview()">Удалить
+                </button>
+                <button class="modal__btn" type="button" id="button-cancel_cake" onclick="modal_DeleteReviewClose()">
+                    Отмена
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 <footer class="footer">
     <div class="footer__top">
         <div class="container">
@@ -214,5 +220,6 @@
     <p class="footer__author">© Все права защищены HighCakes</p>
 </footer>
 <script th:src="@{/js/main.min.js}"></script>
+<script th:src="@{/js/reviews.js}"></script>
 </body>
 </html>

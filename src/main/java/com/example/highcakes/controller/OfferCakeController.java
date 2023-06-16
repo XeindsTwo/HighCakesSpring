@@ -6,6 +6,7 @@ import com.example.highcakes.model.Cake;
 import com.example.highcakes.model.Offer;
 import com.example.highcakes.repo.CakeRepo;
 import com.example.highcakes.repo.OfferRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +15,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class OfferCakeController {
 
     private final CakeRepo cakeRepo;
     private final OfferRepo offerRepo;
     private final OfferImpl offerImpl;
     private final EmailServiceImpl emailService;
-
-    public OfferCakeController(CakeRepo cakeRepo, OfferRepo offerRepo, OfferImpl offerImpl, EmailServiceImpl emailService) {
-        this.cakeRepo = cakeRepo;
-        this.offerRepo = offerRepo;
-        this.offerImpl = offerImpl;
-        this.emailService = emailService;
-    }
 
     @GetMapping("/offer")
     public String offerPage(Model model, @RequestParam(value = "param", defaultValue = "", required = false) String param) {
