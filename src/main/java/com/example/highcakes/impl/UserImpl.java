@@ -1,12 +1,14 @@
 package com.example.highcakes.impl;
 
 import com.example.highcakes.dao.UserDao;
+import com.example.highcakes.model.Role;
 import com.example.highcakes.model.User;
 import com.example.highcakes.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,8 +20,8 @@ public class UserImpl implements UserDao {
 
     @Override
     public User save(User user) {
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+        user.setRoles(Collections.singleton(Role.USER));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
     }
 
@@ -39,13 +41,14 @@ public class UserImpl implements UserDao {
     }
 
     @Override
-    public User updateFields(Long id, String name, String mail, String number) {
+    public User updateFields(Long id, String name, String mail, String number, String filename) {
         Optional<User> optionalUser = userRepo.findById(id);
         if (optionalUser.isPresent()) {
             User existingUser = optionalUser.get();
             existingUser.setName(name);
             existingUser.setMail(mail);
             existingUser.setNumber(number);
+            existingUser.setFilename(filename);
             return userRepo.save(existingUser);
         }
         throw new IllegalArgumentException("Invalid user Id: " + id);

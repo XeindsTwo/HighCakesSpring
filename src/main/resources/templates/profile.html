@@ -73,6 +73,7 @@
             </p>
             <div class="profile__top">
                 <div class="profile__info">
+                    <img class="profile__avatar" th:src="@{'/uploads/' + ${user.getFilename()}}" width="150" height="150">
                     <a class="profile__logout" th:href="@{/logout}">Выйти из аккаунта</a>
                     <h1 class="profile__name" th:text="'Здравствуйте, ' + ${user.getName()}"></h1>
                     <span class="profile__email" th:text="${user.getMail()}"></span>
@@ -94,6 +95,7 @@
                     th:data-user-name="${user.getName()}"
                     th:data-user-mail="${user.getMail()}"
                     th:data-user-number="${user.getNumber()}"
+                    th:data-user-filename="${user.getFilename()}"
                     onclick="modal_EditData()"
             >
                 Редактировать данные
@@ -127,6 +129,15 @@
                     <input class="input" type="text" id="number" name="number" data-tel-input maxlength="22"
                            placeholder="Введите телефон" required>
                     <span class="error error--active">Телефон не может быть пустым!</span>
+                </li>
+                <li class="modal__item">
+                    <span class="label">Фотография</span>
+                    <div class="file-upload-container">
+                        <input type="file" id="photo" name="photo" onchange="updateFileName(event)">
+                        <label class="custom-file-upload" for="photo" id="file-upload-label">
+                            Загрузить файл
+                        </label>
+                    </div>
                 </li>
             </ul>
             <div class="modal__buttons">

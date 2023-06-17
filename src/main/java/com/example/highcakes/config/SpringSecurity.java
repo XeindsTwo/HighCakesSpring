@@ -16,8 +16,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class SpringSecurity {
 
-    private final CustomUserDetailsService customUserDetailsService;
-
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -27,8 +25,10 @@ public class SpringSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .requestMatchers("/js/**","/css/**","/fonts/**", "/images/**", "/static/**")
+                .requestMatchers("/js/**", "/css/**", "/fonts/**", "/images/**", "/static/**")
                 .permitAll()
+                .requestMatchers("/profile")
+                .authenticated()
                 .anyRequest()
                 .permitAll()
                 .and()

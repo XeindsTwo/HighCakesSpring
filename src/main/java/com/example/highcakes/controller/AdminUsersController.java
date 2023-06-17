@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminUsersController {
     private final UserImpl userImpl;
+
     @GetMapping("/users")
     public String usersPage(Model model) {
         List<User> users = userImpl.findAll();

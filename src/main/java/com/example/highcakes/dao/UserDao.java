@@ -15,7 +15,7 @@ public interface UserDao {
 
     public Optional<User> findById(Long id);
 
-    User updateFields(Long id, String name, String mail, String number);
+    User updateFields(Long id, String name, String mail, String number, String filename);
 
     public User findByUsername(String username);
 }
