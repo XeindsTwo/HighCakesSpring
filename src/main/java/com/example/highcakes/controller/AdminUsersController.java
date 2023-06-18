@@ -20,8 +20,6 @@ public class AdminUsersController {
     private final UserImpl userImpl;
     private final UserRepo userRepo;
 
-    //Возможно нужно использовать HashSet для сохранения ролей при создании
-
     @GetMapping("/users")
     public String usersPage(Model model, @RequestParam(value = "param", defaultValue = "", required = false) String param) {
         List<User> users;
@@ -44,6 +42,12 @@ public class AdminUsersController {
         return "redirect:/users";
     }
 
+    @GetMapping("/users/add")
+    public String pageAdd(Model model) {
+        model.addAttribute("roles", Role.values());
+        return "add-user";
+    }
+
     @PostMapping("/users/save")
     public String save(@ModelAttribute("user") User user) {
         userRepo.save(user);
@@ -53,7 +57,7 @@ public class AdminUsersController {
     @GetMapping("/users/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model) {
         User user = userRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid cake Id:" + id));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("roles", Role.values());
         model.addAttribute("user", user);
         return "edit-user";
