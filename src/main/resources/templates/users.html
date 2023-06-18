@@ -45,6 +45,9 @@
                 <li class="header__item">
                     <a class="header__link" th:href="@{/reviews}">Отзывы</a>
                 </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/users}">Пользователи</a>
+                </li>
             </ul>
         </nav>
         <div class="header__inner">
@@ -267,8 +270,8 @@
         </p>
         <form class="modal__form-actions" action="">
             <div class="modal__buttons">
-                <button class="modal__btn" type="button" id="button-delete_cake" onclick="deleteUser()">Удалить</button>
-                <button class="modal__btn" type="button" id="button-cancel_cake" onclick="deleteUserSend()">
+                <button class="modal__btn" type="button" id="button-delete_cake" onclick="deleteUserSend()">Удалить</button>
+                <button class="modal__btn" type="button" id="button-cancel_cake" onclick="modal_DeleteUserClose()">
                     Отмена
                 </button>
             </div>
