@@ -71,12 +71,14 @@
             <p class="profile__role" th:if="${isAdmin}">
                 Вы администратор
             </p>
+            <a class="profile__logout" th:href="@{/logout}">Выйти из аккаунта</a>
             <div class="profile__top">
                 <div class="profile__info">
-                    <img class="profile__avatar" th:src="@{'/uploads/' + ${user.getFilename()}}" width="150" height="150">
-                    <a class="profile__logout" th:href="@{/logout}">Выйти из аккаунта</a>
-                    <h1 class="profile__name" th:text="'Здравствуйте, ' + ${user.getName()}"></h1>
-                    <span class="profile__email" th:text="${user.getMail()}"></span>
+                    <img class="profile__avatar" th:src="@{'/uploads/' + ${user.getFilename()}}" width="180" height="180">
+                    <div class="profile__info-content">
+                        <h1 class="profile__name" th:text="${user.getName()}"></h1>
+                        <span class="profile__email" th:text="${user.getMail()}"></span>
+                    </div>
                 </div>
             </div>
             <div class="profile__content">

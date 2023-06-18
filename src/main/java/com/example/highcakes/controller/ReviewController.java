@@ -52,7 +52,7 @@ public class ReviewController {
                 + "Ваш отзыв принят, мы благодарим наших клиентов за оставление положительных отзывов. Мы ради нести миру добро\n\n"
                 + "С уваженением, HighCakes!";
         emailService.send(to, subject, text);
-        return "redirect:/reviews";
+        return "redirect:/catalog";
     }
 
     @GetMapping("/reviews/delete/{id}")
