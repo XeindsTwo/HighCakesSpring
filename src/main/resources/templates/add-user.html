@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HighCakes | Пользователи</title>
+  <link rel="icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+  <link rel="shortcut icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body class="body">
+<header class="header">
+  <div class="container">
+    <nav class="header__nav">
+      <ul class="header__menu">
+        <li class="header__item">
+          <a class="header__link header__link--active" th:href="@{/}">Главная</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" th:href="@{/about}">О компании</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" th:href="@{/catalog}">Каталог</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" th:href="@{/offer}">Заказать торт</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" th:href="@{/unique}">Индивидуальный заказ</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" th:href="@{/news}">Новости</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" th:href="@{/shipping}">Доставка и оплата</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" th:href="@{/reviews}">Отзывы</a>
+        </li>
+        <li class="header__item">
+          <a class="header__link" th:href="@{/users}">Пользователи</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header__inner">
+      <button class="menu-btn">
+        <span class="menu-btn__line"></span>
+        <span class="menu-btn__line"></span>
+        <span class="menu-btn__line"></span>
+      </button>
+      <a class="logo" th:href="@{/}">
+        <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
+      </a>
+      <div class="header__cabinet" sec:authorize="not isAuthenticated()">
+        <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
+      </div>
+      <div class="header__cabinet" sec:authorize="isAuthenticated()">
+        <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
+      </div>
+    </div>
+  </div>
+</header>
+<main>
+  <section class="users indent">
+    <div class="container">
+      <h1 class="page-title page-title--indent">Добавление пользователя</h1>
+      <form class="modal__form">
+        <ul class="modal__list">
+          <li class="modal__item">
+            <label class="label" for="name">Имя</label>
+            <input class="input" type="text" id="name" name="name" placeholder="Введите имя" required>
+            <span class="error error--active">
+                    Название не должно содержать цифры. Минимальное количество символов - 3, максимальное - 50
+                </span>
+          </li>
+          <li class="modal__item">
+            <label class="label" for="username">Логин</label>
+            <input class="input" type="text" id="username" name="username" placeholder="Введите логин" required>
+            <span class="error error--active">Юзернейм не может быть пустым</span>
+          </li>
+          <li class="modal__item">
+            <label class="label" for="email">Почта</label>
+            <input class="input" type="email" id="email" name="email" placeholder="Введите почту" required>
+            <span class="error error--active">Почта не может быть пустой</span>
+          </li>
+          <li class="modal__item">
+            <label class="label" for="phone">Номер телефона</label>
+            <input class="input" data-tel-input maxlength="22" id="phone" name="phone" type="text" placeholder="Введите номер" required>
+          </li>
+          <li class="modal__item">
+            <label class="label" for="password">Пароль</label>
+            <input class="input" type="password" id="password" name="password"
+                   placeholder="Введите количество" required>
+            <span class="error error--active">Количество символов не должно быть меньше 2, и не больше 6</span>
+          </li>
+          <li class="modal__item">
+            <label class="label" for="role">Роль</label>
+            <select class="select" id="role" name="role">
+              <option th:each="role : ${roles}" th:value="${role}" th:text="${role.name}"></option>
+            </select>
+          </li>
+        </ul>
+        <div class="modal__buttons">
+          <button class="modal__btn" type="button">Сохранить</button>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="footer__top">
+    <div class="container">
+      <nav class="footer__nav">
+        <ul class="footer__list">
+          <li class="footer__item">
+            <a th:href="@{/}" class="footer__link">Главная</a>
+          </li>
+          <li class="footer__item">
+            <a th:href="@{/about}" class="footer__link">О компании</a>
+          </li>
+          <li class="footer__item">
+            <a th:href="@{/catalog}" class="footer__link">Каталог</a>
+          </li>
+          <li class="footer__item">
+            <a th:href="@{/news}" class="footer__link">Новости</a>
+          </li>
+          <li class="footer__item">
+            <a th:href="@{/reviews}" class="footer__link">Отзывы</a>
+          </li>
+          <li class="footer__item">
+            <a th:href="@{/unique}" class="footer__link">Заказать торт</a>
+          </li>
+          <li class="footer__item">
+            <a th:href="@{/shipping}" class="footer__link">Доставка и оплата</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <p class="footer__author">© Все права защищены HighCakes</p>
+</footer>
+<script th:src="@{/js/main.min.js}"></script>
+<script th:src="@{/js/phone-mask.js}"></script>
+<script th:src="@{/js/custom-select.js}"></script>
+<script th:src="@{/js/users.js}"></script>
+</body>
+</html>
