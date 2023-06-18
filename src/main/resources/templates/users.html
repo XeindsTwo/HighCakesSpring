@@ -82,11 +82,7 @@
                 <li class="users__item" th:each="user : ${users}">
                     <ul class="card__admin">
                         <li class="card__admin-item">
-                            <a class="card__admin-btn" th:href="@{/users/edit}"
-                                    th:data-user-id="${user.getId()}" th:data-user-name="${user.getName()}"
-                                    th:data-user-username="${user.getUsername()}" th:data-user-mail="${user.getMail()}"
-                                    th:data-user-number="${user.getNumber()}" th:data-user-role="${user.getRoles()}"
-                            >
+                            <a class="card__admin-btn" th:href="@{/users/{id}/edit(id=${user.id})}">
                                 <svg class="table__svg" width="22" height="22" viewBox="0 0 22 22" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
                                     <path d="M17 9L13 5M1.5 20.5L4.88437 20.124C5.29786 20.078 5.5046 20.055 5.69785 19.9925C5.86929 19.937 6.03245 19.8586 6.18289 19.7594C6.35245 19.6475 6.49955 19.5005 6.79373 19.2063L20 6C21.1046 4.89543 21.1046 3.10457 20 2C18.8955 0.895428 17.1046 0.895427 16 2L2.79373 15.2063C2.49955 15.5005 2.35246 15.6475 2.24064 15.8171C2.14143 15.9676 2.06301 16.1307 2.00751 16.3022C1.94496 16.4954 1.92198 16.7021 1.87604 17.1156L1.5 20.5Z"
@@ -110,7 +106,7 @@
                     <p th:text="'Имя: ' + ${user.getName()}"></p>
                     <p th:text="'Почта: ' + ${user.getMail()}"></p>
                     <p th:text="'Номер телефона: ' + ${user.getNumber()}"></p>
-                    <p th:text="'Роль: ' + ${user.getRoles()}"></p>
+                    <p th:each="role : ${user.roles}" th:text="'Роль: ' + ${role.name}"></p>
                 </li>
             </ul>
         </div>
@@ -157,100 +153,6 @@
                   stroke-linejoin="round"/>
         </svg>
     </button>
-    <h2 class="section-title">Добавление пользователя</h2>
-    <form class="modal__form" enctype="multipart/form-data">
-        <ul class="modal__list">
-            <li class="modal__item">
-                <label class="label" for="add_name">Имя</label>
-                <input class="input" type="text" id="add_name" name="add_name" placeholder="Введите имя" required>
-                <span class="error error--active">
-                    Название не должно содержать цифры. Минимальное количество символов - 3, максимальное - 50
-                </span>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="add_username">Логин</label>
-                <input class="input" type="text" id="add_username" name="add_username" placeholder="Введите логин" required>
-                <span class="error error--active">Юзернейм не может быть пустым</span>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="add_email">Почта</label>
-                <input class="input" type="email" id="add_email" name="add_email" placeholder="Введите почту" required>
-                <span class="error error--active">Почта не может быть пустой</span>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="add_phone">Номер телефона</label>
-                <input class="input" data-tel-input maxlength="22" id="add_phone" name="add_phone" type="text" placeholder="Введите номер" required>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="add_password">Пароль</label>
-                <input class="input" type="password" id="add_password" name="add_password"
-                       placeholder="Введите количество" required>
-                <span class="error error--active">Количество символов не должно быть меньше 2, и не больше 6</span>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="add_role">Роль</label>
-                <select class="select" id="add_role" name="add_role">
-                    <option th:each="role : ${roles}" th:value="${role}" th:text="${role.name}"></option>
-                </select>
-            </li>
-        </ul>
-        <div class="modal__buttons">
-            <button class="modal__btn" type="button" onclick="modal_AddUserClose()">Отменить</button>
-            <button class="modal__btn" type="button" onclick="modal_AddUser()">Сохранить</button>
-        </div>
-    </form>
-</div>
-<div class="modal" id="edit_user">
-    <button class="modal__close" onclick="modal_EditUserClose()">
-        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
-                  stroke-linejoin="round"/>
-        </svg>
-    </button>
-    <h2 class="section-title">Редактирование пользователя</h2>
-    <form class="modal__form" enctype="multipart/form-data">
-        <ul class="modal__list">
-            <li class="modal__item">
-                <label class="label" for="edit_name">Имя</label>
-                <input class="input" type="text" id="edit_name" name="edit_name" placeholder="Введите имя" required>
-                <span class="error error--active">
-                    Название не должно содержать цифры. Минимальное количество символов - 3, максимальное - 50
-                </span>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="edit_username">Логин</label>
-                <input class="input" type="text" id="edit_username" name="edit_username" placeholder="Введите логин" required>
-                <span class="error error--active">Юзернейм не может быть пустым</span>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="edit_email">Почта</label>
-                <input class="input" type="email" id="edit_email" name="edit_email" placeholder="Введите почту" required>
-                <span class="error error--active">Почта не может быть пустой</span>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="edit_phone">Номер телефона</label>
-                <input class="input" data-tel-input maxlength="22" id="edit_phone" name="edit_phone" type="text" placeholder="Введите номер" required>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="edit_password">Пароль</label>
-                <input class="input" type="password" id="edit_password" name="edit_password"
-                       placeholder="Введите количество" required>
-                <span class="error error--active">Количество символов не должно быть меньше 2, и не больше 6</span>
-            </li>
-            <li class="modal__item">
-                <label class="label" for="edit_role">Роль</label>
-                <select class="select" id="edit_role" name="edit_role">
-                    <option th:each="role : ${roles}" th:value="${role}" th:text="${role.name}"></option>
-                </select>
-            </li>
-        </ul>
-        <div class="modal__buttons">
-            <button class="modal__btn" type="button" onclick="modal_EditUserClose()">Отменить</button>
-            <button class="modal__btn" type="button" onclick="modal_EditUser()">Сохранить</button>
-        </div>
-    </form>
 </div>
 <div class="modal" id="delete_user">
     <button class="modal__close" onclick="modal_DeleteUserClose()">

@@ -17,11 +17,6 @@ public enum Role implements GrantedAuthority {
     }
 
     @Override
-    public String toString() {
-        return name;
-    }
-
-    @Override
     public String getAuthority() {
         return name;
     }

@@ -71,8 +71,9 @@
   <section class="users indent">
     <div class="container">
       <h1 class="page-title page-title--indent">Редактирование пользователя</h1>
-      <form class="modal__form">
+      <form class="modal__form" th:object="${user}" th:action="@{/users/save}" method="post">
         <input th:field="*{id}" type="hidden">
+        <input th:field="*{password}" type="hidden">
         <ul class="modal__list">
           <li class="modal__item">
             <label class="label" for="name">Имя</label>
@@ -83,33 +84,27 @@
           </li>
           <li class="modal__item">
             <label class="label" for="username">Логин</label>
-            <input class="input" type="text" id="username" name="username" placeholder="Введите логин" required>
+            <input class="input" type="text" id="username" name="username" placeholder="Введите логин" required th:field="*{username}">
             <span class="error error--active">Юзернейм не может быть пустым</span>
           </li>
           <li class="modal__item">
             <label class="label" for="email">Почта</label>
-            <input class="input" type="email" id="email" name="email" placeholder="Введите почту" required>
+            <input class="input" type="email" id="email" name="email" placeholder="Введите почту" required th:field="*{mail}">
             <span class="error error--active">Почта не может быть пустой</span>
           </li>
           <li class="modal__item">
             <label class="label" for="phone">Номер телефона</label>
-            <input class="input" data-tel-input maxlength="22" id="phone" name="phone" type="text" placeholder="Введите номер" required>
-          </li>
-          <li class="modal__item">
-            <label class="label" for="password">Пароль</label>
-            <input class="input" type="password" id="password" name="password"
-                   placeholder="Введите количество" required>
-            <span class="error error--active">Количество символов не должно быть меньше 2, и не больше 6</span>
+            <input class="input" data-tel-input maxlength="22" id="phone" name="phone" type="text" placeholder="Введите номер" required th:field="*{number}">
           </li>
           <li class="modal__item">
             <label class="label" for="role">Роль</label>
-            <select class="select" id="role" name="role">
+            <select class="select" id="role" name="role" th:field="*{roles}">
               <option th:each="role : ${roles}" th:value="${role}" th:text="${role.name}"></option>
             </select>
           </li>
         </ul>
         <div class="modal__buttons">
-          <button class="modal__btn" type="button">Сохранить</button>
+          <button class="modal__btn" type="submit">Сохранить</button>
         </div>
       </form>
     </div>
