@@ -33,6 +33,9 @@ public class ProfileController {
     public String profilePage(Model model, Principal principal) {
         String username = principal.getName();
         User user = userImpl.findByUsername(username);
+        if (user == null){
+            return "redirect:/login?logout";
+        }
         model.addAttribute("user", user);
         model.addAttribute("isAdmin", user.getRoles().contains(Role.ADMIN));
         model.addAttribute("Role", Role.class);
