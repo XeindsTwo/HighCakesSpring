@@ -1,6 +1,5 @@
 package com.example.highcakes.config;
 
-import com.example.highcakes.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +26,7 @@ public class SpringSecurity {
                 .authorizeRequests()
                 .requestMatchers("/js/**", "/css/**", "/fonts/**", "/images/**", "/static/**")
                 .permitAll()
-//                .requestMatchers("/").hasAuthority("Администратор")
+                .requestMatchers("/users").hasAuthority("Администратор")
 //                .requestMatchers("/").hasAuthority("Пользователь")
                 .anyRequest()
                 .permitAll()

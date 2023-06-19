@@ -78,7 +78,7 @@
                     <input type="text" class="catalog__field" id="search-cake" placeholder="Введите текст">
                 </label>
             </form>
-            <button class="catalog__btn" onclick="modal_addCake()">Добавить товар</button>
+            <button class="catalog__btn" onclick="modal_addCake()" sec:authorize="hasAuthority('Администратор')">Добавить товар</button>
             <ul class="catalog__list">
                 <th:block th:if="${cakes.isEmpty()}">
                     <p>Тортов нет, создайте их</p>
@@ -86,7 +86,7 @@
                 <th:block th:each="cake: ${cakes}">
                     <li class="catalog__item">
                         <div class="card">
-                            <ul class="card__admin">
+                            <ul class="card__admin" sec:authorize="hasAuthority('Администратор')">
                                 <li class="card__admin-item" onclick="modal_EditCake(event)">
                                     <button class="card__admin-btn" id="button-open-edit_cake"
                                             th:data-cake-id="${cake.id}"

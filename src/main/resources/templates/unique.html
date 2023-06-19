@@ -71,7 +71,7 @@
 <main>
     <section class="offer indent">
         <div class="container">
-            <div class="offer__admin">
+            <div class="offer__admin" sec:authorize="hasAuthority('Администратор')">
                 <form class="offer__admin-search" action="">
                     <label for="search-offer">
                         <input type="text" class="catalog__field" id="search-offer" placeholder="Введите текст">
