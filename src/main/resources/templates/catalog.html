@@ -251,7 +251,7 @@
     </div>
     <p class="footer__author">© Все права защищены HighCakes</p>
 </footer>
-<div class="modal" id="modal-edit_cake">
+<div class="modal" sec:authorize="hasAuthority('Администратор')" id="modal-edit_cake">
     <button class="modal__close" onclick="modal_cakeClose()">
         <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
@@ -335,7 +335,7 @@
         </div>
     </form>
 </div>
-<div class="modal modal--delete" id="modal-delete_cake">
+<div class="modal modal--delete" sec:authorize="hasAuthority('Администратор')" id="modal-delete_cake">
     <button class="modal__close" onclick="modal_DeleteCakeClose()">
         <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
