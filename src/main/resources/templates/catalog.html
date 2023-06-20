@@ -41,13 +41,19 @@
                     <a class="header__link" th:href="@{/news}">Новости</a>
                 </li>
                 <li class="header__item">
+                    <a class="header__link" th:href="@{/help}">Помощь</a>
+                </li>
+                <li class="header__item">
                     <a class="header__link" th:href="@{/shipping}">Доставка и оплата</a>
                 </li>
                 <li class="header__item">
                     <a class="header__link" th:href="@{/reviews}">Отзывы</a>
                 </li>
-                <li class="header__item">
+                <li class="header__item" sec:authorize="hasAuthority('Администратор')">
                     <a class="header__link" th:href="@{/users}">Пользователи</a>
+                </li>
+                <li class="header__item" sec:authorize="hasAuthority('Администратор')">
+                    <a class="header__link" th:href="@{/manual}">Администрирование</a>
                 </li>
             </ul>
         </nav>

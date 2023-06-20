@@ -6,6 +6,9 @@ import com.example.highcakes.model.User;
 import com.example.highcakes.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +22,7 @@ import java.util.List;
 public class AdminUsersController {
     private final UserImpl userImpl;
     private final UserRepo userRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/users")
     public String usersPage(Model model, @RequestParam(value = "param", defaultValue = "", required = false) String param) {
@@ -51,6 +55,7 @@ public class AdminUsersController {
     @PostMapping("/users/save")
     public String save(@ModelAttribute("user") User user) {
         userRepo.save(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return "redirect:/users";
     }
 

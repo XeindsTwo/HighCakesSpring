@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,7 +14,6 @@
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
-
 <body class="body">
 <header class="header">
     <div class="container">
@@ -40,13 +38,19 @@
                     <a class="header__link" th:href="@{/news}">Новости</a>
                 </li>
                 <li class="header__item">
+                    <a class="header__link" th:href="@{/help}">Помощь</a>
+                </li>
+                <li class="header__item">
                     <a class="header__link" th:href="@{/shipping}">Доставка и оплата</a>
                 </li>
                 <li class="header__item">
                     <a class="header__link" th:href="@{/reviews}">Отзывы</a>
                 </li>
-                <li class="header__item">
+                <li class="header__item" sec:authorize="hasAuthority('Администратор')">
                     <a class="header__link" th:href="@{/users}">Пользователи</a>
+                </li>
+                <li class="header__item" sec:authorize="hasAuthority('Администратор')">
+                    <a class="header__link" th:href="@{/manual}">Администрирование</a>
                 </li>
             </ul>
         </nav>
@@ -76,12 +80,11 @@
             </p>
             <a class="profile__logout" th:href="@{/logout}">Выйти из аккаунта</a>
             <div class="profile__top">
-                <div class="profile__info">
-                    <img class="profile__avatar" th:src="@{'/uploads/' + ${user.getFilename()}}" width="180" height="180">
-                    <div class="profile__info-content">
-                        <h1 class="profile__name" th:text="${user.getName()}"></h1>
-                        <span class="profile__email" th:text="${user.getMail()}"></span>
-                    </div>
+                <img class="profile__avatar" th:src="@{'/uploads/' + ${user.getFilename()}}" width="180"
+                     height="180">
+                <div class="profile__info-content">
+                    <h1 class="profile__name" th:text="${user.getName()}"></h1>
+                    <span class="profile__email" th:text="${user.getMail()}"></span>
                 </div>
             </div>
             <div class="profile__content">

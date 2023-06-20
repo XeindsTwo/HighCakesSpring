@@ -3,7 +3,6 @@ package com.example.highcakes.controller;
 import com.example.highcakes.impl.CakeImpl;
 import com.example.highcakes.model.Cake;
 import com.example.highcakes.repo.CakeRepo;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

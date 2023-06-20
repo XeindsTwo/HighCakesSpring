@@ -29,4 +29,14 @@ public class NavController {
     private String shippingPage() {
         return "shipping";
     }
+
+    @GetMapping("/help")
+    private String helpPage() {
+        return "help";
+    }
+
+    @GetMapping("/manual")
+    private String manualPage() {
+        return "manual";
+    }
 }

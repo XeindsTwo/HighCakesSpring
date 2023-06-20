@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HighCakes | Помощь</title>
+    <link rel="icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+    <link rel="shortcut icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="body">
+<header class="header">
+    <div class="container">
+        <nav class="header__nav">
+            <ul class="header__menu">
+                <li class="header__item">
+                    <a class="header__link header__link--active" th:href="@{/}">Главная</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/about}">О компании</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/catalog}">Каталог</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/offer}">Заказать торт</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/unique}">Индивидуальный заказ</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/news}">Новости</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/help}">Помощь</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/shipping}">Доставка и оплата</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/reviews}">Отзывы</a>
+                </li>
+                <li class="header__item" sec:authorize="hasAuthority('Администратор')">
+                    <a class="header__link" th:href="@{/users}">Пользователи</a>
+                </li>
+                <li class="header__item" sec:authorize="hasAuthority('Администратор')">
+                    <a class="header__link" th:href="@{/manual}">Администрирование</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="header__inner">
+            <button class="menu-btn">
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+            </button>
+            <a class="logo" th:href="@{/}">
+                <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
+            </a>
+            <div class="header__cabinet" sec:authorize="not isAuthenticated()">
+                <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
+            </div>
+            <div class="header__cabinet" sec:authorize="isAuthenticated()">
+                <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <div class="container">
+        <h1 class="manual__title page-title">Страница помощи</h1>
+        <div class="manual__inner">
+            <div class="manual__top">
+                <span class="manual__number">#1</span>
+                <span class="manual__name">Поиск данных</span>
+            </div>
+            <div class="manual__content">
+                <p>
+                    В системе имеется функция поиска данных. Данным действием могут заниматься все пользователи системы.
+                    Осуществлять поиск данных можно из следующих мест – каталог тортов, и отзывы.
+                </p>
+                <p>
+                    Чтобы начать поиск первым делом нужно перейти на определенную страницу с поиском которая есть в
+                    системе.
+                    У каждой страницы свое поле поиска. То есть, если вы перейдете на другую таблицу, то там будет
+                    показывать поиск именно для данной страницы (на которой находитесь в системе).
+                </p>
+                <p>
+                    Поиск работает динамическим способом. Введя даже один символ, вы уже получите контент, который будет
+                    совпадать с данными из запроса поиска. Поиск работает методом вставки – вы можете написать слог из
+                    слова
+                    и вам все равно будет показывать результат, который будет совпадать с данными из запроса.
+                </p>
+                <div class="manual__img">
+                    <img src="images/manual/1.jpg" alt="" width="800">
+                    <span class="manual__caption">Рисунок 1 - Руководство пользователя для поиска данных</span>
+                </div>
+            </div>
+            <div class="manual__top">
+                <span class="manual__number">#2</span>
+                <span class="manual__name">Добавление отзыва</span>
+            </div>
+            <div class="manual__content">
+                <p>
+                    В системе имеется страница «Отзывы». Отзывы могут просматривать все пользователи. На данной странице
+                    можно будет прочитать отзывы от других людей, которые оставили свое мнение о кондитерской.
+                </p>
+                <p>
+                    Чтобы оставить отзыв самому, первым делом нужно авторизоваться (в случае, если у вас нет аккаунта,
+                    то перейдите на странице регистрации чтобы создать аккаунт). Далее, когда вы авторизуетесь вы
+                    сможете увидеть на сайте кнопку «Добавить отзыв», по нажатию которой откроется модальное окно с
+                    добавлением вашего отзыва.
+                </p>
+                <div class="manual__img">
+                    <img src="images/manual/2.jpg" alt="" width="800">
+                    <span class="manual__caption">Рисунок 2 - Руководство пользователя «Отзывы»</span>
+                </div>
+                <p>
+                    Введя текст вашего отзыва, вы можете нажать на «Отменить» если вы передумали оставлять отзыв, после
+                    чего у вас закроется модальное окно с добавлением отзыва. Если вы нажмете на «Отправить», то ваш
+                    отзыв добавится на странице, и вам придет письмо на почту с благодарностью за оставленный отзыв.
+                </p>
+                <div class="manual__img">
+                    <img src="images/manual/3.jpg" alt="" width="800">
+                    <span class="manual__caption">Рисунок 3 - Руководство пользователя «Отзывы»</span>
+                </div>
+            </div>
+            <div class="manual__top">
+                <span class="manual__number">#3</span>
+                <span class="manual__name">Страница заявок и индивидуальных заказов</span>
+            </div>
+            <div class="manual__content">
+                <p>
+                    В системе также имеются 2 страницы, на которых имеются формы обратной связи – первая страница — это
+                    заказ торта из каталога, а вторая страница — это индивидуальный заказ.
+                </p>
+                <p>
+                    На странице заказа нужно ввести свои контактные данные, а также выбрать определенный торт, которые
+                    вы захотели заказать.
+                </p>
+                <div class="manual__img">
+                    <img src="images/manual/4.jpg" alt="" width="800">
+                    <span class="manual__caption">Рисунок 4 - Руководство пользователя «Заказать торт»</span>
+                </div>
+                <p>
+                    После нажатии кнопки «Отправить» на почту, указанную в форме, придет письмо о том, что заявка была
+                    принят, и в ближайшее время нужно ожидать поступления звонка на телефон, указанный в форме.
+                </p>
+                <p>
+                    На странице «Индивидуальный заказ» действуют точно такая же форма обратной связи, но теперь
+                    потребуется не выбрать торт, а ввести данные о торте – это вес, и описание для торта, который вы
+                    хотите сделать для себя.
+                </p>
+                <div class="manual__img">
+                    <img src="images/manual/5.jpg" alt="" width="800">
+                    <span class="manual__caption">Рисунок 5 - Руководство пользователя «Индивидуальный заказ»</span>
+                </div>
+                <p>
+                    После нажатии кнопки «Отправить» на почту, указанную в форме, придет письмо о том, что заказ был
+                    принят, и в ближайшее время нужно ожидать поступления звонка на телефон, указанный в форме.
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+<footer class="footer">
+    <div class="footer__top">
+        <div class="container">
+            <nav class="footer__nav">
+                <ul class="footer__list">
+                    <li class="footer__item">
+                        <a href="" class="footer__link">Главная</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="" class="footer__link">О компании</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="" class="footer__link">Каталог</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="" class="footer__link">Новости</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="" class="footer__link">Отзывы</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="" class="footer__link">Заказать торт</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="" class="footer__link">Доставка и оплата</a>
+                    </li>
+                    <li class="footer__item">
+                        <a href="" class="footer__link">Контакты</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <p class="footer__author">© Все права защищены HighCakes</p>
+</footer>
+<script th:src="@{/js/main.min.js}"></script>
+</body>
+</html>
