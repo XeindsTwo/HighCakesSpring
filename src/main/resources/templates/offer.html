@@ -130,25 +130,23 @@
                     </p>
                     <a class="offer__link" th:href="@{/catalog}">Разглядеть весь каталог</a>
                 </div>
-                <form class="offer__form" th:action="@{/offer/save}" th:object="${offer}" method="post">
+                <form class="offer__form" id="offerForm" th:action="@{/offer/save}" th:object="${offer}" method="post">
                     <ul class="offer__list">
                         <li class="offer__item">
                             <label class="label" for="name">Ваше имя</label>
-                            <input class="input" id="name" name="name" type="text" placeholder="Введите имя" required>
-                            <span class="error error--active">Имя не соответствует требованиям. Нельзя использовать спец символы и цифры, только латиница!</span>
+                            <input class="input" id="name" name="name" type="text" placeholder="Введите имя">
+                            <span class="error">Имя не соответствует требованиям. Нельзя использовать спец символы и цифры, только латиница!</span>
                         </li>
                         <li class="offer__item">
                             <label class="label" for="phone">Ваш телефон</label>
                             <input class="input" data-tel-input maxlength="22" id="phone" name="phone" type="text"
-                                   placeholder="Введите номер"
-                                   required>
-                            <span class="error error--active">Телефон не может быть пустым!</span>
+                                   placeholder="Введите номер">
+                            <span class="error">Телефон не может быть пустым!</span>
                         </li>
                         <li class="offer__item">
                             <label class="label" for="email">Ваша почта</label>
-                            <input class="input" id="email" name="email" type="email" placeholder="Введите почту"
-                                   required>
-                            <span class="error error--active">Почта не соответствует требованиям. Нельзя использовать спец символы и литиницу!</span>
+                            <input class="input" id="email" name="email" type="email" placeholder="Введите почту">
+                            <span class="error">Почта не соответствует требованиям. Нельзя использовать спец символы и литиницу!</span>
                         </li>
                         <li class="offer__item">
                             <label class="label" for="cake">Выбор тортика</label>

@@ -31,23 +31,25 @@ function modal_EditData() {
 }
 
 function modal_SaveData() {
-    let formData = new FormData();
-    formData.append('id', curr_profile_id);
-    formData.append('name', $("#name").val());
-    formData.append('mail', $("#email").val());
-    formData.append('number', $("#number").val());
-    formData.append('photo', $("#photo")[0].files[0]);
-    formData.append('filename', $("#photo").val());
-    $.ajax({
-        method: "POST",
-        url: `/profile/edit?id=${curr_profile_id}`,
-        data: formData,
-        processData: false,
-        contentType: false
-    }).done(function () {
-        profileClose();
-        window.location.reload();
-    });
+    if (validateProfileFields()) {
+        let formData = new FormData();
+        formData.append('id', curr_profile_id);
+        formData.append('name', $("#name").val());
+        formData.append('mail', $("#email").val());
+        formData.append('number', $("#number").val());
+        formData.append('photo', $("#photo")[0].files[0]);
+        formData.append('filename', $("#photo").val());
+        $.ajax({
+            method: "POST",
+            url: `/profile/edit?id=${curr_profile_id}`,
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(function () {
+            profileClose();
+            window.location.reload();
+        });
+    }
 }
 
 function modal_EditOpen() {
@@ -59,4 +61,41 @@ function profileClose() {
     modalEditProfile.classList.remove('modal--active');
     document.body.classList.remove('body--active');
     modalEditProfile.scrollTop = 0;
+}
+
+function validateProfileFields() {
+    const nameField = $("#name");
+    const emailField = $("#email");
+    const numberField = $("#number");
+
+    const nameError = $("#name").next(".error");
+    const emailError = $("#email").next(".error");
+    const numberError = $("#number").next(".error");
+
+    let isValid = true;
+
+    const nameRegex = /^[A-Za-zА-Яа-я]+$/;
+    if (!nameRegex.test(nameField.val())) {
+        nameError.addClass("error--active");
+        isValid = false;
+    } else {
+        nameError.removeClass("error--active");
+    }
+
+    const emailRegex = /^[A-Za-z0-9]+@[A-Za-z]+\.[A-Za-z]+$/;
+    if (!emailRegex.test(emailField.val())) {
+        emailError.addClass("error--active");
+        isValid = false;
+    } else {
+        emailError.removeClass("error--active");
+    }
+
+    if (numberField.val() === "") {
+        numberError.addClass("error--active");
+        isValid = false;
+    } else {
+        numberError.removeClass("error--active");
+    }
+
+    return isValid;
 }

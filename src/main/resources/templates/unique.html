@@ -134,38 +134,34 @@
                     </p>
                 </div>
                 <p class="offer__info" sec:authorize="not isAuthenticated()">Чтобы отправить форму индивидуального заказа вам нужно <a th:href="@{/login}">авторизоваться</a>!</p>
-                <form class="offer__form" sec:authorize="isAuthenticated()" th:action="@{/unique/save}" th:object="${unique}" method="post">
+                <form class="offer__form" id="offerForm" sec:authorize="isAuthenticated()" th:action="@{/unique/save}" th:object="${unique}" method="post">
                     <ul class="offer__list">
                         <li class="offer__item">
                             <label class="label" for="name">Ваше имя</label>
-                            <input class="input" id="name" name="name" type="text" placeholder="Введите имя" required>
-                            <span class="error error--active">Имя не соответствует требованиям. Нельзя использовать спец символы и цифры, только латиница!</span>
+                            <input class="input" id="name" name="name" type="text" placeholder="Введите имя">
+                            <span class="error">Имя не соответствует требованиям. Нельзя использовать спец символы и цифры, только латиница!</span>
                         </li>
                         <li class="offer__item">
                             <label class="label" for="phone">Ваш телефон</label>
                             <input class="input" data-tel-input maxlength="22" id="phone" name="phone" type="text"
-                                   placeholder="Введите номер"
-                                   required>
-                            <span class="error error--active">Телефон не может быть пустым!</span>
+                                   placeholder="Введите номер">
+                            <span class="error">Телефон не может быть пустым!</span>
                         </li>
                         <li class="offer__item">
                             <label class="label" for="email">Ваш email</label>
-                            <input class="input" id="email" name="email" type="email" placeholder="Введите почту"
-                                   required>
-                            <span class="error error--active">Почта не соответствует требованиям. Нельзя использовать спец символы и литиницу!</span>
+                            <input class="input" id="email" name="email" type="email" placeholder="Введите почту">
+                            <span class="error">Почта не соответствует требованиям. Нельзя использовать спец символы и литиницу!</span>
                         </li>
                         <li class="offer__item">
                             <label class="label" for="weight">Вес торта (в граммах)</label>
-                            <input class="input" id="weight" name="weight" type="number" placeholder="Введите вес"
-                                   required>
-                            <span class="error error--active">Поле не может быть пустым. Минимальный вес - 0.3кг, максимальный - 30кг</span>
+                            <input class="input" id="weight" name="weight" type="number" placeholder="Введите вес">
+                            <span class="error">Поле не может быть пустым. Минимальный вес - 0.3кг, максимальный - 30кг</span>
                         </li>
-                        <li class="offer__item">
+                        <li class="offer__item offer__item--textarea">
                             <label class="label" for="description">Что требуется в торте</label>
                             <textarea class="input textarea" id="description" name="description"
-                                      placeholder="Введите сообщение"
-                                      required></textarea>
-                            <span class="error error--active">Поле не может быть пустым. Опишите ваш заказ с минимальными требованиями</span>
+                                      placeholder="Введите сообщение"></textarea>
+                            <span class="error">Поле не может быть пустым. Опишите ваш заказ с минимальными требованиями</span>
                         </li>
                     </ul>
                     <p class="offer__accept">

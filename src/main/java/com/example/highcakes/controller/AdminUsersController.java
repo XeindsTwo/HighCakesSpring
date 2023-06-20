@@ -45,8 +45,7 @@ public class AdminUsersController {
     }
 
     @PostMapping("/users/save")
-    public String save(@ModelAttribute("user") User user, @RequestParam("role") Role role) {
-        user.setRoles(Collections.singleton(role));
+    public String save(@ModelAttribute("user") User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
         return "redirect:/users";

@@ -5,18 +5,6 @@ let curr_cake_id = -1;
 
 function modal_addCake() {
     modal_CakeOpen("Создание тортика");
-    $("#name").val("")
-    $("#price").val("")
-    $("#description").val("")
-    $("#composition").val("")
-    $("#calories").val("")
-    $("#weight").val("")
-    $("#protein").val("")
-    $("#fats").val("")
-    $("#photo").val("")
-    $("#carbs").val("")
-    $("#shelfLife").val("")
-    $("#file").text("")
     curr_cake_id = -1;
 }
 
@@ -39,17 +27,100 @@ function modal_saveCake() {
     if (curr_cake_id === -1) {
         formData.delete('id');
     }
+    let isValid = true;
+    let name = $("#name").val();
+    if (name.trim() === "" || !/^[a-zA-Zа-яА-Я\s]+$/.test(name) || name.length < 3 || name.length > 50) {
+        $("#name").next(".error").addClass("error--active");
+        isValid = false;
+        modalEditCake.scrollTop = $("#name").closest(".modal__item").offset().top;
+    } else {
+        $("#name").next(".error").removeClass("error--active");
+    }
+    let price = parseFloat($("#price").val());
+    if (isNaN(price) || price < 500 || price > 50000) {
+        $("#price").next(".error").addClass("error--active");
+        isValid = false;
+        modalEditCake.scrollTop = $("#price").closest(".modal__item").offset().top;
+    } else {
+        $("#price").next(".error").removeClass("error--active");
+    }
+    let description = $("#description").val();
+    if (description.trim() === "" || description.length < 100) {
+        $("#description").next(".error").addClass("error--active");
+        isValid = false;
+        modalEditCake.scrollTop = $("#description").closest(".modal__item").offset().top;
+    } else {
+        $("#description").next(".error").removeClass("error--active");
+    }
+    let composition = $("#composition").val();
+    if (composition.trim() === "" || composition.length < 70) {
+        $("#composition").next(".error").addClass("error--active");
+        isValid = false;
+        modalEditCake.scrollTop = $("#composition").closest(".modal__item").offset().top;
+    } else {
+        $("#composition").next(".error").removeClass("error--active");
+    }
+    let calories = parseFloat($("#calories").val());
+    if (isNaN(calories) || calories < 300 || calories > 30000) {
+        $("#calories").next(".error").addClass("error--active");
+        isValid = false;
+        modalEditCake.scrollTop = $("#calories").closest(".modal__item").offset().top;
+    } else {
+        $("#calories").next(".error").removeClass("error--active");
+    }
+    let weight = parseFloat($("#weight").val());
+    if (isNaN(weight) || weight < 150 || weight > 20000) {
+        $("#weight").next(".error").addClass("error--active");
+        isValid = false;
+        modalEditCake.scrollTop = $("#weight").closest(".modal__item").offset().top;
+    } else {
+        $("#weight").next(".error").removeClass("error--active");
+    }
+    let protein = parseFloat($("#protein").val());
+    if (isNaN(protein) || protein < 3 || protein > 600) {
+        $("#protein").next(".error").addClass("error--active");
+        isValid = false;
+        modalEditCake.scrollTop = $("#protein").closest(".modal__item").offset().top;
+    } else {
+        $("#protein").next(".error").removeClass("error--active");
+    }
+    let fats = parseFloat($("#fats").val());
+    if (isNaN(fats) || fats < 3 || fats > 600) {
+        $("#fats").next(".error").addClass("error--active");
+        isValid = false;
+        modalEditCake.scrollTop = $("#fats").closest(".modal__item").offset().top;
+    } else {
+        $("#fats").next(".error").removeClass("error--active");
+    }
+    let carbs = parseFloat($("#carbs").val());
+    if (isNaN(carbs) || carbs < 3 || carbs > 600) {
+        $("#carbs").next(".error").addClass("error--active");
+        isValid = false;
+        modalEditCake.scrollTop = $("#carbs").closest(".modal__item").offset().top;
+    } else {
+        $("#carbs").next(".error").removeClass("error--active");
+    }
+    let shelfLife = parseFloat($("#shelfLife").val());
+    if (isNaN(shelfLife) || shelfLife < 1 || shelfLife > 30) {
+        $("#shelfLife").next(".error").addClass("error--active");
+        isValid = false;
+        modalEditCake.scrollTop = $("#shelfLife").closest(".modal__item").offset().top;
+    } else {
+        $("#shelfLife").next(".error").removeClass("error--active");
+    }
 
-    $.ajax({
-        method: "POST",
-        url: curr_cake_id === -1 ? "/save/cake" : `/edit/cake?id=${curr_cake_id}`,
-        data: formData,
-        processData: false,
-        contentType: false
-    }).done(function () {
-        modal_cakeClose();
-        window.location.reload();
-    });
+    if (isValid) {
+        $.ajax({
+            method: "POST",
+            url: curr_cake_id === -1 ? "/save/cake" : `/edit/cake?id=${curr_cake_id}`,
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(function () {
+            modal_cakeClose();
+            window.location.reload();
+        });
+    }
 }
 
 function modal_EditCake(event) {

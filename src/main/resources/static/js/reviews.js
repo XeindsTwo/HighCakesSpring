@@ -6,16 +6,28 @@ let curr_review_id = -1;
 function saveReview() {
     let formData = new FormData();
     formData.append('text', $("#description").val());
-    $.ajax({
-        method: "POST",
-        url: `/reviews/save`,
-        data: formData,
-        processData: false,
-        contentType: false
-    }).done(function () {
-        reviewClose();
-        window.location.reload();
-    });
+
+    let isValid = true;
+    let description = $("#description").val();
+    if (description.trim() === "" || description.length < 30 || description.length > 800) {
+        $("#description").next(".error").addClass("error--active");
+        isValid = false;
+    } else {
+        $("#description").next(".error").removeClass("error--active");
+    }
+
+    if (isValid) {
+        $.ajax({
+            method: "POST",
+            url: `/reviews/save`,
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(function () {
+            reviewClose();
+            window.location.reload();
+        });
+    }
 }
 
 function reviewOpen() {

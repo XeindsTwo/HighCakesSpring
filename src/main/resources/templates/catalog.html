@@ -272,58 +272,59 @@
             <li class="modal__item">
                 <label class="label" for="name">Название</label>
                 <input class="input" type="text" id="name" name="name" placeholder="Введите название">
-                <span class="error error--active">
+                <span class="error">
                     Название не должно содержать цифры. Минимальное количество символов - 3, максимальное - 50
                 </span>
             </li>
             <li class="modal__item">
                 <label class="label" for="price">Цена в ₽</label>
                 <input class="input" type="number" id="price" name="price" placeholder="Введите цену">
-                <span class="error error--active">Минимальная цена - 500, максимальная - 50000</span>
+                <span class="error">Минимальная цена - 500, максимальная - 50000</span>
             </li>
             <li class="modal__item">
                 <label class="label" for="description">Описание торта</label>
                 <textarea class="input textarea" id="description" name="description"
                           placeholder="Введите текст"></textarea>
-                <span class="error error--active">Описание не может быть пустым и коротким. Мин. количество символов - 100</span>
+                <span class="error">Описание не может быть пустым и коротким. Мин. количество символов - 100</span>
             </li>
             <li class="modal__item">
                 <label class="label" for="composition">Состав торта</label>
                 <textarea class="input textarea" id="composition" name="composition"
                           placeholder="Введите текст"></textarea>
+                <span class="error">Состав не может быть пустым и коротким. Мин. количество символов - 70</span>
             </li>
             <li class="modal__item">
                 <label class="label" for="calories">Количество калорий (Ккал)</label>
                 <input class="input" type="number" id="calories" name="calories"
                        placeholder="Введите количество">
-                <span class="error error--active">Количество символов не должно быть меньше 2, и не больше 6</span>
+                <span class="error">Калорий не может быть меньше 300, и не больше 30000</span>
             </li>
             <li class="modal__item">
                 <label class="label" for="weight">Вес (граммы)</label>
                 <input class="input" type="number" id="weight" name="weight" placeholder="Введите вес">
-                <span class="error error--active">Вес не может быть меньше 150, и не больше 20000</span>
+                <span class="error">Вес не может быть меньше 150, и не больше 20000</span>
             </li>
             <li class="modal__item">
                 <label class="label" for="protein">Количество белков (граммы)</label>
                 <input class="input" type="number" id="protein" name="protein"
                        placeholder="Введите количество">
-                <span class="error error--active">Количество символов не должно быть меньше 2, и не больше 6</span>
+                <span class="error">Белки не могут быть меньше 3, и не больше 600</span>
             </li>
             <li class="modal__item">
                 <label class="label" for="fats">Количество жиров (граммы)</label>
                 <input class="input" type="number" id="fats" name="fats" placeholder="Введите количество">
-                <span class="error error--active">Количество символов не должно быть меньше 2, и не больше 6</span>
+                <span class="error">Жиров не может быть меньше 3, и не больше 600</span>
             </li>
             <li class="modal__item">
                 <label class="label" for="carbs">Количество углеводов (граммы)</label>
                 <input class="input" type="number" id="carbs" name="carbs" placeholder="Введите количество">
-                <span class="error error--active">Количество символов не должно быть меньше 2, и не больше 6</span>
+                <span class="error">Углеводов не может быть меньше 3, и не больше 600</span>
             </li>
             <li class="modal__item">
                 <label class="label" for="shelfLife">Срок хранения (в днях)</label>
                 <input class="input" type="number" id="shelfLife" name="shelfLife"
                        placeholder="Введите количество">
-                <span class="error error--active">Количество символов не должно быть меньше 1, и не больше 3</span>
+                <span class="error">Количество дней не должно быть меньше 1, и не больше 30</span>
             </li>
             <li class="modal__item">
                 <span class="label">Фотография</span>

@@ -49,3 +49,46 @@ $('#search-offer').on('input', function () {
         }
     });
 });
+
+function validateOfferForm() {
+    const nameField = $("#name");
+    const phoneField = $("#phone");
+    const emailField = $("#email");
+
+    const nameError = nameField.next(".error");
+    const phoneError = phoneField.next(".error");
+    const emailError = emailField.next(".error");
+
+    let isValid = true;
+
+    const nameRegex = /^[A-Za-zА-Яа-я]+$/;
+    if (!nameRegex.test(nameField.val())) {
+        nameError.addClass("error--active");
+        isValid = false;
+    } else {
+        nameError.removeClass("error--active");
+    }
+
+    if (phoneField.val().trim() === "") {
+        phoneError.addClass("error--active");
+        isValid = false;
+    } else {
+        phoneError.removeClass("error--active");
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(emailField.val())) {
+        emailError.addClass("error--active");
+        isValid = false;
+    } else {
+        emailError.removeClass("error--active");
+    }
+
+    return isValid;
+}
+
+$("#offerForm").on("submit", function(event) {
+    if (!validateOfferForm()) {
+        event.preventDefault();
+    }
+});
