@@ -37,7 +37,6 @@ public class ProfileController {
             return "redirect:/login?logout";
         }
         model.addAttribute("user", user);
-        model.addAttribute("isAdmin", user.getRoles().contains(Role.ADMIN));
         model.addAttribute("Role", Role.class);
         return "profile";
     }

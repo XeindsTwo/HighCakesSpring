@@ -51,7 +51,7 @@ public class UniqueController {
         UniqueOffer uniqueOffer = uniqueOfferImpl.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid offer Id:" + id));
         uniqueOfferImpl.delete(uniqueOffer.getId());
-        redirectAttributes.addFlashAttribute("success", "Успешное удаление заявки от " + uniqueOffer.getName());
+        redirectAttributes.addFlashAttribute("success", "Успешное удаление индивидуального заказа " + uniqueOffer.getName());
         return "redirect:/unique";
     }
 }

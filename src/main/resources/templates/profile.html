@@ -75,9 +75,6 @@
 <main>
     <section class="profile indent">
         <div class="container">
-            <p class="profile__role" th:if="${isAdmin}">
-                Вы администратор
-            </p>
             <a class="profile__logout" th:href="@{/logout}">Выйти из аккаунта</a>
             <div class="profile__top">
                 <img class="profile__avatar" th:src="@{'/uploads/' + ${user.getFilename()}}" width="180"

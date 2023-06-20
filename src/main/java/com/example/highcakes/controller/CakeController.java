@@ -81,6 +81,14 @@ public class CakeController {
         return "redirect:/catalog";
     }
 
+    @GetMapping("/cake/{id}/details")
+    public String cakeDetails(@PathVariable("id") Long id, Model model) {
+        Cake cake = cakeRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid cake Id:" + id));
+        model.addAttribute("cake", cake);
+        return "cake-details";
+    }
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Cake cake = cakeImpl.findById(id)
@@ -88,13 +96,5 @@ public class CakeController {
         cakeImpl.delete(cake.getId());
         redirectAttributes.addFlashAttribute("success", "Успешное удаление торта " + cake.getName());
         return "redirect:/catalog";
-    }
-
-    @GetMapping("/cake/{id}/details")
-    public String cakeDetails(@PathVariable("id") Long id, Model model) {
-        Cake cake = cakeRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid cake Id:" + id));
-        model.addAttribute("cake", cake);
-        return "cake-details";
     }
 }

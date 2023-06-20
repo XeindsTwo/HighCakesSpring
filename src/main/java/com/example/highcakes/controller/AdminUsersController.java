@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -37,15 +38,6 @@ public class AdminUsersController {
         return "users";
     }
 
-    @GetMapping("/users/delete/{id}")
-    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        User user = userImpl.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid offer Id:" + id));
-        userImpl.delete(user.getId());
-        redirectAttributes.addFlashAttribute("success", "Успешное удаление пользователя " + user.getName());
-        return "redirect:/users";
-    }
-
     @GetMapping("/users/add")
     public String pageAdd(Model model) {
         model.addAttribute("roles", Role.values());
@@ -53,9 +45,10 @@ public class AdminUsersController {
     }
 
     @PostMapping("/users/save")
-    public String save(@ModelAttribute("user") User user) {
-        userRepo.save(user);
+    public String save(@ModelAttribute("user") User user, @RequestParam("role") Role role) {
+        user.setRoles(Collections.singleton(role));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepo.save(user);
         return "redirect:/users";
     }
 
@@ -66,5 +59,14 @@ public class AdminUsersController {
         model.addAttribute("roles", Role.values());
         model.addAttribute("user", user);
         return "edit-user";
+    }
+
+    @GetMapping("/users/delete/{id}")
+    public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        User user = userImpl.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid offer Id:" + id));
+        userImpl.delete(user.getId());
+        redirectAttributes.addFlashAttribute("success", "Пользователь успешно удален " + user.getName());
+        return "redirect:/users";
     }
 }
