@@ -75,14 +75,14 @@
 <main>
     <section class="offer indent">
         <div class="container">
-            <div class="offer__admin">
+            <div class="offer__admin" sec:authorize="hasAuthority('Администратор')">
                 <form class="offer__admin-search" action="">
                     <label for="search-offer">
                         <input type="text" class="catalog__field" id="search-offer" placeholder="Введите текст">
                     </label>
                 </form>
                 <span class="offer__admin-title">Все заявки:</span>
-                <ul class="offer__admin-list">
+                <ul class="offer__admin-list" >
                     <th:block th:if="${offers.isEmpty()}">
                         <p>Заявок пока нет</p>
                     </th:block>
@@ -223,7 +223,7 @@
     </div>
     <p class="footer__author">© Все права защищены HighCakes</p>
 </footer>
-<div class="modal modal--delete" id="modal-delete_offer">
+<div class="modal modal--delete" sec:authorize="hasAuthority('Администратор')" id="modal-delete_offer">
     <button class="modal__close" onclick="modal_DeleteOfferClose()">
         <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"

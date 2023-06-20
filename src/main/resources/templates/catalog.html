@@ -84,7 +84,7 @@
                     <input type="text" class="catalog__field" id="search-cake" placeholder="Введите текст">
                 </label>
             </form>
-            <button class="catalog__btn" onclick="modal_addCake()">Добавить товар</button>
+            <button class="catalog__btn" onclick="modal_addCake()" sec:authorize="hasAuthority('Администратор')">Добавить товар</button>
             <ul class="catalog__list">
                 <th:block th:if="${cakes.isEmpty()}">
                     <p>Тортов нет, создайте их</p>
@@ -92,7 +92,7 @@
                 <th:block th:each="cake: ${cakes}">
                     <li class="catalog__item">
                         <div class="card">
-                            <ul class="card__admin">
+                            <ul class="card__admin" sec:authorize="hasAuthority('Администратор')">
                                 <li class="card__admin-item" onclick="modal_EditCake(event)">
                                     <button class="card__admin-btn" id="button-open-edit_cake"
                                             th:data-cake-id="${cake.id}"
@@ -257,7 +257,7 @@
     </div>
     <p class="footer__author">© Все права защищены HighCakes</p>
 </footer>
-<div class="modal" id="modal-edit_cake">
+<div class="modal" sec:authorize="hasAuthority('Администратор')" id="modal-edit_cake">
     <button class="modal__close" onclick="modal_cakeClose()">
         <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
@@ -341,7 +341,7 @@
         </div>
     </form>
 </div>
-<div class="modal modal--delete" id="modal-delete_cake">
+<div class="modal modal--delete" sec:authorize="hasAuthority('Администратор')" id="modal-delete_cake">
     <button class="modal__close" onclick="modal_DeleteCakeClose()">
         <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"

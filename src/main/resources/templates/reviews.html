@@ -97,7 +97,7 @@
                     </th:block>
                     <ul class="reviews__list">
                         <li class="reviews__item" th:each="review: ${reviews}">
-                            <ul class="card__admin">
+                            <ul class="card__admin" sec:authorize="hasAuthority('Администратор')">
                                 <li class="card__admin-item" onclick="deleteReviewOpen(event)">
                                     <button class="card__admin-btn" id="button-open-delete_cake"
                                             th:data-review-id="${review.getId()}"
@@ -172,7 +172,7 @@
         </div>
     </form>
 </div>
-<div class="modal modal--delete" id="modal-delete_review">
+<div class="modal modal--delete" sec:authorize="hasAuthority('Администратор')" id="modal-delete_review">
     <button class="modal__close" onclick="deleteReviewClose()">
         <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
