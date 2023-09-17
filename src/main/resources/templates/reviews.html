@@ -231,5 +231,9 @@
 </footer>
 <script th:src="@{/js/main.min.js}"></script>
 <script th:src="@{/js/reviews.js}"></script>
+<script th:src="@{/js/functions/search.js}"></script>
+<script>
+    setupSearchFromSearchJS('#search-review', '.reviews__list', '/reviews');
+</script>
 </body>
 </html>

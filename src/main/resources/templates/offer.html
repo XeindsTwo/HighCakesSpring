@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HighCakes | О компании</title>
+    <title>HighCakes | Заказать торт</title>
     <link rel="icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
     <link rel="shortcut icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -249,5 +249,9 @@
 <script th:src="@{/js/custom-select.js}"></script>
 <script th:src="@{/js/phone-mask.js}"></script>
 <script th:src="@{/js/offer.js}"></script>
+<script th:src="@{/js/functions/search.js}"></script>
+<script>
+    setupSearchFromSearchJS('#search-offer', '.offer__admin-list', '/offer');
+</script>
 </body>
 </html>

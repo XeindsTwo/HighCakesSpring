@@ -176,5 +176,9 @@
 </div>
 <script th:src="@{/js/main.min.js}"></script>
 <script th:src="@{/js/users.js}"></script>
+<script th:src="@{/js/functions/search.js}"></script>
+<script>
+    setupSearchFromSearchJS('#search-users', '.users__list', '/users');
+</script>
 </body>
 </html>

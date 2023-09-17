@@ -20,30 +20,3 @@ function modal_DeleteUserClose() {
 function deleteUserSend() {
     window.location.href = `users/delete/${curr_user_id}`;
 }
-
-$('#search-users').on('input', function () {
-    let searchText = $(this).val();
-    $.ajax({
-        url: '/users',
-        type: 'GET',
-        data: {param: searchText},
-        success: function (data) {
-            let catalogList = $('.users__list');
-            let newContent = $(data).find('.users__list').html();
-
-            if (searchText.trim() === '') {
-                catalogList.replaceWith('<ul class="users__list">' + newContent + '</ul>');
-            } else {
-                catalogList.empty();
-                if (newContent.trim() === '') {
-                    catalogList.append('<p class="offer__not-found">Ничего не найдено :)</p>');
-                } else {
-                    catalogList.append(newContent);
-                }
-            }
-        },
-        error: function () {
-            console.log('Ошибка при выполнении AJAX-запроса');
-        }
-    });
-});

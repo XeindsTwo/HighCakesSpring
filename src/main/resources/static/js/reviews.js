@@ -59,30 +59,3 @@ function deleteReviewClose() {
     modalDeleteReview.classList.remove('modal--active');
     curr_review_id = -1;
 }
-
-$('#search-review').on('input', function () {
-    let searchText = $(this).val();
-    $.ajax({
-        url: '/reviews',
-        type: 'GET',
-        data: {param: searchText},
-        success: function (data) {
-            let list = $('.reviews__list');
-            let newContent = $(data).find('.reviews__list').html();
-
-            if (searchText.trim() === '') {
-                list.replaceWith('<ul class="reviews__list">' + newContent + '</ul>');
-            } else {
-                list.empty();
-                if (newContent.trim() === '') {
-                    list.append('<p class="offer__not-found">Ничего не найдено пупс :)</p>');
-                } else {
-                    list.append(newContent);
-                }
-            }
-        },
-        error: function () {
-            console.log('Ошибка при выполнении AJAX-запроса');
-        }
-    });
-});

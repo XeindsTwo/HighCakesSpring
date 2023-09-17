@@ -220,30 +220,3 @@ function modal_DeleteCakeClose() {
 function deleteCake() {
     window.location.href = `/delete/${curr_cake_id}`;
 }
-
-$('#search-cake').on('input', function () {
-    let searchText = $(this).val();
-    $.ajax({
-        url: '/catalog',
-        type: 'GET',
-        data: {param: searchText},
-        success: function (data) {
-            let catalogList = $('.catalog__list');
-            let newContent = $(data).find('.catalog__list').html();
-
-            if (searchText.trim() === '') {
-                catalogList.replaceWith('<ul class="catalog__list">' + newContent + '</ul>');
-            } else {
-                catalogList.empty();
-                if (newContent.trim() === '') {
-                    catalogList.append('<p class="catalog__not-found">Ничего не найдено пупс :)</p>');
-                } else {
-                    catalogList.append(newContent);
-                }
-            }
-        },
-        error: function () {
-            console.log('Ошибка при выполнении AJAX-запроса');
-        }
-    });
-});

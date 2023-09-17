@@ -84,30 +84,3 @@ $("#offerForm").on("submit", function(event) {
         event.preventDefault();
     }
 });
-
-$('#search-offer').on('input', function () {
-    let searchText = $(this).val();
-    $.ajax({
-        url: '/unique',
-        type: 'GET',
-        data: {param: searchText},
-        success: function (data) {
-            let catalogList = $('.offer__admin-list');
-            let newContent = $(data).find('.offer__admin-list').html();
-
-            if (searchText.trim() === '') {
-                catalogList.replaceWith('<ul class="offer__admin-list">' + newContent + '</ul>');
-            } else {
-                catalogList.empty();
-                if (newContent.trim() === '') {
-                    catalogList.append('<p class="offer__not-found">Ничего не найдено пупс :)</p>');
-                } else {
-                    catalogList.append(newContent);
-                }
-            }
-        },
-        error: function () {
-            console.log('Ошибка при выполнении AJAX-запроса');
-        }
-    });
-});
