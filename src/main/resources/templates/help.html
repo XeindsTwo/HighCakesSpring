@@ -1,18 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HighCakes | Помощь</title>
-    <link rel="icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
-    <link rel="shortcut icon" th:href="@{/images/icons/favicon.svg}" type="images/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+<head th:replace="fragments/head"></head>
+
 <body class="body">
 <header class="header">
     <div class="container">
@@ -168,41 +157,7 @@
         </div>
     </div>
 </main>
-<footer class="footer">
-    <div class="footer__top">
-        <div class="container">
-            <nav class="footer__nav">
-                <ul class="footer__list">
-                    <li class="footer__item">
-                        <a href="" class="footer__link">Главная</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="" class="footer__link">О компании</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="" class="footer__link">Каталог</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="" class="footer__link">Новости</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="" class="footer__link">Отзывы</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="" class="footer__link">Заказать торт</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="" class="footer__link">Доставка и оплата</a>
-                    </li>
-                    <li class="footer__item">
-                        <a href="" class="footer__link">Контакты</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <p class="footer__author">© Все права защищены HighCakes</p>
-</footer>
+<footer th:replace="fragments/footer"></footer>
 <script th:src="@{/js/main.min.js}"></script>
 </body>
 </html>
