@@ -1,0 +1,57 @@
+<header class="header">
+    <div class="container">
+        <nav class="header__nav">
+            <ul class="header__menu">
+                <li class="header__item">
+                    <a class="header__link header__link--active" th:href="@{/}">Главная</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/about}">О компании</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/catalog}">Каталог</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/offer}">Заказать торт</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/unique}">Индивидуальный заказ</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/news}">Новости</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/help}">Помощь</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/shipping}">Доставка и оплата</a>
+                </li>
+                <li class="header__item">
+                    <a class="header__link" th:href="@{/reviews}">Отзывы</a>
+                </li>
+                <li class="header__item" sec:authorize="hasAuthority('Администратор')">
+                    <a class="header__link" th:href="@{/users}">Пользователи</a>
+                </li>
+                <li class="header__item" sec:authorize="hasAuthority('Администратор')">
+                    <a class="header__link" th:href="@{/manual}">Администрирование</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="header__inner">
+            <button class="menu-btn">
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+                <span class="menu-btn__line"></span>
+            </button>
+            <a class="logo" th:href="@{/}">
+                <img class="logo__img" th:src="@{/images/icons/logo.svg}" alt="логотип" width="215" height="54">
+            </a>
+            <div class="header__cabinet" sec:authorize="not isAuthenticated()">
+                <a class="header__cabinet-link" th:href="@{/login}">Войти</a>
+            </div>
+            <div class="header__cabinet" sec:authorize="isAuthenticated()">
+                <a class="header__cabinet-link" th:href="@{/profile}">Личный кабинет</a>
+            </div>
+        </div>
+    </div>
+</header>
