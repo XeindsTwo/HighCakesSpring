@@ -14,35 +14,21 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class UniqueController {
+public class UniqueOfferController {
     private final UniqueOfferRepo uniqueOfferRepo;
     private final UniqueOfferImpl uniqueOfferImpl;
-    private final EmailServiceImpl emailService;
 
     @GetMapping("/unique")
     public String offerPage(Model model, @RequestParam(value = "param", defaultValue = "", required = false) String param) {
-        List<UniqueOffer> uniques;
-        if (param != null && !param.isEmpty()) {
-            uniques = uniqueOfferRepo.findByNameContainingIgnoreCaseOrPhoneContainingIgnoreCaseOrEmailContainingIgnoreCase(param, param, param);
-            model.addAttribute("param", param);
-        } else {
-            uniques = uniqueOfferRepo.findAll();
-        }
-        model.addAttribute("unique", new UniqueOffer());
+        List<UniqueOffer> uniques = uniqueOfferImpl.searchUniqueOffer(param, param, param);
         model.addAttribute("uniques", uniques);
+        model.addAttribute("param", param);
         return "unique";
     }
 
     @PostMapping("/unique/save")
     public String createOffer(@ModelAttribute("offer") UniqueOffer uniqueOffer) {
         uniqueOfferRepo.save(uniqueOffer);
-        String to = uniqueOffer.getEmail();
-        String subject = "Заявка на индивидуальный заказ";
-        String text = "Здравствуйте, " + uniqueOffer.getName() + ". Вами была отправлена заявка на сайте HighCakes\n\n\n"
-                + "Ваш заказ принят в обработку, в дальнейшем мы вам сообщим на ваш номер телефона " + uniqueOffer.getPhone() + "\n\n"
-                + "С уваженением, HighCakes!";
-        emailService.send(to, subject, text);
-        System.out.print("Добавлена индивидуальная заявка!");
         return "redirect:/unique";
     }
 

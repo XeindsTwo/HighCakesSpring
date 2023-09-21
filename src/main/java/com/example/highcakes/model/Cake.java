@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @Entity
 @Table(name = "cakes")
@@ -35,4 +36,7 @@ public class Cake {
     private String carbohydrates;
     private String shelfLife;
     private String filename;
+
+    @OneToMany(mappedBy = "cake", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Offer> offers;
 }

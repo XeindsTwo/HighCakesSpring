@@ -2,15 +2,16 @@ package com.example.highcakes.dao;
 
 import com.example.highcakes.model.Review;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 public interface ReviewDao {
-    public Review save(Review review);
+    Review save(Review review, Principal principal);
 
-    public void delete(Long id);
+    void delete(Long id);
 
-    public List<Review> findAll();
+    List<Review> findAll();
 
-    public Optional<Review> findById(Long id);
+    Optional<Review> findById(Long id);
 }

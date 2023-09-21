@@ -1,17 +1,18 @@
 package com.example.highcakes.dao;
 
 import com.example.highcakes.model.UniqueOffer;
+
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 public interface UniqueOfferDao {
-    public UniqueOffer save(UniqueOffer uniqueOffer);
 
-    public void delete(Long id);
+    UniqueOffer save(UniqueOffer uniqueOffer, Principal principal);
 
-    public List<UniqueOffer> findAll();
+    void delete(Long id);
 
-    public Optional<UniqueOffer> findById(Long id);
+    List<UniqueOffer> findAll();
 
-    UniqueOffer updateFields(Long id, String name, String phone, String email, String weight, String description);
+    Optional<UniqueOffer> findById(Long id);
 }

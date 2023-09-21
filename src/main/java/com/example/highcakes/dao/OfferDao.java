@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 public interface OfferDao {
-    public Offer save(Offer offer);
+    Offer save(Offer offer);
 
-    public void delete(Long id);
+    void delete(Long id);
 
-    public List<Offer> findAll();
+    List<Offer> findAll();
 
-    public Optional<Offer> findById(Long id);
+    Optional<Offer> findById(Long id);
 
     Offer updateFields(Long id, String name, String phone, String email);
 }
