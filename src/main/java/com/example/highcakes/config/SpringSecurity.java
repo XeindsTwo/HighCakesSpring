@@ -26,9 +26,12 @@ public class SpringSecurity {
                 .authorizeRequests()
                 .requestMatchers("/js/**", "/css/**", "/fonts/**", "/images/**", "/static/**")
                 .permitAll()
-                .requestMatchers("/manual", "/users", "/users/add", "/users/delete/{id}",
-                        "/users/save", "/users/{id}/edit").hasAuthority("Администратор")
-//                .requestMatchers("/").hasAuthority("Пользователь")
+                .requestMatchers("/manual", "/users", "/users/add", "/users/save",
+                        "/users/{id}/edit", "/users/delete/{id}", "/save/cake", "/edit/cake",
+                        "/delete/{id}", "/offer/delete/{id}", "/reviews/delete/{id}",
+                        "/unique/save", "/unique/delete/{id}").hasAuthority("Администратор")
+                .requestMatchers("/save/cake", "/edit/cake", "/delete/{id}").hasAuthority("Модератор каталога")
+                .requestMatchers("/reviews/delete/{id}").hasAuthority("Модератор отзывов")
                 .anyRequest()
                 .permitAll()
                 .and()

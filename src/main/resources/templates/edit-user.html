@@ -39,7 +39,7 @@
                     </li>
                     <li>
                         <label class="label" for="role">Роль</label>
-                        <select class="select" id="role" name="role" th:field="*{roles}">
+                        <select class="select" id="role" name="role">
                             <option th:each="role : ${roles}" th:value="${role}" th:text="${role.name}"></option>
                         </select>
                     </li>

@@ -33,8 +33,8 @@ public class AdminUsersController {
     }
 
     @PostMapping("/users/save")
-    public String save(@ModelAttribute("user") User user) {
-        userImpl.save(user);
+    public String save(@ModelAttribute("user") User user, Role role) {
+        userImpl.save(user, role);
         return "redirect:/users";
     }
 

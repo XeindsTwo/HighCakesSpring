@@ -28,9 +28,10 @@ public class UserImpl implements UserDao {
     private final FileStorageService fileStorageService;
 
     @Override
-    public User save(User user) {
-        user.setRoles(Collections.singleton(Role.USER));
+    public User save(User user, Role role) {
+        user.setRoles(Collections.singleton(role));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        System.out.println(role);
         return userRepo.save(user);
     }
 
@@ -49,20 +50,6 @@ public class UserImpl implements UserDao {
     @Override
     public Optional<User> findById(Long id) {
         return userRepo.findById(id);
-    }
-
-    @Override
-    public User updateFields(Long id, String name, String mail, String number, String filename) {
-        Optional<User> optionalUser = userRepo.findById(id);
-        if (optionalUser.isPresent()) {
-            User existingUser = optionalUser.get();
-            existingUser.setName(name);
-            existingUser.setMail(mail);
-            existingUser.setNumber(number);
-            existingUser.setFilename(filename);
-            return userRepo.save(existingUser);
-        }
-        throw new IllegalArgumentException("Invalid user Id: " + id);
     }
 
     @Override

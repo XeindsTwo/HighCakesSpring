@@ -35,7 +35,7 @@ public class CakeController {
     @PostMapping("/edit/cake")
     public String edit(@ModelAttribute("cake") Cake cake,
                        @RequestParam(value = "photo", required = false) MultipartFile file,
-                       RedirectAttributes redirectAttributes) throws IOException {
+                       RedirectAttributes redirectAttributes) {
         cakeImpl.updateFields(cake.getId(), cake.getName(), cake.getPrice(),
                 cake.getDescription(), cake.getComposition(), cake.getCalories(),
                 cake.getWeight(), cake.getProtein(), cake.getFat(),
