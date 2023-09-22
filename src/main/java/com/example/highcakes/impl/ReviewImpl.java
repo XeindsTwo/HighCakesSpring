@@ -17,8 +17,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ReviewImpl implements ReviewDao {
     private final ReviewRepo reviewRepo;
-    private final UserDao userDao;
     private final EmailServiceImpl emailService;
+    private final UserDao userDao;
 
     @Override
     public Review save(Review review, Principal principal) {
@@ -28,14 +28,7 @@ public class ReviewImpl implements ReviewDao {
         review.setUser(user);
 
         Review savedReview = reviewRepo.save(review);
-        String to = user.getMail();
-        String subject = "Спасибо за ваш отзыв!";
-        String text = "Здравствуйте, " + user.getName() + ". Вами был оставлен отзыв на сайте HighCakes\n\n\n"
-                + "Ваш отзыв принят, мы благодарим наших клиентов за оставление положительных отзывов. " +
-                "Мы рады нести миру отличные продукты кондитерской\n\n"
-                + "С уважением, HighCakes!";
-        emailService.send(to, subject, text);
-
+        emailService.sendReviewConfirmationEmail(user);
         return savedReview;
     }
 

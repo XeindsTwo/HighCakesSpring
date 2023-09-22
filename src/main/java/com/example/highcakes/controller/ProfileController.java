@@ -3,7 +3,6 @@ package com.example.highcakes.controller;
 import com.example.highcakes.impl.UserImpl;
 import com.example.highcakes.model.Role;
 import com.example.highcakes.model.User;
-import com.example.highcakes.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

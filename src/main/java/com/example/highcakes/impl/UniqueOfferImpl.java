@@ -26,14 +26,7 @@ public class UniqueOfferImpl implements UniqueOfferDao {
         uniqueOffer.setUser(user);
 
         UniqueOffer savedUniqueOffer = uniqueOfferRepo.save(uniqueOffer);
-        String to = uniqueOffer.getEmail();
-        String subject = "Заявка на индивидуальный заказ";
-        String text = "Здравствуйте, " + uniqueOffer.getName() + ". Вами была отправлена заявка на сайте HighCakes\n\n\n"
-                + "Ваш заказ принят в обработку, в дальнейшем мы вам сообщим на ваш номер телефона " + uniqueOffer.getPhone() + "\n\n"
-                + "С уваженением, HighCakes!";
-        emailService.send(to, subject, text);
-        System.out.print("Добавлена индивидуальная заявка!");
-
+        emailService.sendUniqueOfferConfirmationEmail(uniqueOffer);
         return savedUniqueOffer;
     }
 

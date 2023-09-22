@@ -42,15 +42,7 @@ public class OfferCakeController {
     @PostMapping("/offer/save")
     public String createOffer(@ModelAttribute("offer") Offer offer) {
         offerImpl.save(offer);
-        String to = offer.getEmail();
-        String nameCake = offer.getCake().getName();
-        String subject = "Заявка на заказ - " + nameCake;
-        String text = "Здравствуйте, " + offer.getName() + ". Вами была отправлена заявка на сайте HighCakes\n\n\n"
-                + "Ваш заказ принят в обработку, в дальнейшем мы вам сообщим на ваш номер телефона " + offer.getPhone() + "\n\n"
-                + "С уваженением, HighCakes!";
-        emailService.send(to, subject, text);
-
-        System.out.print("Добавлена заявка!");
+        emailService.sendOfferConfirmationEmail(offer);
         return "redirect:/offer";
     }
 
