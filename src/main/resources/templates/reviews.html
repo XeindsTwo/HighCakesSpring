@@ -29,7 +29,7 @@
                     </th:block>
                     <ul class="reviews__list">
                         <li class="reviews__item" th:each="review: ${reviews}">
-                            <ul class="card__admin" sec:authorize="hasAuthority('Администратор')">
+                            <ul class="card__admin" sec:authorize="hasAuthority('Администратор') or hasAnyAuthority('Модератор отзывов')">
                                 <li class="card__admin-item" onclick="deleteReviewOpen(event)">
                                     <button class="card__admin-btn" id="button-open-delete_cake"
                                             th:data-review-id="${review.getId()}"

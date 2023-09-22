@@ -13,7 +13,7 @@
                     <input type="text" class="catalog__field" id="search-cake" placeholder="Введите текст">
                 </label>
             </form>
-            <button class="catalog__btn" onclick="modal_addCake()" sec:authorize="hasAuthority('Администратор')">
+            <button class="catalog__btn" onclick="modal_addCake()" sec:authorize="hasAuthority('Администратор') or hasAuthority('Модератор каталога')">
                 Добавить товар
             </button>
             <ul class="catalog__list">
@@ -23,7 +23,7 @@
                 <th:block th:each="cake: ${cakes}">
                     <li class="catalog__item">
                         <div class="card">
-                            <ul class="card__admin" sec:authorize="hasAuthority('Администратор')">
+                            <ul class="card__admin" sec:authorize="hasAuthority('Администратор') or hasAuthority('Модератор каталога')">
                                 <li class="card__admin-item" onclick="modal_EditCake(event)">
                                     <button class="card__admin-btn" id="button-open-edit_cake"
                                             th:data-cake-id="${cake.id}"
@@ -68,8 +68,8 @@
                                     <li th:text="'Цена - ' + ${cake.price} + '₽'"></li>
                                     <li th:text="'Калорийность - ' + ${cake.calories} + ' кКал'"></li>
                                 </ul>
-                                <a class="card__link" th:href="@{/cake/{id}/details(id=${cake.id})}" target="_blank">Узнать
-                                    подробнее</a>
+                                <a class="card__link" th:href="@{/cake/{id}/details(id=${cake.id})}" target="_blank">
+                                    Узнать подробнее</a>
                             </div>
                         </div>
                     </li>
@@ -81,7 +81,7 @@
     <section th:replace="fragments/contacts"></section>
 </main>
 <footer th:replace="fragments/footer"></footer>
-<div class="modal" sec:authorize="hasAuthority('Администратор')" id="modal-edit_cake">
+<div class="modal" sec:authorize="hasAuthority('Администратор') or hasAuthority('Модератор каталога')" id="modal-edit_cake">
     <button class="modal__close" onclick="modal_cakeClose()">
         <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
@@ -166,7 +166,7 @@
         </div>
     </form>
 </div>
-<div class="modal modal--delete" sec:authorize="hasAuthority('Администратор')" id="modal-delete_cake">
+<div class="modal modal--delete" sec:authorize="hasAuthority('Администратор') or hasAuthority('Модератор каталога')" id="modal-delete_cake">
     <button class="modal__close" onclick="modal_DeleteCakeClose()">
         <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
