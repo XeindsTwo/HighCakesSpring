@@ -5,17 +5,11 @@ import com.example.highcakes.model.Role;
 import com.example.highcakes.model.User;
 import com.example.highcakes.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -23,18 +17,12 @@ import java.util.List;
 public class AdminUsersController {
     private final UserImpl userImpl;
     private final UserRepo userRepo;
-    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/users")
     public String usersPage(Model model, @RequestParam(value = "param", defaultValue = "", required = false) String param) {
-        List<User> users;
-        if (param != null && !param.isEmpty()) {
-            users = userRepo.findByUsernameContainingIgnoreCaseOrNameContainingIgnoreCaseOrNumberContainingIgnoreCaseOrMailContainingIgnoreCase(param, param, param, param);
-            model.addAttribute("param", param);
-        } else {
-            users = userRepo.findAll();
-        }
+        List<User> users = userImpl.searchUser(param, param, param, param);
         model.addAttribute("users", users);
+        model.addAttribute("param", param);
         return "users";
     }
 
@@ -46,8 +34,7 @@ public class AdminUsersController {
 
     @PostMapping("/users/save")
     public String save(@ModelAttribute("user") User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepo.save(user);
+        userImpl.save(user);
         return "redirect:/users";
     }
 
@@ -62,10 +49,8 @@ public class AdminUsersController {
 
     @GetMapping("/users/delete/{id}")
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        User user = userImpl.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid offer Id:" + id));
-        userImpl.delete(user.getId());
-        redirectAttributes.addFlashAttribute("success", "Пользователь успешно удален " + user.getName());
+        userImpl.delete(id);
+        redirectAttributes.addFlashAttribute("success", "Пользователь успешно удален");
         return "redirect:/users";
     }
 }
