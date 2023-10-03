@@ -57,6 +57,46 @@ public class UserImpl implements UserDao {
         return userRepo.findByUsername(username);
     }
 
+    @Override
+    public User updateUserName(Long id, String newName) {
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id: " + id));
+        user.setName(newName);
+        return userRepo.save(user);
+    }
+
+    @Override
+    public User updateUserMail(Long id, String mail) {
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id: " + id));
+        user.setMail(mail);
+        return userRepo.save(user);
+    }
+
+    @Override
+    public User updateUserNumber(Long id, String number) {
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id: " + id));
+        user.setNumber(number);
+        return userRepo.save(user);
+    }
+
+    @Override
+    public void updateUserAvatar(Long id, MultipartFile file) {
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id: " + id));
+
+        if (file != null && !file.isEmpty()) {
+            String filename = fileStorageService.storeFile(file);
+            String oldFilename = user.getFilename();
+            if (oldFilename != null) {
+                fileStorageService.deleteFile(oldFilename);
+            }
+            user.setFilename(filename);
+        }
+        userRepo.save(user);
+    }
+
     public void registerAuthUser(User user, RedirectAttributes redirectAttributes) {
         User existingUser = userRepo.findByUsername(user.getUsername());
         if (existingUser != null) {
@@ -73,24 +113,6 @@ public class UserImpl implements UserDao {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-    }
-
-    public User editUserWithFile(Long id, String name, String mail, String number, MultipartFile file) {
-        User user = userRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid user Id: " + id));
-        user.setName(name);
-        user.setMail(mail);
-        user.setNumber(number);
-
-        if (file != null && !file.isEmpty()) {
-            String filename = fileStorageService.storeFile(file);
-            String oldFilename = user.getFilename();
-            if (oldFilename != null) {
-                fileStorageService.deleteFile(oldFilename);
-            }
-            user.setFilename(filename);
-        }
-        return userRepo.save(user);
     }
 
     public List<User> searchUser(String param, String paramTwo, String paramThree, String paramFour) {

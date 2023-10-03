@@ -4,14 +4,11 @@ import com.example.highcakes.impl.UserImpl;
 import com.example.highcakes.model.Role;
 import com.example.highcakes.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -24,7 +21,7 @@ public class ProfileController {
     public String profilePage(Model model, Principal principal) {
         String username = principal.getName();
         User user = userImpl.findByUsername(username);
-        if (user == null){
+        if (user == null) {
             return "redirect:/login?logout";
         }
         model.addAttribute("user", user);
@@ -32,16 +29,54 @@ public class ProfileController {
         return "profile";
     }
 
-    @PostMapping("/profile/edit")
-    public String edit(@ModelAttribute("user") User user,
-                       @RequestParam(value = "photo", required = false) MultipartFile file,
-                       RedirectAttributes redirectAttributes) {
+    @PostMapping("/profile/updateName")
+    @ResponseBody
+    public ResponseEntity<User> updateName(@RequestBody User user) {
         try {
-            userImpl.editUserWithFile(user.getId(), user.getName(), user.getMail(), user.getNumber(), file);
-            redirectAttributes.addFlashAttribute("success", "Успешное редактирование! Торт - " + user.getUsername());
+            Long userId = user.getId();
+            String newName = user.getName();
+            User updatedUser = userImpl.updateUserName(userId, newName);
+            return ResponseEntity.ok(updatedUser);
         } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", "Ошибка при редактировании: " + e.getMessage());
+            return ResponseEntity.badRequest().body(null);
         }
-        return "redirect:/profile";
+    }
+
+    @PostMapping("/profile/updateMail")
+    @ResponseBody
+    public ResponseEntity<User> updateMail(@RequestBody User user) {
+        try {
+            Long userId = user.getId();
+            String newMail = user.getMail();
+            User updatedUser = userImpl.updateUserMail(userId, newMail);
+            return ResponseEntity.ok(updatedUser);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PostMapping("/profile/updateNumber")
+    @ResponseBody
+    public ResponseEntity<User> updateNumber(@RequestBody User user) {
+        try {
+            Long userId = user.getId();
+            String newNumber = user.getNumber();
+            User updatedUser = userImpl.updateUserNumber(userId, newNumber);
+            return ResponseEntity.ok(updatedUser);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @PostMapping("/profile/updateAvatar")
+    @ResponseBody
+    public ResponseEntity<String> updateAvatar(@RequestParam("id") Long userId,
+                                               @RequestParam("filename") MultipartFile avatarFile) {
+        try {
+            userImpl.updateUserAvatar(userId, avatarFile);
+            return ResponseEntity.ok("Аватар успешно обновлен");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }

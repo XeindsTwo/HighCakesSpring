@@ -7,88 +7,154 @@
 <main>
     <section class="profile indent">
         <div class="container">
-            <a class="profile__logout" th:href="@{/logout}">Выйти из аккаунта</a>
-            <div class="profile__top">
-                <img class="profile__avatar" th:src="@{'/uploads/' + ${user.getFilename()}}" width="180"
-                     height="180">
-                <div class="profile__info-content">
-                    <h1 class="profile__name" th:text="${user.getName()}"></h1>
-                    <span class="profile__email" th:text="${user.getMail()}"></span>
+            <div class="profile__tabs">
+                <ul class="profile__tabs-list">
+                    <li class="profile__tabs-item">
+                        <button class="profile__tabs-btn profile__tabs-btn--active" data-tabs-path="main">
+                            Основная информация
+                        </button>
+                    </li>
+                    <li class="profile__tabs-item">
+                        <button class="profile__tabs-btn" data-tabs-path="history">
+                            История заказов
+                        </button>
+                    </li>
+                    <li class="profile__tabs-item">
+                        <button class="profile__tabs-btn" data-tabs-path="reviews">
+                            Ваши отзывы
+                        </button>
+                    </li>
+                </ul>
+                <div id="successMessage" style="display: none;">
+                    Данные были успешно обновлены
+                </div>
+                <div class="profile__tabs-content" data-tabs-target="main">
+                    <a class="profile__logout" th:href="@{/logout}">Выйти из аккаунта</a>
+                    <div class="error error--profile" id="nameError">
+                        Имя не может пустым, иметь цифры и спец.символы. Минимальное количество символов - 2
+                    </div>
+                    <div class="error error--profile" id="emailError">
+                        Почта не соответсвует проверке. Попробуйте снова
+                    </div>
+                    <div class="error error--profile" id="numberError">
+                        Телефон не может быть пустым
+                    </div>
+                    <div class="profile__main-content">
+                        <form id="avatarForm" enctype="multipart/form-data">
+                            <div class="profile__main-row">
+                                <span class="profile__main-name">Фото</span>
+                                <input class="profile__main-img" type="file" accept="image/*" name="filename"
+                                       id="filename">
+                                <img class="profile__main-image" id="avatarImage"
+                                     th:src="@{'/uploads/' + ${user.getFilename()}}" alt="avatar"
+                                     width="70" height="70">
+                                <label class="profile__main-btn" th:data-user-id="${user.getId()}"
+                                       for="filename">Изм.</label>
+                            </div>
+                        </form>
+                        <div class="profile__main-row">
+                            <label class="profile__main-name" for="nameInput">Имя</label>
+                            <input class="profile__main-info" type="text" th:value="${user.getName()}" id="nameInput"
+                                   placeholder="Введите имя">
+                            <button class="profile__main-btn edit-btn" id="editNameBtn"
+                                    th:data-user-id="${user.getId()}">Изм.
+                            </button>
+                        </div>
+                        <div class="profile__main-row">
+                            <label class="profile__main-name" for="emailInput">Почта</label>
+                            <input class="profile__main-info" type="email" th:value="${user.getMail()}" id="emailInput"
+                                   placeholder="Введите почту">
+                            <button class="profile__main-btn edit-btn" id="editEmailBtn"
+                                    th:data-user-id="${user.getId()}">Изм.
+                            </button>
+                        </div>
+                        <div class="profile__main-row">
+                            <label class="profile__main-name" for="numberInput">Номер телефона</label>
+                            <input class="profile__main-info" data-tel-input maxlength="22" type="text"
+                                   th:value="${user.getNumber()}" id="numberInput" placeholder="Введите номер">
+                            <button class="profile__main-btn edit-btn" th:data-user-id="${user.getId()}"
+                                    id="editNumberBtn">Изм.
+                            </button>
+                        </div>
+                        <div class="profile__main-row">
+                            <span class="profile__main-name">Логин</span>
+                            <span class="profile__main-info" th:text="${user.getUsername()}"></span>
+                        </div>
+                        <div class="profile__main-row">
+                            <span class="profile__main-name">Пароль</span>
+                            <span class="profile__main-info">*************</span>
+                            <a class="profile__main-btn" href="">Изм.</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile__tabs-content" data-tabs-target="history">
+                    Истории заказов пока нет
+                </div>
+                <div class="profile__tabs-content" data-tabs-target="reviews">
+                    <p class="profile__reviews-text">
+                        У вас пока нет отзывов, но вы можете <a href="reviews.html">создать его</a>
+                    </p>
+                    <ul class="profile__reviews-list">
+                        <li class="profile__reviews-item reviews__item">
+                            <button class="profile__reviews-btn" id="button-open-edit_review">
+                                Редактировать отзыв
+                            </button>
+                            <time class="reviews__date">28 мая 2023 г.</time>
+                            <p class="reviews__text">
+                                Этот торт превзошел все мои ожидания! Он выглядел потрясающе и его вкус просто
+                                невероятный.
+                                Я полностью погрузилась в мир сладостей и наслаждалась каждым кусочком. Спасибо за вашу
+                                творческую работу и внимание к деталям
+                            </p>
+                        </li>
+                        <li class="profile__reviews-item reviews__item">
+                            <button class="profile__reviews-btn" id="button-open-edit_review">
+                                Редактировать отзыв
+                            </button>
+                            <time class="reviews__date">23 мая 2023 г.</time>
+                            <p class="reviews__text">
+                                Не первый раз заказываем в "HighCakes". И каждый раз отменное качество, очень вкусные
+                                тортики. Перепробовали уже почти все! В прошлом году мне на день рождения сделали
+                                овальный
+                                бисквитный большой торт ! Красивый! Вкусный! Спасибо большое !!!🌹🌹🌹
+                            </p>
+                        </li>
+                        <li class="profile__reviews-item reviews__item">
+                            <button class="profile__reviews-btn" id="button-open-edit_review">
+                                Редактировать отзыв
+                            </button>
+                            <time class="reviews__date">22 мая 2023 г.</time>
+                            <p class="reviews__text">
+                                Ваши торты - это настоящая находка для любителей десертов! Я влюбилась в вашу
+                                кондитерскую с
+                                первого кусочка. Вкус, аромат, текстура - все просто идеально. Каждый раз, когда я
+                                попадаю в
+                                ваш магазин, я чувствую себя в сказочном мире сладостей
+                            </p>
+                        </li>
+                        <li class="profile__reviews-item reviews__item">
+                            <button class="profile__reviews-btn" id="button-open-edit_review">
+                                Редактировать отзыв
+                            </button>
+                            <time class="reviews__date">5 мая 2023 г.</time>
+                            <p class="reviews__text">
+                                Заказывала у вас торт на детский праздник, и он был просто волшебным! Дети были в
+                                полнейшем
+                                восторге от его внешнего вида, а вкус просто завораживал. Вы создали настоящую сказку
+                                для
+                                малышей, спасибо вам
+                            </p>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="profile__content">
-                <p>
-                    Логин - <span th:text="${user.getUsername()}">логин</span>
-                </p>
-                <p>
-                    Телефон - <span th:text="${user.getNumber()}">телефон</span>
-                </p>
-                <p>
-                    Почта - <span th:text="${user.getMail()}">почта</span>
-                </p>
-            </div>
-            <button class="profile__btn" type="button"
-                    th:data-user-id="${user.getId()}"
-                    th:data-user-name="${user.getName()}"
-                    th:data-user-mail="${user.getMail()}"
-                    th:data-user-number="${user.getNumber()}"
-                    th:data-user-filename="${user.getFilename()}"
-                    onclick="modal_EditData()"
-            >
-                Редактировать данные
-            </button>
         </div>
     </section>
-    <div class="modal" id="modal-edit_profile">
-        <button class="modal__close" onclick="profileClose()">
-            <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
-                      stroke-linejoin="round"/>
-                <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
-                      stroke-linejoin="round"/>
-            </svg>
-        </button>
-        <h2 class="section-title">Редактирование данных</h2>
-        <form class="modal__form" method="post" enctype="multipart/form-data">
-            <ul class="modal__list">
-                <li class="modal__item">
-                    <label class="label" for="name">Имя</label>
-                    <input class="input" type="text" id="name" name="name" placeholder="Введите имя" required>
-                    <span class="error">Имя не соответствует требованиям. Нельзя использовать спец символы и цифры, только латиница!</span>
-                </li>
-                <li class="modal__item">
-                    <label class="label" for="email">Почта</label>
-                    <input class="input" type="text" id="email" name="email" placeholder="Введите почту" required>
-                    <span class="error">Почта не соответствует требованиям. Нельзя использовать спец символы и литиницу!</span>
-                </li>
-                <li class="modal__item">
-                    <label class="label" for="number">Телефон</label>
-                    <input class="input" type="text" id="number" name="number" data-tel-input maxlength="22"
-                           placeholder="Введите телефон" required>
-                    <span class="error">Телефон не может быть пустым!</span>
-                </li>
-                <li class="modal__item">
-                    <span class="label">Фотография</span>
-                    <div class="file-upload-container">
-                        <input type="file" id="photo" name="photo" onchange="updateFileName(event)">
-                        <label class="custom-file-upload" for="photo" id="file-upload-label">
-                            Загрузить файл
-                        </label>
-                    </div>
-                </li>
-            </ul>
-            <div class="modal__buttons">
-                <button class="modal__btn" type="button" onclick="profileClose()">Отменить</button>
-                <button class="modal__btn" type="button" onclick="modal_SaveData()">Сохранить</button>
-            </div>
-        </form>
-    </div>
 </main>
 <footer th:replace="fragments/footer"></footer>
 <script th:src="@{/js/main.min.js}"></script>
-<script th:src="@{/js/profile.js}"></script>
-<script th:src="@{/js/custom-file.js}"></script>
-<script th:src="@{/js/phone-mask.js}"></script>
+<script th:src="@{/js/profile.js}" type="module"></script>
+<script th:src="@{/js/functions/phone-mask.js}"></script>
 </body>
 
 </html>
