@@ -91,59 +91,20 @@
                     Истории заказов пока нет
                 </div>
                 <div class="profile__tabs-content" data-tabs-target="reviews">
-                    <p class="profile__reviews-text">
+                    <p class="profile__reviews-text" th:if="${#lists.isEmpty(userReviews)}">
                         У вас пока нет отзывов, но вы можете <a href="reviews.html">создать его</a>
                     </p>
-                    <ul class="profile__reviews-list">
-                        <li class="profile__reviews-item reviews__item">
-                            <button class="profile__reviews-btn" id="button-open-edit_review">
+                    <ul class="profile__reviews-list" th:if="${not #lists.isEmpty(userReviews)}">
+                        <li class="profile__reviews-item reviews__item" th:each="review : ${userReviews}">
+                            <button class="profile__reviews-btn" id="button-open-edit_review"
+                                    th:data-review-id="${review.getId()}"
+                                    th:data-review-text="${review.getText()}"
+                                    onclick="reviewOpenEdit(event)"
+                            >
                                 Редактировать отзыв
                             </button>
-                            <time class="reviews__date">28 мая 2023 г.</time>
-                            <p class="reviews__text">
-                                Этот торт превзошел все мои ожидания! Он выглядел потрясающе и его вкус просто
-                                невероятный.
-                                Я полностью погрузилась в мир сладостей и наслаждалась каждым кусочком. Спасибо за вашу
-                                творческую работу и внимание к деталям
-                            </p>
-                        </li>
-                        <li class="profile__reviews-item reviews__item">
-                            <button class="profile__reviews-btn" id="button-open-edit_review">
-                                Редактировать отзыв
-                            </button>
-                            <time class="reviews__date">23 мая 2023 г.</time>
-                            <p class="reviews__text">
-                                Не первый раз заказываем в "HighCakes". И каждый раз отменное качество, очень вкусные
-                                тортики. Перепробовали уже почти все! В прошлом году мне на день рождения сделали
-                                овальный
-                                бисквитный большой торт ! Красивый! Вкусный! Спасибо большое !!!🌹🌹🌹
-                            </p>
-                        </li>
-                        <li class="profile__reviews-item reviews__item">
-                            <button class="profile__reviews-btn" id="button-open-edit_review">
-                                Редактировать отзыв
-                            </button>
-                            <time class="reviews__date">22 мая 2023 г.</time>
-                            <p class="reviews__text">
-                                Ваши торты - это настоящая находка для любителей десертов! Я влюбилась в вашу
-                                кондитерскую с
-                                первого кусочка. Вкус, аромат, текстура - все просто идеально. Каждый раз, когда я
-                                попадаю в
-                                ваш магазин, я чувствую себя в сказочном мире сладостей
-                            </p>
-                        </li>
-                        <li class="profile__reviews-item reviews__item">
-                            <button class="profile__reviews-btn" id="button-open-edit_review">
-                                Редактировать отзыв
-                            </button>
-                            <time class="reviews__date">5 мая 2023 г.</time>
-                            <p class="reviews__text">
-                                Заказывала у вас торт на детский праздник, и он был просто волшебным! Дети были в
-                                полнейшем
-                                восторге от его внешнего вида, а вкус просто завораживал. Вы создали настоящую сказку
-                                для
-                                малышей, спасибо вам
-                            </p>
+                            <time class="reviews__date" th:text="${review.getFormattedDate()}"></time>
+                            <p class="reviews__text" th:id="'review-text-' + ${review.getId()}" th:text="${review.text}"></p>
                         </li>
                     </ul>
                 </div>
@@ -152,7 +113,35 @@
     </section>
 </main>
 <footer th:replace="fragments/footer"></footer>
+<div class="modal" id="modal-edit_review">
+    <button class="modal__close" onclick="reviewCloseEdit()">
+        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+        </svg>
+    </button>
+    <h2 class="section-title">Редактирование отзыва</h2>
+    <form class="modal__form">
+        <ul class="modal__list">
+            <li class="modal__item">
+                <label class="label" for="description">Текст отзыва</label>
+                <textarea class="input textarea" id="description" name="description"
+                          placeholder="Введите текст"></textarea>
+                <span class="error" id="description-error">
+                    Описание не может быть пустым и коротким. Мин. количество символов - 60, макс. количество символов - 800
+                </span>
+            </li>
+        </ul>
+        <div class="modal__buttons">
+            <button class="modal__btn" type="button" onclick="reviewCloseEdit()">Отменить</button>
+            <button class="modal__btn" type="button" onclick="saveEditReview()">Сохранить</button>
+        </div>
+    </form>
+</div>
 <script th:src="@{/js/main.min.js}"></script>
+<script th:src="@{/js/profile/reviews.js}"></script>
 <script th:src="@{/js/profile.js}" type="module"></script>
 <script th:src="@{/js/functions/phone-mask.js}"></script>
 </body>

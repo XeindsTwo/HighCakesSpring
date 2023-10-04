@@ -47,6 +47,19 @@ public class ReviewImpl implements ReviewDao {
         return reviewRepo.findById(id);
     }
 
+    @Override
+    public List<Review> findByUser(User user) {
+        return reviewRepo.findByUser(user);
+    }
+
+    @Override
+    public Review updateReview(Long id, String text) {
+        Review review = reviewRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid review ID " + id));
+        review.setText(text);
+        return reviewRepo.save(review);
+    }
+
     public List<Review> searchReviews(String param) {
         if (param != null && !param.isEmpty()) {
             return reviewRepo.findByTextIgnoreCaseContaining(param);

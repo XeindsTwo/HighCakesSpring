@@ -3,6 +3,7 @@ package com.example.highcakes.controller;
 import com.example.highcakes.impl.ReviewImpl;
 import com.example.highcakes.model.Review;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,18 @@ public class ReviewController {
     public String createReview(@ModelAttribute("review") Review review, Principal principal) {
         reviewImpl.save(review, principal);
         return "redirect:/catalog";
+    }
+
+    @PostMapping("/reviews/edit/{id}")
+    @ResponseBody
+    public ResponseEntity<Review> editReview(@PathVariable Long id,
+                                             @RequestParam("text") String text) {
+        try {
+            Review updatedReview = reviewImpl.updateReview(id, text);
+            return ResponseEntity.ok(updatedReview);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("/reviews/delete/{id}")

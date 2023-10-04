@@ -1,6 +1,8 @@
 package com.example.highcakes.controller;
 
+import com.example.highcakes.impl.ReviewImpl;
 import com.example.highcakes.impl.UserImpl;
+import com.example.highcakes.model.Review;
 import com.example.highcakes.model.Role;
 import com.example.highcakes.model.User;
 import lombok.RequiredArgsConstructor;
@@ -11,21 +13,29 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 public class ProfileController {
     private final UserImpl userImpl;
+    private final ReviewImpl reviewImpl;
 
     @GetMapping("/profile")
     public String profilePage(Model model, Principal principal) {
         String username = principal.getName();
         User user = userImpl.findByUsername(username);
+
         if (user == null) {
             return "redirect:/login?logout";
         }
+
+        List<Review> userReviews = reviewImpl.findByUser(user);
+
         model.addAttribute("user", user);
         model.addAttribute("Role", Role.class);
+        model.addAttribute("userReviews", userReviews);
+
         return "profile";
     }
 

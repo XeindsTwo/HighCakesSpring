@@ -1,7 +1,7 @@
 import {initializeTabs} from './profile/tabs.js';
 import {initializeAvatar} from './profile/avatar.js';
-import { initializeEditField } from './profile/profile-fields.js';
-import { updateFieldOnServer } from './profile/profile-updates.js';
+import {initializeEditField} from './profile/profile-fields.js';
+import {updateFieldOnServer} from './profile/profile-updates.js';
 
 initializeTabs();
 initializeAvatar();
@@ -30,7 +30,7 @@ const fields = [
     },
 ];
 
-fields.forEach(({ input, editBtn, error, regex, fieldId }) => {
+fields.forEach(({input, editBtn, error, regex, fieldId}) => {
     initializeEditField(input, editBtn, regex, error, (userId, newValue) => {
         updateFieldOnServer(userId, fieldId, newValue);
     });
