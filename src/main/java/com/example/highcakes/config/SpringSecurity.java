@@ -30,6 +30,7 @@ public class SpringSecurity {
                         "/users/{id}/edit", "/users/delete/{id}", "/save/cake", "/edit/cake",
                         "/delete/{id}", "/offer/delete/{id}", "/reviews/delete/{id}",
                         "/unique/save", "/unique/delete/{id}").hasAuthority("Администратор")
+                .requestMatchers("/profile/reviews/delete/{id}").hasAuthority("Пользователь")
                 //.requestMatchers("/save/cake", "/edit/cake", "/delete/{id}").hasAuthority("Модератор каталога")
                 //.requestMatchers("/reviews/delete/{id}").hasAuthority("Модератор отзывов")
                 .anyRequest()

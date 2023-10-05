@@ -92,19 +92,26 @@
                 </div>
                 <div class="profile__tabs-content" data-tabs-target="reviews">
                     <p class="profile__reviews-text" th:if="${#lists.isEmpty(userReviews)}">
-                        У вас пока нет отзывов, но вы можете <a href="reviews.html">создать его</a>
+                        У вас пока нет отзывов, но вы можете <a th:href="@{/reviews}">оставить его</a>
                     </p>
                     <ul class="profile__reviews-list" th:if="${not #lists.isEmpty(userReviews)}">
                         <li class="profile__reviews-item reviews__item" th:each="review : ${userReviews}">
-                            <button class="profile__reviews-btn" id="button-open-edit_review"
-                                    th:data-review-id="${review.getId()}"
-                                    th:data-review-text="${review.getText()}"
-                                    onclick="reviewOpenEdit(event)"
-                            >
-                                Редактировать отзыв
-                            </button>
+                            <div class="profile__reviews-actions">
+                                <button class="profile__reviews-btn" id="button-open-edit_review"
+                                        th:data-review-id="${review.getId()}"
+                                        th:data-review-text="${review.getText()}"
+                                        onclick="reviewOpenEdit(event)">
+                                    Редактировать отзыв
+                                </button>
+                                <button class="profile__reviews-btn" id="button-open-delete_review"
+                                        th:data-review-id="${review.getId()}"
+                                        onclick="reviewOpenDelete(event)">
+                                    Удалить отзыв
+                                </button>
+                            </div>
                             <time class="reviews__date" th:text="${review.getFormattedDate()}"></time>
-                            <p class="reviews__text" th:id="'review-text-' + ${review.getId()}" th:text="${review.text}"></p>
+                            <p class="reviews__text" th:id="'review-text-' + ${review.getId()}"
+                               th:text="${review.text}"></p>
                         </li>
                     </ul>
                 </div>
@@ -136,9 +143,34 @@
         </ul>
         <div class="modal__buttons">
             <button class="modal__btn" type="button" onclick="reviewCloseEdit()">Отменить</button>
-            <button class="modal__btn" type="button" onclick="saveEditReview()">Сохранить</button>
+            <button class="modal__btn" id="save-button" type="button" onclick="saveEditReview()">Сохранить</button>
         </div>
     </form>
+</div>
+<div class="modal modal--delete" id="modal-delete_review">
+    <button class="modal__close" onclick="reviewCloseDelete()">
+        <svg width="22" height="22" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.99998 8.99998L1 1" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+            <path d="M9.00002 1L1 9.00002" stroke="white" stroke-width="1" stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+        </svg>
+    </button>
+    <div class="modal__inner">
+        <p class="modal__text">
+            Вы действительно хотите удалить ваш отзыв?" Отменить это действие будет невозможно.
+        </p>
+        <form class="modal__form-actions" action="">
+            <div class="modal__buttons">
+                <button class="modal__btn" type="button" id="button-delete_cake" onclick="deleteProfileReview()">
+                    Удалить
+                </button>
+                <button class="modal__btn" type="button" id="button-cancel_cake" onclick="reviewCloseDelete()">
+                    Отменить
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
 <script th:src="@{/js/main.min.js}"></script>
 <script th:src="@{/js/profile/reviews.js}"></script>

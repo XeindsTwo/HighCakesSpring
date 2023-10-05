@@ -43,7 +43,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/reviews/delete/{id}")
+    @GetMapping({"/reviews/delete/{id}", "/profile/reviews/delete/{id}"})
     public String delete(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Review review = reviewImpl.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid review Id:" + id));
