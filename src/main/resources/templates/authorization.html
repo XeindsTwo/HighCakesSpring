@@ -8,7 +8,7 @@
     <div class="container">
         <div class="authorization">
             <h1 class="authorization__title page-title">Авторизация</h1>
-            <span class="error error--active">Неверно введен логин или пароль</span>
+            <span class="error" id="loginError">Неверно введен логин или пароль</span>
             <!--            <span class="authorization__error error error--active" th:if="${success}" th:text="${success}">Вы успешно зарегистрировались!</span>-->
             <form th:action="@{/login}" method="post" class="authorization__form">
                 <div class="authorization__form-inputs">
@@ -26,12 +26,16 @@
                 <p class="authorization__info">
                     Нет аккаунта? Тогда <a th:href="@{/registration}">зарегистрируйтесь</a>!
                 </p>
-                <button class="authorization__btn" type="submit">Войти</button>
+                <button class="authorization__btn" type="submit" id="loginButton">Войти</button>
             </form>
         </div>
     </div>
 </main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script th:src="@{/js/main.min.js}"></script>
+<script th:src="@{/js/auth.js}"></script>
 </body>
 
 </html>
